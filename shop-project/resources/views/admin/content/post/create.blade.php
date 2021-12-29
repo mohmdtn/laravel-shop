@@ -31,7 +31,7 @@
                 <div class="row">
 
                     <div class="form-group col-md-6">
-                        <label for="">عنوان پیج</label>
+                        <label for="">عنوان پست</label>
                         <input type="text" class="form-control border-radius-5">
                     </div>
 
