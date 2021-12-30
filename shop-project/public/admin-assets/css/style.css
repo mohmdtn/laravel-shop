@@ -167,7 +167,6 @@ main{
 .sidebar{
     flex: 0 0 17rem;
     /*background: linear-gradient(to right, #7474bf, #348ac7);*/
-    z-index: 10;
     transition: .4s;
 }
 
@@ -180,6 +179,7 @@ main{
     width: 17rem;
     background: linear-gradient(to right, #7474bf, #348ac7);
     transition: .4s;
+    z-index: 10;
 }
 
 .sidebarCollapse{

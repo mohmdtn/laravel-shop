@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTicketFilesTable extends Migration
+class CreatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateTicketFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_files', function (Blueprint $table) {
-            $table->id('');
-            $table->text('file_path');
-            $table->bigInteger('file_size');
-            $table->string('file_type');
-            $table->tinyInteger('status')->default(0);
-            $table->foreignId('ticket_id')->constrained('tickets')->onUpdate('cascade')->onDelete('cascade');
+        Schema::create('payments', function (Blueprint $table) {
+            $table->id();
+            $table->decimal('amount' ,20 ,3);
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('type')->default(0)->comment('0 => online, 1 => offline, 2 => cash');
+            $table->unsignedBigInteger('paymentable_id');
+            $table->string('paymentable_type');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +33,6 @@ class CreateTicketFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_files');
+        Schema::dropIfExists('payments');
     }
 }
