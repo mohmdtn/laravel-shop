@@ -27,26 +27,70 @@
         </div>
 
         <section class="pageContentInner">
-            <form action="">
+            <form action="{{ route("admin.content.category.store") }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="row">
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="">نام دسته</label>
-                        <input type="text" class="form-control border-radius-5">
+                        <input type="text" class="form-control border-radius-5" name="name" value="{{ old('name') }}">
+
+                        @error("name")
+                            <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
-                    <div class="form-group col-md-6">
-                        <label for="">دسته والد</label>
-                        <select name="" id="" class="form-control border-radius-5">
-                            <option value="">دسته را انتخاب کنید</option>
-                            <option value="">الکترونیکی</option>
-                            <option value="">لوازم خوانگی</option>
-                            <option value="">موبایل</option>
+                    <div class="form-group col-md-4">
+                        <label for="">تگ ها</label>
+                        <input type="hidden" class="form-control border-radius-5" name="tags" id="tags" value="{{ old('tags') }}">
+                        <select class="select2 form-control border-radius-5" id="select_tags" multiple></select>
+
+                        @error("tags")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="">وضعیت</label>
+                        <select id="" class="form-control border-radius-5" name="status">
+                            <option value="0" @if(old('status') == 0) selected @endif>غیر فعال</option>
+                            <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
                         </select>
+
+                        @error("status")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="">تصویر</label><br>
+
+                        <div class="imageSelectWrapper border-radius-5">
+                            <label for="imgInp"><i class="fa fa-plus"></i> انتخاب عکس</label>
+                        </div>
+
+                        <input type="file" id="imgInp" class="d-none" name="image">
+
+                        <div class="imagePreview">
+                            <center><img src="" alt="" id="blah"></center>
+                        </div>
+
+                        @error("image")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="">توضیحات</label>
+                        <textarea name="description" id="" class="form-control border-radius-5" rows="3">{{ old('description') }}</textarea>
+
+                        @error("description")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="col-md-12 d-flex justify-content-center pt-5">
-                        <input type="button" class="btn btn-primary border-radius-4 box-shadow-normal submit-custom" value="ثبت">
+                        <input type="submit" class="btn btn-primary border-radius-4 box-shadow-normal submit-custom" value="ثبت">
                     </div>
                 </div>
             </form>
@@ -54,5 +98,43 @@
 
 
     </section>
+
+@endsection
+
+@section("scripts")
+
+    <script>
+        $(document).ready(function (){
+            var tags_input = $("#tags");
+            var select_tags = $("#select_tags");
+            var default_tags = tags_input.val();
+            var default_data = null;
+
+
+            if (tags_input.val() !== null && tags_input.val().length > 0){
+                default_data = default_tags.split(",");
+            }
+
+
+            select_tags.select2({
+                placeholder : 'لطفا تگ های خود را وارد کنید',
+                tags : true,
+                data : default_data
+            });
+            select_tags.children("option").attr("selected", true).trigger("change");
+
+
+
+            $("form").submit(function (){
+                if (select_tags.val() !== null && select_tags.val().length > 0){
+                    var selectedSrc = select_tags.val().join(",");
+                    tags_input.val(selectedSrc);
+                }
+            });
+
+        });
+
+
+    </script>
 
 @endsection

@@ -30,13 +30,20 @@
     </section>
 
     <!-- /////////////////// end of content -->
+
+    @include("admin.layouts.scripts")
+    @yield("scripts")
+
+    @include("admin.alerts.sweetAlert.error")
+    <section class="toast-wrapper">
+        @include("admin.alerts.toast.message")
+    </section>
+
 </main>
 
 
 
 </body>
 
-@include("admin.layouts.scripts")
-@yield("scripts")
 
 </html>

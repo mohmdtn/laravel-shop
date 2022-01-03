@@ -366,6 +366,10 @@ main{
     font-size: 14px;
 }
 
+.pagesContent table tr form{
+    display: inline-block;
+}
+
 .pagesContent table tbody td , .pagesContent table tbody th{
     padding: .55rem .75rem;
 }
@@ -449,9 +453,14 @@ main{
     color: var(--site-blue-fonts);
 }
 
+.errors{
+    font-size: 14px;
+    padding-top: 8px;
+    padding-right: 7px;
+    font-weight: bold;
+}
+
 /* ////////////////////////// end of  market comment */
-
-
 
 
 

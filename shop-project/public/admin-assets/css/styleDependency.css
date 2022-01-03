@@ -86,6 +86,79 @@
 
 
 
+/*//////////////////////////  check box*/
+.switch {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    width: 53px;
+    height: 27px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 21px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* ////////////////////// variables */
@@ -94,6 +167,7 @@
     --bg-blue: #404e67;
     --bg-white: #fff;
     --site-pourple: #7374bf;
+    --site-blue: #3489c7;
     --site-blue-fonts : #3689c6;
 }
 
@@ -205,4 +279,57 @@
     padding-left: 7px;
 }
 
+
+
+
+.toast-wrapper{
+    position: absolute;
+    left: 1%;
+    top: 9%;
+}
+
+
 /* ////////////////////////// end of bootstrap edits */
+
+
+
+
+
+
+
+
+
+
+/* ////////////////////////// select2 edits */
+
+.select2-container--default .select2-selection--multiple{
+    border-radius: 17px;
+    border: 1px solid #ced4da;
+}
+
+.select2-container{
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice{
+    background-color: var(--site-blue);
+    color: #fff;
+    border-radius: 13px;
+    border: none;
+    float: right;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+    color: #fff;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field{
+    text-align: right;
+}
+
+.select2-container .select2-search--inline{
+    float: right;
+}
+
+
+/* ////////////////////////// end of select2 edits */
