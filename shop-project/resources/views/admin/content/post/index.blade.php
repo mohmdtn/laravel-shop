@@ -32,31 +32,54 @@
                 <th>عنوان پست</th>
                 <th>دسته</th>
                 <th>تصویر</th>
+                <th>درج کامنت</th>
+                <th>وضعیت</th>
                 <th class="width-18 text-center">تنظیمات</th>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>چگونه از باطری موبایل نگه داری کنیم؟</td>
-                        <td>الکترونیکی</td>
-                        <td><img src="{{ asset("admin-assets/images/iphone.jpg") }}" alt=""></td>
-                        <td class="max-width-18 text-left">
-                            <a href="" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
-                            <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-trash-alt ml-2"></i>حذف</a>
-                        </td>
-                    </tr>
 
+                @foreach($posts as $key => $post)
                     <tr>
-                        <th>2</th>
-                        <td>ایلان ماسک کیست؟</td>
-                        <td>فناوری</td>
-                        <td><img src="{{ asset("admin-assets/images/surface.jpg") }}" alt=""></td>
+                        <th>{{ $key+=1 }}</th>
+                        <td>{{ $post["title"] }}</td>
+                        <td>{{ $post["postCategory"]["name"] }}</td>
+                        <td><img src="{{ asset($post['image']['indexArray'][$post['image']['currentImage']]) }}" alt=""></td>
+                        <td>
+                            <label class="switch">
+                                <input id="{{ "cm" . $post["id"] }}" onchange="changeCommentable({{ $post["id"] }})" data-url="{{ route("admin.content.post.commentable" , $post["id"]) }}" type="checkbox"
+                                       @if($post['commentable'] === 1)
+                                       checked
+                                    @endif
+                                >
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+
+                        <td>
+
+                            <label class="switch">
+                                <input id="{{ $post["id"] }}" onchange="changeStatus({{ $post["id"] }})" data-url="{{ route("admin.content.post.status" , $post["id"]) }}" type="checkbox"
+                                       @if($post['status'] === 1)
+                                       checked
+                                    @endif
+                                >
+                                <span class="slider round"></span>
+                            </label>
+
+                        </td>
+
                         <td class="max-width-18 text-left">
-                            <a href="" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
-                            <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-trash-alt ml-2"></i>حذف</a>
+                            <a href="{{ route("admin.content.post.edit" , $post["id"]) }}" class="btn btn-sm btn-info border-radius-2 mb-1 mb-md-0"><i class="fa fa-edit ml-2"></i>ویرایش</a>
+                            <form action="{{ route("admin.content.post.destroy" , $post['id']) }}" method="post">
+                                @csrf
+                                @method("delete")
+                                <button class="btn btn-sm btn-danger border-radius-2 deleteBtn"><i class="fa fa-trash-alt ml-2"></i>حذف</button>
+                            </form>
                         </td>
                     </tr>
+                @endforeach
+
                 </tbody>
 
                 <tbody>
@@ -67,5 +90,167 @@
         </section>
 
     </section>
+
+@endsection
+
+@section("scripts")
+
+    <script>
+        function changeStatus(id){
+            var element = $("#" + id);
+            var url = element.attr("data-url");
+            var elementValue = !element.prop("checked");
+
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (response){
+
+                    if (response.status){
+                        if (response.checked){
+                            element.prop("checked" , true);
+                            successToast("پست با موفقیت فعال شد.");
+                        }
+                        else {
+                            element.prop("checked" , false);
+                            successToast("پست با موفقیت غیر فعال شد.");
+                        }
+                    }
+                    else {
+                        element.prop("checked" , elementValue);
+                        errorToast("هنگام انجام عملیات مشکلی به وجود آمده.");
+                    }
+
+                },
+                error: function (){
+                    element.prop("checked" , elementValue);
+                    errorToast("ارتباط برقرار نشد.");
+                }
+            });
+
+            function successToast(message){
+                var element = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">\n' +
+                    '<div class="toast-header">\n' +
+                    '<button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '<strong class="">پیغام</strong>\n' +
+                    '<small class="mr-auto">2 ثانیه قبل</small>\n' +
+                    '</div>\n' +
+                    '<div class="toast-body">'+ message +'</div>\n'
+                '</div>';
+
+                $(".toast-wrapper").append(element);
+                $(".toast").toast("show").delay(5000).queue(function (){
+                    $(this).remove();
+                });
+            }
+
+
+            function errorToast(message){
+                var element = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">\n' +
+                    '<div class="toast-header">\n' +
+                    '<button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '<strong class="">پیغام</strong>\n' +
+                    '<small class="mr-auto">2 ثانیه قبل</small>\n' +
+                    '</div>\n' +
+                    '<div class="toast-body">'+ message +'</div>\n'
+                '</div>';
+
+                $(".toast-wrapper").append(element);
+                $(".toast").toast("show").delay(5000).queue(function (){
+                    $(this).remove();
+                });
+            }
+
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+    <script>
+        function changeCommentable(id){
+            var element = $("#cm" + id);
+            var url = element.attr("data-url");
+            var elementValue = !element.prop("checked");
+
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (response){
+
+                    if (response.commentable){
+                        if (response.checked){
+                            element.prop("checked" , true);
+                            successToast("کامنت با موفقیت فعال شد.");
+                        }
+                        else {
+                            element.prop("checked" , false);
+                            successToast("کامنت با موفقیت غیر فعال شد.");
+                        }
+                    }
+                    else {
+                        element.prop("checked" , elementValue);
+                        errorToast("هنگام انجام عملیات مشکلی به وجود آمده.");
+                    }
+
+                },
+                error: function (){
+                    element.prop("checked" , elementValue);
+                    errorToast("ارتباط برقرار نشد.");
+                }
+            });
+
+            function successToast(message){
+                var element = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">\n' +
+                    '<div class="toast-header">\n' +
+                    '<button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '<strong class="">پیغام</strong>\n' +
+                    '<small class="mr-auto">2 ثانیه قبل</small>\n' +
+                    '</div>\n' +
+                    '<div class="toast-body">'+ message +'</div>\n'
+                '</div>';
+
+                $(".toast-wrapper").append(element);
+                $(".toast").toast("show").delay(5000).queue(function (){
+                    $(this).remove();
+                });
+            }
+
+
+            function errorToast(message){
+                var element = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">\n' +
+                    '<div class="toast-header">\n' +
+                    '<button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '<strong class="">پیغام</strong>\n' +
+                    '<small class="mr-auto">2 ثانیه قبل</small>\n' +
+                    '</div>\n' +
+                    '<div class="toast-body">'+ message +'</div>\n'
+                '</div>';
+
+                $(".toast-wrapper").append(element);
+                $(".toast").toast("show").delay(5000).queue(function (){
+                    $(this).remove();
+                });
+            }
+
+        }
+    </script>
+
+    @include("admin.alerts.sweetAlert.deleteConfirm" , ["className" => "deleteBtn"])
 
 @endsection

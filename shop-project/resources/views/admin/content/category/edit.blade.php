@@ -66,14 +66,14 @@
                     <div class="form-group col-md-4">
                         <label for="">تصویر</label><br>
 
-                        <div class="imageSelectWrapper border-radius-5">
+                        <div class="imageSelectWrapper editImageSelectWrapper border-radius-5">
                             <label for="imgInp"><i class="fa fa-plus"></i> انتخاب عکس</label>
                         </div>
 
                         <input type="file" id="imgInp" class="d-none" name="image">
 
-                        <div class="imagePreview">
-                            <center><img src="{{ asset($postCategory["image"]) }}" alt="" id="blah"></center>
+                        <div class="imagePreview editImagePreview">
+                            <center><img src="{{ asset($postCategory['image']['indexArray'][$postCategory['image']['currentImage']]) }}" alt="" id="blah"></center>
                         </div>
 
                         @error("image")

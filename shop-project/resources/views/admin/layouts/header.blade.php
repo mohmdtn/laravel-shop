@@ -1,5 +1,5 @@
 <div class="headerWrapper">
-    <header class="header">
+    <header class="headerOrg">
         <section class="sidebarHeader">
             <section class="px-2 d-flex justify-content-between">
                     <span class="d-flex align-items-center">

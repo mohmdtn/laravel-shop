@@ -25,7 +25,7 @@ body , html{
     width: 100%;
 }
 
-.header{
+.headerOrg{
     line-height: 3.2rem;
     display: flex;
     justify-content: space-around;
@@ -410,6 +410,16 @@ main{
     display: none;
 }
 
+.editImagePreview{
+    display: block;
+}
+
+.editImageSelectWrapper{
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: none;
+}
+
 .imagePreview img{
     max-width: 40%;
 }
@@ -466,7 +476,7 @@ main{
 
 
 @media screen and (max-width: 768px) {
-    .header {
+    .headerOrg {
         display: block;
     }
 

@@ -279,13 +279,16 @@ input:checked + .slider:before {
     padding-left: 7px;
 }
 
-
-
-
 .toast-wrapper{
     position: absolute;
     left: 1%;
     top: 9%;
+    min-width: 165px;
+}
+
+.toast-header{
+    background: linear-gradient(to right, #8888d7, #55a3d9);
+    color: #fff;
 }
 
 
@@ -333,3 +336,25 @@ input:checked + .slider:before {
 
 
 /* ////////////////////////// end of select2 edits */
+
+
+
+
+
+
+
+/* /////////////////////////// jalali calender edits */
+
+.datepicker-plot-area{
+    border-radius: 15px !important;
+    font-weight: bold !important;
+    width: 260px !important;
+    font: 14px "vazir" !important;
+    background: linear-gradient(to right, #a5a5d8, #6ea9d3) !important;
+}
+
+.datepicker-plot-area .datepicker-day-view .month-grid-box .header{
+    background: #fff;
+}
+
+/* ////////////////////////// end of jalali calender edits */

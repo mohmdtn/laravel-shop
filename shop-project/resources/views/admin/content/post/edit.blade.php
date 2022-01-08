@@ -1,9 +1,8 @@
 @extends("admin.layouts.master")
 
 @section("head-tag")
-    <title>ایجاد پست</title>
+    <title>ویرایش پست</title>
     <link rel="stylesheet" href="{{ asset("admin-assets/jalalidatepicker/persian-datepicker.min.css") }}">
-{{--    <link rel="stylesheet" href="{{ asset("admin-assets/jalaliDatePicker2/jalalidatepicker.style.min.css") }}">--}}
 @endsection
 
 @section("content")
@@ -13,13 +12,13 @@
             <li class="breadcrumb-item"><a href="#">خانه</a></li>
             <li class="breadcrumb-item"><a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item"><a href="#">پست ها</a></li>
-            <li class="breadcrumb-item active" aria-current="page">ایجاد پست</li>
+            <li class="breadcrumb-item active" aria-current="page">ویرایش پست</li>
         </ol>
     </nav>
 
     <section class="pagesContent py-3 px-2">
         <div class="sectionHeader d-flex justify-content-between align-items-center">
-            <h4>ایجاد پست:</h4>
+            <h4>ویرایش پست:</h4>
 
             <a href="{{ route("admin.content.post.index") }}" class="btn btn-info btn-sm border-radius-4 box-shadow-normal">بازگشت</a>
         </div>
@@ -29,13 +28,14 @@
         </div>
 
         <section class="pageContentInner">
-            <form action="{{ route("admin.content.post.store") }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route("admin.content.post.update" , $post["id"]) }}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method("put")
                 <div class="row">
 
                     <div class="form-group col-md-4">
                         <label for="">عنوان پست</label>
-                        <input type="text" class="form-control border-radius-5" name="title" value="{{ old("title") }}">
+                        <input type="text" class="form-control border-radius-5" name="title" value="{{ old("title", $post["title"]) }}">
 
                         @error("title")
                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>
@@ -44,7 +44,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="">خلاصه</label>
-                        <textarea name="summary" id="" rows="2" class="form-control border-radius-5">{{ old("summary") }}</textarea>
+                        <textarea name="summary" id="" rows="2" class="form-control border-radius-5">{{ old("summary", $post["summary"]) }}</textarea>
 
                         @error("summary")
                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>
@@ -53,7 +53,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="">تگ ها</label>
-                        <input type="hidden" class="form-control border-radius-5" name="tags" id="tags" value="{{ old('tags') }}">
+                        <input type="hidden" class="form-control border-radius-5" name="tags" id="tags" value="{{ old('tags', $post["tags"]) }}">
                         <select class="select2 form-control border-radius-5" id="select_tags" multiple></select>
 
                         @error("tags")
@@ -66,7 +66,7 @@
                         <select name="category_id" id="" class="form-control border-radius-5">
                             <option value="">دسته خود را انتخاب کنید</option>
                             @foreach($categories as $category)
-                                <option value="{{ $category["id"] }}"  @if(old("category_id") == $category["id"]) selected @endif>{{ $category["name"] }}</option>
+                                <option value="{{ $category["id"] }}"  @if(old("category_id", $post["category_id"]) == $category["id"]) selected @endif>{{ $category["name"] }}</option>
                             @endforeach
                         </select>
 
@@ -78,14 +78,14 @@
                     <div class="form-group col-md-4">
                         <label for="">تصویر</label><br>
 
-                        <div class="imageSelectWrapper border-radius-5">
+                        <div class="imageSelectWrapper editImageSelectWrapper border-radius-5">
                             <label for="imgInp"><i class="fa fa-plus"></i> انتخاب عکس</label>
                         </div>
 
                         <input type="file" id="imgInp" class="d-none" name="image">
 
-                        <div class="imagePreview">
-                            <center><img src="" alt="" id="blah"></center>
+                        <div class="imagePreview editImagePreview">
+                            <center><img src="{{ asset($post['image']['indexArray'][$post['image']['currentImage']]) }}" alt="" id="blah"></center>
                         </div>
 
                         @error("image")
@@ -96,8 +96,8 @@
                     <div class="form-group col-md-4">
                         <label for="">وضعیت</label>
                         <select id="" class="form-control border-radius-5" name="status">
-                            <option value="0" @if(old('status') == 0) selected @endif>غیر فعال</option>
-                            <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                            <option value="0" @if(old('status', $post['status']) == 0) selected @endif>غیر فعال</option>
+                            <option value="1" @if(old('status', $post['status']) == 1) selected @endif>فعال</option>
                         </select>
 
                         @error("status")
@@ -108,8 +108,8 @@
                     <div class="form-group col-md-4">
                         <label for="">امکان درج کامنت</label>
                         <select id="" class="form-control border-radius-5" name="commentable">
-                            <option value="0" @if(old('commentable') == 0) selected @endif>غیر فعال</option>
-                            <option value="1" @if(old('commentable') == 1) selected @endif>فعال</option>
+                            <option value="0" @if(old('commentable', $post['commentable']) == 0) selected @endif>غیر فعال</option>
+                            <option value="1" @if(old('commentable', $post['commentable']) == 1) selected @endif>فعال</option>
                         </select>
 
                         @error("commentable")
@@ -119,10 +119,8 @@
 
                     <div class="form-group col-md-4">
                         <label for="">تاریخ انتشار</label>
-                        <input type="hidden" class="form-control border-radius-5" id="published_at" name="published_at" value="{{ old("") }}">
+                        <input type="hidden" class="form-control border-radius-5" id="published_at" name="published_at" value="">
                         <input type="text" class="form-control border-radius-5" id="published_at_view">
-
-{{--                        <input type="text" class="form-control border-radius-5" data-jdp id="testi">--}}
 
                         @error("published_at")
                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>
@@ -131,7 +129,7 @@
 
                     <div class="form-group col-md-12">
                         <label for="">متن پست</label>
-                        <textarea class="form-control border-radius-5" name="body" id="body" rows="3">{{ old("body") }}</textarea>
+                        <textarea class="form-control border-radius-5" name="body" id="body" rows="3">{{ old("body", $post["body"]) }}</textarea>
 
                         @error("body")
                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>
@@ -156,7 +154,6 @@
     <script src="{{ asset("admin-assets/ckeditor/ckeditor.js") }}"></script>
     <script src="{{ asset("admin-assets/jalalidatepicker/persian-datepicker.min.js") }}"></script>
     <script src="{{ asset("admin-assets/jalalidatepicker/persian-date.min.js") }}"></script>
-{{--    <script src="{{ asset("admin-assets/jalaliDatePicker2/jalalidatepicker.script.min.js") }}"></script>--}}
 
     <script>
         CKEDITOR.replace("body");
@@ -170,15 +167,6 @@
             });
         });
     </script>
-
-{{--    <script>--}}
-{{--        jalaliDatepicker.startWatch({--}}
-{{--            minDate: "attr",--}}
-{{--            maxDate: "attr",--}}
-{{--            days: ["شنبه", "1شنبه", "2شنبه", "3شنبه", "4شنبه", "5شنبه", "جمعه"],--}}
-{{--            showEmptyBtn: false--}}
-{{--        });--}}
-{{--    </script>--}}
 
     <script>
         $(document).ready(function (){

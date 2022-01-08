@@ -29,7 +29,7 @@ class PostCategoryRequest extends FormRequest
                 "name" => "required",
                 "description" => "required|min:5",
                 "slug" => "nullable",
-                "image" => "required",
+                "image" => "required|image|mimes:png,jpg,jpeg,gif",
                 "status" => "required|numeric|in:0,1",
                 "tags" => "required",
             ];
