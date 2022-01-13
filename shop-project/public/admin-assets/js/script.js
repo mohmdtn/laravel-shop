@@ -51,17 +51,22 @@ function sidebarHidden(){
 sidebarHidden();
 
 
-imgInp.onchange = evt => {
-    const [file] = imgInp.files
-    if (file) {
-        blah.src = URL.createObjectURL(file)
-        $(".imagePreview").slideDown();
-        $(".imageSelectWrapper").css({
-            "border-bottom-left-radius" : "0",
-            "border-bottom-right-radius" : "0"
-        })
-    }
-}
+
+
+
+
+$("#file-upload").change(function (e){
+    var fileName = e.target.files[0].name;
+    $(".imagePreview>center>h5").append(fileName);
+    $(".imagePreview").slideDown();
+    $(".imageSelectWrapper").css({
+        "border-bottom-left-radius" : "0",
+        "border-bottom-right-radius" : "0"
+    });
+});
+
+
+
 
 
 
@@ -79,4 +84,29 @@ $(".dropdown-toggle").on("onclick" , function (){
 function test(){
     $(this).find(".dropdown-menu").slideToggle();
     alert("test");
+}
+
+
+imgInp.onchange = evt => {
+    const [file] = imgInp.files
+    if (file) {
+        blah.src = URL.createObjectURL(file)
+        $(".imagePreview").slideDown();
+        $(".imageSelectWrapper").css({
+            "border-bottom-left-radius" : "0",
+            "border-bottom-right-radius" : "0"
+        })
+    }
+}
+
+imgInp1.onchange = evt => {
+    const [file] = imgInp1.files
+    if (file) {
+        blah1.src = URL.createObjectURL(file)
+        $(".imagePreview").slideDown();
+        $(".imageSelectWrapper").css({
+            "border-bottom-left-radius" : "0",
+            "border-bottom-right-radius" : "0"
+        })
+    }
 }

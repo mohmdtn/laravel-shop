@@ -154,11 +154,12 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
         // comment
         Route::prefix("comment")->group(function (){
             Route::get("/" , "CommentController@index")->name("admin.content.comment.index");
-            Route::get("/show" , "CommentController@show")->name("admin.content.comment.show");
-            Route::post("/store" , "CommentController@store")->name("admin.content.comment.store");
-            Route::get("/edit/{id}" , "CommentController@edit")->name("admin.content.comment.edit");
-            Route::put("/update/{id}" , "CommentController@update")->name("admin.content.comment.update");
-            Route::delete("/destroy/{id}" , "CommentController@destroy")->name("admin.content.comment.destroy");
+            Route::get("/show/{comment}" , "CommentController@show")->name("admin.content.comment.show");
+            Route::delete("/destroy/{comment}" , "CommentController@destroy")->name("admin.content.comment.destroy");
+            Route::get("/status/{comment}" , "CommentController@approved")->name("admin.content.comment.approved");
+            Route::get("/approved/{comment}" , "CommentController@status")->name("admin.content.comment.status");
+            Route::post("/answer/{comment}" , "CommentController@answer")->name("admin.content.comment.answer");
+
         });
 
         // FAQ
@@ -166,9 +167,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "FAQController@index")->name("admin.content.faq.index");
             Route::get("/create" , "FAQController@create")->name("admin.content.faq.create");
             Route::post("/store" , "FAQController@store")->name("admin.content.faq.store");
-            Route::get("/edit/{id}" , "FAQController@edit")->name("admin.content.faq.edit");
-            Route::put("/update/{id}" , "FAQController@update")->name("admin.content.faq.update");
-            Route::delete("/destroy/{id}" , "FAQController@destroy")->name("admin.content.faq.destroy");
+            Route::get("/edit/{faq}" , "FAQController@edit")->name("admin.content.faq.edit");
+            Route::put("/update/{faq}" , "FAQController@update")->name("admin.content.faq.update");
+            Route::delete("/destroy/{faq}" , "FAQController@destroy")->name("admin.content.faq.destroy");
+            Route::get("/status/{faq}" , "FAQController@status")->name("admin.content.faq.status");
         });
 
         // menu
@@ -176,9 +178,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "MenuController@index")->name("admin.content.menu.index");
             Route::get("/create" , "MenuController@create")->name("admin.content.menu.create");
             Route::post("/store" , "MenuController@store")->name("admin.content.menu.store");
-            Route::get("/edit/{id}" , "MenuController@edit")->name("admin.content.menu.edit");
-            Route::put("/update/{id}" , "MenuController@update")->name("admin.content.menu.update");
-            Route::delete("/destroy/{id}" , "MenuController@destroy")->name("admin.content.menu.destroy");
+            Route::get("/edit/{menu}" , "MenuController@edit")->name("admin.content.menu.edit");
+            Route::put("/update/{menu}" , "MenuController@update")->name("admin.content.menu.update");
+            Route::delete("/destroy/{menu}" , "MenuController@destroy")->name("admin.content.menu.destroy");
+            Route::get("/status/{menu}" , "MenuController@status")->name("admin.content.menu.status");
         });
 
         // page
@@ -186,9 +189,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "PageController@index")->name("admin.content.page.index");
             Route::get("/create" , "PageController@create")->name("admin.content.page.create");
             Route::post("/store" , "PageController@store")->name("admin.content.page.store");
-            Route::get("/edit/{id}" , "PageController@edit")->name("admin.content.page.edit");
-            Route::put("/update/{id}" , "PageController@update")->name("admin.content.page.update");
-            Route::delete("/destroy/{id}" , "PageController@destroy")->name("admin.content.page.destroy");
+            Route::get("/edit/{page}" , "PageController@edit")->name("admin.content.page.edit");
+            Route::put("/update/{page}" , "PageController@update")->name("admin.content.page.update");
+            Route::delete("/destroy/{page}" , "PageController@destroy")->name("admin.content.page.destroy");
+            Route::get("/status/{page}" , "PageController@status")->name("admin.content.page.status");
         });
 
         // post
@@ -215,9 +219,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "AdminUserController@index")->name("admin.user.adminUser.index");
             Route::get("/create" , "AdminUserController@create")->name("admin.user.adminUser.create");
             Route::post("/store" , "AdminUserController@store")->name("admin.user.adminUser.store");
-            Route::get("/edit/{id}" , "AdminUserController@edit")->name("admin.user.adminUser.edit");
-            Route::put("/update/{id}" , "AdminUserController@update")->name("admin.user.adminUser.update");
-            Route::delete("/destroy/{id}" , "AdminUserController@destroy")->name("admin.user.adminUser.destroy");
+            Route::get("/edit/{user}" , "AdminUserController@edit")->name("admin.user.adminUser.edit");
+            Route::put("/update/{user}" , "AdminUserController@update")->name("admin.user.adminUser.update");
+            Route::delete("/destroy/{user}" , "AdminUserController@destroy")->name("admin.user.adminUser.destroy");
+            Route::get("/status/{user}" , "AdminUserController@status")->name("admin.user.adminUser.status");
         });
 
         // customer
@@ -225,9 +230,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "CustomerController@index")->name("admin.user.customer.index");
             Route::get("/create" , "CustomerController@create")->name("admin.user.customer.create");
             Route::post("/store" , "CustomerController@store")->name("admin.user.customer.store");
-            Route::get("/edit/{id}" , "CustomerController@edit")->name("admin.user.customer.edit");
-            Route::put("/update/{id}" , "CustomerController@update")->name("admin.user.customer.update");
-            Route::delete("/destroy/{id}" , "CustomerController@destroy")->name("admin.user.customer.destroy");
+            Route::get("/edit/{user}" , "CustomerController@edit")->name("admin.user.customer.edit");
+            Route::put("/update/{user}" , "CustomerController@update")->name("admin.user.customer.update");
+            Route::delete("/destroy/{user}" , "CustomerController@destroy")->name("admin.user.customer.destroy");
+            Route::get("/status/{user}" , "CustomerController@status")->name("admin.user.customer.status");
         });
 
         // role
@@ -263,9 +269,21 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "EmailController@index")->name("admin.notify.email.index");
             Route::get("/create" , "EmailController@create")->name("admin.notify.email.create");
             Route::post("/store" , "EmailController@store")->name("admin.notify.email.store");
-            Route::get("/edit/{id}" , "EmailController@edit")->name("admin.notify.email.edit");
-            Route::put("/update/{id}" , "EmailController@update")->name("admin.notify.email.update");
-            Route::delete("/destroy/{id}" , "EmailController@destroy")->name("admin.notify.email.destroy");
+            Route::get("/edit/{email}" , "EmailController@edit")->name("admin.notify.email.edit");
+            Route::put("/update/{email}" , "EmailController@update")->name("admin.notify.email.update");
+            Route::delete("/destroy/{email}" , "EmailController@destroy")->name("admin.notify.email.destroy");
+            Route::get("/status/{email}" , "EmailController@status")->name("admin.notify.email.status");
+        });
+
+        // email file
+        Route::prefix("email-file")->group(function (){
+            Route::get("/{email}" , "EmailFileController@index")->name("admin.notify.emailFile.index");
+            Route::get("/{email}/create" , "EmailFileController@create")->name("admin.notify.emailFile.create");
+            Route::post("/{email}/store" , "EmailFileController@store")->name("admin.notify.emailFile.store");
+            Route::get("/edit/{file}" , "EmailFileController@edit")->name("admin.notify.emailFile.edit");
+            Route::put("/update/{file}" , "EmailFileController@update")->name("admin.notify.emailFile.update");
+            Route::delete("/destroy/{file}" , "EmailFileController@destroy")->name("admin.notify.emailFile.destroy");
+            Route::get("/status/{file}" , "EmailFileController@status")->name("admin.notify.emailFile.status");
         });
 
         // sms
@@ -273,9 +291,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "SMSController@index")->name("admin.notify.sms.index");
             Route::get("/create" , "SMSController@create")->name("admin.notify.sms.create");
             Route::post("/store" , "SMSController@store")->name("admin.notify.sms.store");
-            Route::get("/edit/{id}" , "SMSController@edit")->name("admin.notify.sms.edit");
-            Route::put("/update/{id}" , "SMSController@update")->name("admin.notify.sms.update");
-            Route::delete("/destroy/{id}" , "SMSController@destroy")->name("admin.notify.sms.destroy");
+            Route::get("/edit/{sms}" , "SMSController@edit")->name("admin.notify.sms.edit");
+            Route::put("/update/{sms}" , "SMSController@update")->name("admin.notify.sms.update");
+            Route::delete("/destroy/{sms}" , "SMSController@destroy")->name("admin.notify.sms.destroy");
+            Route::get("/status/{sms}" , "SMSController@status")->name("admin.notify.sms.status");
         });
 
     });
@@ -304,11 +323,9 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
 
         // setting
         Route::get("/" , "SettingController@index")->name("admin.setting.index");
-        Route::get("/create" , "SettingController@create")->name("admin.setting.create");
-        Route::post("/store" , "SettingController@store")->name("admin.setting.store");
-        Route::get("/edit/{id}" , "SettingController@edit")->name("admin.setting.edit");
-        Route::put("/update/{id}" , "SettingController@update")->name("admin.setting.update");
-        Route::delete("/destroy/{id}" , "SettingController@destroy")->name("admin.setting.destroy");
+        Route::get("/edit/{setting}" , "SettingController@edit")->name("admin.setting.edit");
+        Route::put("/update/{setting}" , "SettingController@update")->name("admin.setting.update");
+        Route::delete("/destroy/{setting}" , "SettingController@destroy")->name("admin.setting.destroy");
 
     });
 

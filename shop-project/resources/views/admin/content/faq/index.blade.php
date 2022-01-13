@@ -31,29 +31,40 @@
                     <th>#</th>
                     <th>پرسش</th>
                     <th>خلاصه پاسخ</th>
+                    <th>وضعیت</th>
                     <th class="width-18 text-center">تنظیمات</th>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>چطوری میتونیم خرید کنیم؟</td>
-                        <td>برای خرید کردن ابتدا باید تو سایت حساب باز کنید و بعد از...</td>
-                        <td class="max-width-18 text-left">
-                            <a href="" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
-                            <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-trash-alt ml-2"></i>حذف</a>
-                        </td>
-                    </tr>
 
+                @foreach($faqs as $key => $faq)
                     <tr>
-                        <th>2</th>
-                        <td>آیا محصولات سایت گارانتی دارند؟</td>
-                        <td>بعضی از محصولات سایت دارای گارانتی معتبر از...</td>
+                        <th>{{ $key+=1 }}</th>
+                        <td>{{ $faq["question"] }}</td>
+                        <td>{{ $faq["answer"] }}</td>
+                        <td>
+
+                            <label class="switch">
+                                <input id="{{ $faq["id"] }}" onchange="changeStatus({{ $faq["id"] }})" data-url="{{ route("admin.content.faq.status" , $faq["id"]) }}" type="checkbox"
+                                       @if($faq['status'] === 1)
+                                       checked
+                                    @endif
+                                >
+                                <span class="slider round"></span>
+                            </label>
+
+                        </td>
                         <td class="max-width-18 text-left">
-                            <a href="" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
-                            <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-trash-alt ml-2"></i>حذف</a>
+                            <a href="{{ route("admin.content.faq.edit", $faq["id"]) }}" class="btn btn-sm btn-info mb-1 mb-md-0 border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
+                            <form action="{{ route("admin.content.faq.destroy" , $faq['id']) }}" method="post">
+                                @csrf
+                                @method("delete")
+                                <button class="btn btn-sm btn-danger border-radius-2 deleteBtn"><i class="fa fa-trash-alt ml-2"></i>حذف</button>
+                            </form>
                         </td>
                     </tr>
+                @endforeach
+
                 </tbody>
 
                 <tbody>
@@ -64,5 +75,85 @@
         </section>
 
     </section>
+
+@endsection
+
+@section("scripts")
+
+    <script>
+        function changeStatus(id){
+            var element = $("#" + id);
+            var url = element.attr("data-url");
+            var elementValue = !element.prop("checked");
+
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (response){
+
+                    if (response.status){
+                        if (response.checked){
+                            element.prop("checked" , true);
+                            successToast("سوال متداول با موفقیت فعال شد.");
+                        }
+                        else {
+                            element.prop("checked" , false);
+                            successToast("سوال متداول با موفقیت غیر فعال شد.");
+                        }
+                    }
+                    else {
+                        element.prop("checked" , elementValue);
+                        errorToast("هنگام انجام عملیات مشکلی به وجود آمده.");
+                    }
+
+                },
+                error: function (){
+                    element.prop("checked" , elementValue);
+                    errorToast("ارتباط برقرار نشد.");
+                }
+            });
+
+            function successToast(message){
+                var element = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">\n' +
+                    '<div class="toast-header">\n' +
+                    '<button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '<strong class="">پیغام</strong>\n' +
+                    '<small class="mr-auto">2 ثانیه قبل</small>\n' +
+                    '</div>\n' +
+                    '<div class="toast-body">'+ message +'</div>\n'
+                '</div>';
+
+                $(".toast-wrapper").append(element);
+                $(".toast").toast("show").delay(5000).queue(function (){
+                    $(this).remove();
+                });
+            }
+
+
+            function errorToast(message){
+                var element = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">\n' +
+                    '<div class="toast-header">\n' +
+                    '<button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '<strong class="">پیغام</strong>\n' +
+                    '<small class="mr-auto">2 ثانیه قبل</small>\n' +
+                    '</div>\n' +
+                    '<div class="toast-body">'+ message +'</div>\n'
+                '</div>';
+
+                $(".toast-wrapper").append(element);
+                $(".toast").toast("show").delay(5000).queue(function (){
+                    $(this).remove();
+                });
+            }
+
+        }
+    </script>
+
+    @include("admin.alerts.sweetAlert.deleteConfirm" , ["className" => "deleteBtn"])
 
 @endsection

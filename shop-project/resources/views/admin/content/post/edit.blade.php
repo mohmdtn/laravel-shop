@@ -119,8 +119,8 @@
 
                     <div class="form-group col-md-4">
                         <label for="">تاریخ انتشار</label>
-                        <input type="hidden" class="form-control border-radius-5" id="published_at" name="published_at" value="">
-                        <input type="text" class="form-control border-radius-5" id="published_at_view">
+                        <input type="hidden" class="form-control border-radius-5" id="published_at" name="published_at" value="{{ $post["published_at"] }}">
+                        <input type="text" class="form-control border-radius-5" id="published_at_view" value="{{ $post["published_at"] }}">
 
                         @error("published_at")
                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>

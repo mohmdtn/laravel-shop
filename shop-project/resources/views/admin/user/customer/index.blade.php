@@ -1,7 +1,7 @@
 @extends("admin.layouts.master")
 
 @section("head-tag")
-    <title>{{ route("admin.user.adminUser.index") }}</title>
+    <title>کاربران</title>
 @endsection
 
 @section("content")
@@ -34,35 +34,39 @@
                 <th>کد ملی</th>
                 <th>نام</th>
                 <th>نام خانوادگی</th>
+                <th>وضعیت</th>
                 <th class="width-18 text-center">تنظیمات</th>
                 </thead>
 
                 <tbody>
-                <tr>
-                    <th>1</th>
-                    <td>mohammad@gmail.com</td>
-                    <td>0911111111</td>
-                    <td>498103042</td>
-                    <td>محمد</td>
-                    <td> تقی نسب</td>
-                    <td class="max-width-18 text-left">
-                        <a href="" class="btn btn-sm btn-success border-radius-2 mb-2 mb-md-0"><i class="fas fa-user-edit ml-2"></i>ویرایش</a>
-                        <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-trash ml-2"></i>حذف</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>2</th>
-                    <td>sina@gmail.com</td>
-                    <td>0922222222</td>
-                    <td>205020201</td>
-                    <td>سینا</td>
-                    <td>مهدوی</td>
-                    <td class="max-width-18 text-left">
-                        <a href="" class="btn btn-sm btn-success border-radius-2 mb-2 mb-md-0"><i class="fas fa-user-edit ml-2"></i>ویرایش</a>
-                        <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-trash ml-2"></i>حذف</a>
-                    </td>
-                </tr>
+                @foreach($users as $key => $user)
+                    <tr>
+                        <th>{{ $key+=1 }}</th>
+                        <td>{{ $user["email"] }}</td>
+                        <td>{{ $user["mobile"] }}</td>
+                        <td>{{ $user["national_code"] }}</td>
+                        <td>{{ $user["first_name"] }}</td>
+                        <td>{{ $user["last_name"] }}</td>
+                        <td>
+                            <label class="switch">
+                                <input id="{{ $user["id"] }}" onchange="changeStatus({{ $user["id"] }})" data-url="{{ route("admin.user.customer.status" , $user["id"]) }}" type="checkbox"
+                                       @if($user['status'] === 1)
+                                       checked
+                                    @endif
+                                >
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                        <td class="max-width-18 text-left">
+                            <a href="{{ route("admin.user.customer.edit", $user["id"]) }}" class="btn btn-sm btn-success border-radius-2 mb-2 mb-md-0"><i class="fas fa-user-edit ml-2"></i>ویرایش</a>
+                            <form action="{{ route("admin.user.customer.destroy" , $user["id"]) }}" method="post">
+                                @csrf
+                                @method("delete")
+                                <button class="btn btn-sm btn-danger border-radius-2 deleteBtn"><i class="fa fa-trash-alt ml-2"></i>حذف</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
 
                 <tbody>
@@ -73,5 +77,85 @@
         </section>
 
     </section>
+
+@endsection
+
+@section("scripts")
+
+    <script>
+        function changeStatus(id){
+            var element = $("#" + id);
+            var url = element.attr("data-url");
+            var elementValue = !element.prop("checked");
+
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (response){
+
+                    if (response.status){
+                        if (response.checked){
+                            element.prop("checked" , true);
+                            successToast("کاربر موفقیت فعال شد.");
+                        }
+                        else {
+                            element.prop("checked" , false);
+                            successToast("کاربر موفقیت غیر فعال شد.");
+                        }
+                    }
+                    else {
+                        element.prop("checked" , elementValue);
+                        errorToast("هنگام انجام عملیات مشکلی به وجود آمده.");
+                    }
+
+                },
+                error: function (){
+                    element.prop("checked" , elementValue);
+                    errorToast("ارتباط برقرار نشد.");
+                }
+            });
+
+            function successToast(message){
+                var element = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">\n' +
+                    '<div class="toast-header">\n' +
+                    '<button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '<strong class="">پیغام</strong>\n' +
+                    '<small class="mr-auto">2 ثانیه قبل</small>\n' +
+                    '</div>\n' +
+                    '<div class="toast-body">'+ message +'</div>\n'
+                '</div>';
+
+                $(".toast-wrapper").append(element);
+                $(".toast").toast("show").delay(5000).queue(function (){
+                    $(this).remove();
+                });
+            }
+
+
+            function errorToast(message){
+                var element = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">\n' +
+                    '<div class="toast-header">\n' +
+                    '<button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '<strong class="">پیغام</strong>\n' +
+                    '<small class="mr-auto">2 ثانیه قبل</small>\n' +
+                    '</div>\n' +
+                    '<div class="toast-body">'+ message +'</div>\n'
+                '</div>';
+
+                $(".toast-wrapper").append(element);
+                $(".toast").toast("show").delay(5000).queue(function (){
+                    $(this).remove();
+                });
+            }
+
+        }
+    </script>
+
+    @include("admin.alerts.sweetAlert.deleteConfirm" , ["className" => "deleteBtn"])
 
 @endsection

@@ -31,29 +31,38 @@
                     <th>#</th>
                     <th>عنوان اطلاعیه</th>
                     <th>تاریخ ارسال</th>
+                    <th>وضعیت</th>
                     <th class="width-18 text-center">تنظیمات</th>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>جشنواره پاییزی</td>
-                        <td>20 آذر 1400</td>
-                        <td class="max-width-18 text-left">
-                            <a href="" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
-                            <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-trash-alt ml-2"></i>حذف</a>
-                        </td>
-                    </tr>
 
+                @foreach($allSms as $key => $sms)
                     <tr>
-                        <th>2</th>
-                        <td>تخفیف ها</td>
-                        <td>29 بهمن 1400</td>
+                        <th>{{ $key+=1 }}</th>
+                        <td>{{ $sms["title"] }}</td>
+                        <td>{{ jalaliDate($sms["published_at"], "H:i:s %A %d %B %Y") }}</td>
+                        <td>
+                            <label class="switch">
+                                <input id="{{ $sms["id"] }}" onchange="changeStatus({{ $sms["id"] }})" data-url="{{ route("admin.notify.sms.status" , $sms["id"]) }}" type="checkbox"
+                                       @if($sms['status'] === 1)
+                                       checked
+                                    @endif
+                                >
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
                         <td class="max-width-18 text-left">
-                            <a href="" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
-                            <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-trash-alt ml-2"></i>حذف</a>
+                            <a href="{{ route("admin.notify.sms.edit", $sms["id"]) }}" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
+                            <form action="{{ route("admin.notify.sms.destroy" , $sms["id"]) }}" method="post">
+                                @csrf
+                                @method("delete")
+                                <button class="btn btn-sm btn-danger border-radius-2 deleteBtn"><i class="fa fa-trash-alt ml-2"></i>حذف</button>
+                            </form>
                         </td>
                     </tr>
+                @endforeach
+
                 </tbody>
 
                 <tbody>
@@ -66,3 +75,84 @@
     </section>
 
 @endsection
+
+@section("scripts")
+
+    <script>
+        function changeStatus(id){
+            var element = $("#" + id);
+            var url = element.attr("data-url");
+            var elementValue = !element.prop("checked");
+
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (response){
+
+                    if (response.status){
+                        if (response.checked){
+                            element.prop("checked" , true);
+                            successToast("پیامک با موفقیت فعال شد.");
+                        }
+                        else {
+                            element.prop("checked" , false);
+                            successToast("پیامک با موفقیت غیر فعال شد.");
+                        }
+                    }
+                    else {
+                        element.prop("checked" , elementValue);
+                        errorToast("هنگام انجام عملیات مشکلی به وجود آمده.");
+                    }
+
+                },
+                error: function (){
+                    element.prop("checked" , elementValue);
+                    errorToast("ارتباط برقرار نشد.");
+                }
+            });
+
+            function successToast(message){
+                var element = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">\n' +
+                    '<div class="toast-header">\n' +
+                    '<button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '<strong class="">پیغام</strong>\n' +
+                    '<small class="mr-auto">2 ثانیه قبل</small>\n' +
+                    '</div>\n' +
+                    '<div class="toast-body">'+ message +'</div>\n'
+                '</div>';
+
+                $(".toast-wrapper").append(element);
+                $(".toast").toast("show").delay(5000).queue(function (){
+                    $(this).remove();
+                });
+            }
+
+
+            function errorToast(message){
+                var element = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">\n' +
+                    '<div class="toast-header">\n' +
+                    '<button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '<strong class="">پیغام</strong>\n' +
+                    '<small class="mr-auto">2 ثانیه قبل</small>\n' +
+                    '</div>\n' +
+                    '<div class="toast-body">'+ message +'</div>\n'
+                '</div>';
+
+                $(".toast-wrapper").append(element);
+                $(".toast").toast("show").delay(5000).queue(function (){
+                    $(this).remove();
+                });
+            }
+
+        }
+    </script>
+
+    @include("admin.alerts.sweetAlert.deleteConfirm" , ["className" => "deleteBtn"])
+
+@endsection
+

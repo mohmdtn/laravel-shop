@@ -31,23 +31,23 @@
                 <thead class="table-info">
                 <th>#</th>
                 <th>نام سایت</th>
-                <th>شماره تماس</th>
-                <th>آدرس سایت</th>
+                <th>توضیحات سایت</th>
+                <th>کلمات کلیدی</th>
                 <th>لوگو سایت</th>
-                <th>ایمیل</th>
+                <th>آیکون سایت</th>
                 <th class="width-18 text-center">تنظیمات</th>
                 </thead>
 
                 <tbody>
                 <tr>
                     <th>1</th>
-                    <td>سایت فروشگاهی</td>
-                    <td>0911111111</td>
-                    <td>test.com</td>
-                    <td>-</td>
-                    <td>mohammad@gmail.com</td>
+                    <td>{{ $setting["title"] }}</td>
+                    <td>{{ $setting["description"] }}</td>
+                    <td>{{ $setting["keywords"] }}</td>
+                    <td><img src="{{ asset($setting["logo"]) }}" alt=""></td>
+                    <td><img src="{{ asset($setting["icon"]) }}" alt=""></td>
                     <td class="max-width-18 text-left">
-                        <a href="{{}}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-edit ml-2"></i>ویرایش</a>
+                        <a href="{{ route("admin.setting.edit", $setting["id"]) }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-edit ml-2"></i>ویرایش</a>
                     </td>
                 </tr>
 

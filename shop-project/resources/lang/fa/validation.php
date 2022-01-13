@@ -159,6 +159,13 @@ return [
         "tags"                      => "تگ ها",
         "status"                    => "وضعیت",
         "summary"                   => "خلاصه",
+        "question"                  => "پرسش",
+        "answer"                    => "پاسخ",
+        "url"                       => "آدرس",
+        "parent_id"                 => "منوی والد",
+        "subject"                   => "عنوان",
+        "keywords"                  => "کلمات کلیدی",
+        "national_code"             => "کد ملی",
 
     ],
 ];

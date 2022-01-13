@@ -27,44 +27,73 @@
         </div>
 
         <section class="pageContentInner">
-            <form action="">
+            <form action="{{ route("admin.content.menu.store") }}" method="post">
+                @csrf
                 <div class="row">
 
                     <div class="form-group col-md-6">
                         <label for="">نام منو</label>
-                        <input type="text" class="form-control border-radius-5">
+                        <input type="text" class="form-control border-radius-5" name="name" value="{{ old("name") }}">
+
+                        @error("name")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="">منو والد</label>
-                        <select name="" id="" class="form-control border-radius-5">
-                            <option value="">انتخاب منو والد</option>
-                            <option value="">کالای الکترونیکی</option>
-                            <option value="">پوشاک</option>
+                        <select name="parent_id" id="" class="form-control border-radius-5">
+                            <option value="">منوی اصلی</option>
+                            @foreach($menus as $menu)
+                                <option value="{{ $menu["id"] }}" @if(old("parent_id") == $menu["id"]) selected @endif>{{ $menu["name"] }}</option>
+                            @endforeach
                         </select>
+
+                        @error("parent_id")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="">آدرس URL</label>
-                        <input type="text" class="form-control border-radius-5">
+                        <input type="text" class="form-control border-radius-5" name="url" value="{{ old("url") }}">
+
+                        @error("url")
+                        <div class="errors">
+                            <span class="text-danger">{{ $message }}</span>
+{{--                            <br><span class="text-danger">نمونه: mohammad.com</span>--}}
+                        </div>
+                        @enderror
                     </div>
 
+{{--                    <div class="form-group col-md-6">--}}
+{{--                        <label for="">تصویر کالا</label><br>--}}
+
+{{--                        <div class="imageSelectWrapper border-radius-5">--}}
+{{--                            <label for="imgInp"><i class="fa fa-plus"></i> انتخاب عکس</label>--}}
+{{--                        </div>--}}
+
+{{--                        <input type="file" id="imgInp" class="d-none">--}}
+
+{{--                        <div class="imagePreview">--}}
+{{--                            <center><img src="" alt="" id="blah"></center>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
                     <div class="form-group col-md-6">
-                        <label for="">تصویر کالا</label><br>
+                        <label for="">وضعیت</label>
+                        <select id="" class="form-control border-radius-5" name="status">
+                            <option value="0" @if(old('status') == 0) selected @endif>غیر فعال</option>
+                            <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                        </select>
 
-                        <div class="imageSelectWrapper border-radius-5">
-                            <label for="imgInp"><i class="fa fa-plus"></i> انتخاب عکس</label>
-                        </div>
-
-                        <input type="file" id="imgInp" class="d-none">
-
-                        <div class="imagePreview">
-                            <center><img src="" alt="" id="blah"></center>
-                        </div>
+                        @error("status")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="col-md-12 d-flex justify-content-center pt-5">
-                        <input type="button" class="btn btn-primary border-radius-4 box-shadow-normal submit-custom" value="ثبت">
+                        <input type="submit" class="btn btn-primary border-radius-4 box-shadow-normal submit-custom" value="ثبت">
                     </div>
                 </div>
             </form>

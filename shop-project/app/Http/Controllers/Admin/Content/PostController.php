@@ -142,6 +142,7 @@ class PostController extends Controller
         return redirect()->route("admin.content.post.index")->with("swal-success" , "پست شما با موفقیت حذف شد.");
     }
 
+
     public function status(Post $post){
         $post["status"] = $post["status"] == 0 ? 1 : 0;
         $result = $post->save();

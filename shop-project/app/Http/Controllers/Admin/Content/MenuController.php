@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Content\MenuRequest;
+use App\Models\Content\Menu;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -14,7 +16,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view("admin.content.menu.index");
+        $menus = Menu::orderBy("created_at")->simplePaginate(15);
+        return view("admin.content.menu.index", compact("menus"));
     }
 
     /**
@@ -24,7 +27,8 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view("admin.content.menu.create");
+        $menus = Menu::where("parent_id", null)->get();
+        return view("admin.content.menu.create", compact("menus"));
     }
 
     /**
@@ -33,9 +37,10 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuRequest $request)
     {
-        //
+        Menu::create($request->all());
+        return redirect()->route("admin.content.menu.index")->with("swal-success", "منو جدید با موفقیت ایجاد شد.");
     }
 
     /**
@@ -55,9 +60,10 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Menu $menu)
     {
-        //
+        $allMenus = Menu::where("parent_id", null)->get()->except($menu["id"]);
+        return view("admin.content.menu.edit", compact("menu", "allMenus"));
     }
 
     /**
@@ -67,9 +73,10 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MenuRequest $request, Menu $menu)
     {
-        //
+        $menu->update($request->all());
+        return redirect()->route("admin.content.menu.index")->with("swal-success", "منو با موفقیت ویرایش شد.");
     }
 
     /**
@@ -78,8 +85,29 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Menu $menu)
     {
-        //
+        $menu->delete();
+        return redirect()->route("admin.content.menu.index")->with("swal-success", "منو با موفقیت حذف شد.");
     }
+
+
+    public function status(Menu $menu){
+        $menu["status"] = $menu["status"] == 0 ? 1 : 0;
+        $result = $menu->save();
+
+        if ($result){
+            if ($menu["status"] == 0){
+                return response()->json(["status" => true , "checked" => false]);
+            }
+            else{
+                return response()->json(["status" => true , "checked" => true]);
+            }
+        }
+        else{
+            return response()->json(["status" => false]);
+        }
+
+    }
+
 }

@@ -27,37 +27,71 @@
         </div>
 
         <section class="pageContentInner">
-            <form action="">
+            <form action="{{ route("admin.user.customer.store") }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="row">
 
                     <div class="form-group col-md-4">
                         <label for="">نام</label>
-                        <input type="text" class="form-control border-radius-5">
+                        <input type="text" class="form-control border-radius-5" name="first_name" value="{{ old("first_name") }}">
+
+                        @error("first_name")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="">نام خانوادگی</label>
-                        <input type="text" class="form-control border-radius-5">
+                        <input type="text" class="form-control border-radius-5" name="last_name" value="{{ old("last_name") }}">
+
+                        @error("last_name")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="">ایمیل</label>
-                        <input type="text" class="form-control border-radius-5">
+                        <input type="text" class="form-control border-radius-5" name="email" value="{{ old("email") }}">
+
+                        @error("email")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="">شماره موبایل</label>
-                        <input type="text" class="form-control border-radius-5">
+                        <input type="text" class="form-control border-radius-5" name="mobile" value="{{ old("mobile") }}">
+
+                        @error("mobile")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="">کلمه عبور</label>
-                        <input type="text" class="form-control border-radius-5">
+                        <input type="text" class="form-control border-radius-5" name="password" value="{{ old("password") }}">
+
+                        @error("password")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="">تکرار کلمه عبور</label>
-                        <input type="text" class="form-control border-radius-5">
+                        <input type="text" class="form-control border-radius-5" name="password_confirmation" value="{{ old("password_confirmation") }}">
+
+                        @error("password_confirmation")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="">کد ملی</label>
+                        <input type="text" class="form-control border-radius-5" name="national_code" value="{{ old("national_code") }}">
+
+                        @error("national_code")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="form-group col-md-4">
@@ -67,27 +101,33 @@
                             <label for="imgInp"><i class="fa fa-plus"></i> انتخاب عکس</label>
                         </div>
 
-                        <input type="file" id="imgInp" class="d-none">
+                        <input type="file" id="imgInp" class="d-none" name="profile_photo_path">
 
                         <div class="imagePreview">
                             <center><img src="" alt="" id="blah"></center>
                         </div>
+
+                        @error("photo_path")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
 
 
                     <div class="form-group col-md-4">
-                        <label for="">وضعیت کاربر</label>
-                        <select name="" id="" class="form-control border-radius-5">
-                            <option value="">دسته را انتخاب کنید</option>
-                            <option value="">الکترونیکی</option>
-                            <option value="">لوازم خوانگی</option>
-                            <option value="">موبایل</option>
+                        <label for="">وضعیت فعال سازی</label>
+                        <select id="" class="form-control border-radius-5" name="activation">
+                            <option value="0" @if(old('activation') == 0) selected @endif>غیر فعال</option>
+                            <option value="1" @if(old('activation') == 1) selected @endif>فعال</option>
                         </select>
+
+                        @error("activation")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="col-md-12 d-flex justify-content-center pt-5">
-                        <input type="button" class="btn btn-primary border-radius-4 box-shadow-normal submit-custom" value="ثبت">
+                        <input type="submit" class="btn btn-primary border-radius-4 box-shadow-normal submit-custom" value="ثبت">
                     </div>
                 </div>
             </form>

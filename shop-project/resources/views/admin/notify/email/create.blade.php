@@ -2,6 +2,7 @@
 
 @section("head-tag")
     <title>ایجاد اطلاعیه ایمیلی</title>
+    <link rel="stylesheet" href="{{ asset("admin-assets/jalalidatepicker/persian-datepicker.min.css") }}">
 @endsection
 
 @section("content")
@@ -11,7 +12,7 @@
             <li class="breadcrumb-item"><a href="#">خانه</a></li>
             <li class="breadcrumb-item"><a href="#">بخش اطلاع رسانی</a></li>
             <li class="breadcrumb-item"><a href="#">اطلاعیه ایمیلی</a></li>
-            <li class="breadcrumb-item active" aria-current="page">اطلاعیه ایمیلی</li>
+            <li class="breadcrumb-item active" aria-current="page">ایجاد اطلاعیه ایمیلی</li>
         </ol>
     </nav>
 
@@ -27,27 +28,53 @@
         </div>
 
         <section class="pageContentInner">
-            <form action="">
+            <form action="{{ route("admin.notify.email.store") }}" method="post">
+                @csrf
                 <div class="row">
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="">عنوان اطلاعیه</label>
-                        <input type="text" class="form-control border-radius-5">
+                        <input type="text" class="form-control border-radius-5" name="subject" value="{{ old("subject") }}">
+
+                        @error("subject")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="">تاریخ ارسال</label>
-                        <input type="text" class="form-control border-radius-5">
+                        <input type="hidden" class="form-control border-radius-5" id="published_at" name="published_at" value="{{ old("published_at") }}">
+                        <input type="text" class="form-control border-radius-5" id="published_at_view" value="{{ old("published_at") }}">
+
+                        @error("published_at")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="">وضعیت</label>
+                        <select id="" class="form-control border-radius-5" name="status">
+                            <option value="0" @if(old('status') == 0) selected @endif>غیر فعال</option>
+                            <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                        </select>
+
+                        @error("status")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
                     <div class="form-group col-md-12">
                         <label for="">متن ایمیل</label>
-                        <textarea class="form-control border-radius-5" name="body" id="body" rows="3"></textarea>
+                        <textarea class="form-control border-radius-5" name="body" id="body" rows="3">{{ old("body") }}</textarea>
+
+                        @error("body")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
                     </div>
 
 
                     <div class="col-md-12 d-flex justify-content-center pt-5">
-                        <input type="button" class="btn btn-primary border-radius-4 box-shadow-normal submit-custom" value="ثبت">
+                        <input type="submit" class="btn btn-primary border-radius-4 box-shadow-normal submit-custom" value="ثبت">
                     </div>
                 </div>
             </form>
@@ -63,6 +90,24 @@
     <script src="{{ asset("admin-assets/ckeditor/ckeditor.js") }}"></script>
     <script>
         CKEDITOR.replace("body");
+    </script>
+
+    <script src="{{ asset("admin-assets/jalalidatepicker/persian-datepicker.min.js") }}"></script>
+    <script src="{{ asset("admin-assets/jalalidatepicker/persian-date.min.js") }}"></script>
+
+    <script>
+        $(document).ready(function (){
+            $("#published_at_view").persianDatepicker({
+                format: 'YYYY/MM/DD',
+                altField: '#published_at',
+                timePicker: {
+                    enabled: true,
+                    meridiem: {
+                        enabled: true
+                    }
+                }
+            });
+        });
     </script>
 
 @endsection
