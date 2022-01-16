@@ -35,33 +35,32 @@
                 <th>دسته تیکت</th>
                 <th>اولویت تیکت</th>
                 <th>ارجاع تیکت</th>
+                <th>تیکت مرجع</th>
                 <th class="width-18 text-center">تنظیمات</th>
                 </thead>
 
                 <tbody>
-                <tr>
-                    <th>1</th>
-                    <td>محمد تقی نسب</td>
-                    <td>مشکل سبد خرید</td>
-                    <td>دسته فروش</td>
-                    <td>فوری</td>
-                    <td>-</td>
-                    <td class="max-width-18 text-left">
-                        <a href="{{ route("admin.ticket.show") }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-eye ml-2"></i>نمایش</a>
-                    </td>
-                </tr>
 
-                <tr>
-                    <th>2</th>
-                    <td>سینا مهدوی</td>
-                    <td>مشکل پرداخت آنلاین</td>
-                    <td>دسته فروش</td>
-                    <td>فوری</td>
-                    <td>محمد تقی نسب</td>
-                    <td class="max-width-18 text-left">
-                        <a href="{{ route("admin.ticket.show") }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-eye ml-2"></i>نمایش</a>
-                    </td>
-                </tr>
+                @foreach($tickets as $ticket)
+                    <tr>
+                        <th>{{ $loop->iteration }}</th>
+                        <td>{{ $ticket["user"]["fullName"] }}</td>
+                        <td>{{ $ticket["subject"] }}</td>
+                        <td>{{ $ticket["category"]["name"] }}</td>
+                        <td>{{ $ticket["priority"]["name"] }}</td>
+                        <td>{{ $ticket["admin"]["user"]["fullName"] }}</td>
+                        <td>{{ $ticket["parent"]["subject"] ?? "-" }}</td>
+                        <td class="max-width-18 text-left">
+                            <a href="{{ route("admin.ticket.show", $ticket["id"]) }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-eye ml-2"></i>نمایش</a>
+                            @if($ticket["status"] == 0)
+                                <a href="{{ route("admin.ticket.change", $ticket["id"]) }}" class="btn btn-sm btn-success border-radius-2 mb-2 mb-md-0"><i class="fas fa-check ml-2"></i></i>بستن</a>
+                            @else
+                                <a href="{{ route("admin.ticket.change", $ticket["id"]) }}" class="btn btn-sm btn-danger border-radius-2 mb-2 mb-md-0"><i class="fas fa-window-close ml-2"></i>باز کردن</a>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+
                 </tbody>
 
                 <tbody>

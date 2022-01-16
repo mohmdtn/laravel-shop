@@ -299,6 +299,27 @@
 
             <section class="sidebarTitle">بخش تیکت ها</section>
 
+            <a href="{{ route("admin.ticket.category.index") }}" class="sidebarLink">
+                <div>
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>دسته بندی تیکت ها</span>
+                </div>
+            </a>
+
+            <a href="{{ route("admin.ticket.priority.index") }}" class="sidebarLink">
+                <div>
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>اولویت تیکت ها</span>
+                </div>
+            </a>
+
+            <a href="{{ route("admin.ticket.admin.index") }}" class="sidebarLink">
+                <div>
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>ادمین تیکت ها</span>
+                </div>
+            </a>
+
             <a href="{{ route("admin.ticket.newTickets") }}" class="sidebarLink">
                 <div>
                     <i class="fas fa-ticket-alt"></i>
@@ -317,6 +338,13 @@
                 <div>
                     <i class="fas fa-ticket-alt"></i>
                     <span>تیکت های بسته</span>
+                </div>
+            </a>
+
+            <a href="{{ route("admin.ticket.index") }}" class="sidebarLink">
+                <div>
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>همه تیکت ها</span>
                 </div>
             </a>
 

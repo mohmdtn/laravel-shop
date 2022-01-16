@@ -156,8 +156,8 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "CommentController@index")->name("admin.content.comment.index");
             Route::get("/show/{comment}" , "CommentController@show")->name("admin.content.comment.show");
             Route::delete("/destroy/{comment}" , "CommentController@destroy")->name("admin.content.comment.destroy");
-            Route::get("/status/{comment}" , "CommentController@approved")->name("admin.content.comment.approved");
-            Route::get("/approved/{comment}" , "CommentController@status")->name("admin.content.comment.status");
+            Route::get("/approved/{comment}" , "CommentController@approved")->name("admin.content.comment.approved");
+            Route::get("/status/{comment}" , "CommentController@status")->name("admin.content.comment.status");
             Route::post("/answer/{comment}" , "CommentController@answer")->name("admin.content.comment.answer");
 
         });
@@ -241,9 +241,9 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "RoleController@index")->name("admin.user.role.index");
             Route::get("/create" , "RoleController@create")->name("admin.user.role.create");
             Route::post("/store" , "RoleController@store")->name("admin.user.role.store");
-            Route::get("/edit/{id}" , "RoleController@edit")->name("admin.user.role.edit");
-            Route::put("/update/{id}" , "RoleController@update")->name("admin.user.role.update");
-            Route::delete("/destroy/{id}" , "RoleController@destroy")->name("admin.user.role.destroy");
+            Route::get("/edit/{user}" , "RoleController@edit")->name("admin.user.role.edit");
+            Route::put("/update/{user}" , "RoleController@update")->name("admin.user.role.update");
+            Route::delete("/destroy/{user}" , "RoleController@destroy")->name("admin.user.role.destroy");
         });
 
         // permission
@@ -255,7 +255,6 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::put("/update/{id}" , "PermissionController@update")->name("admin.user.permission.update");
             Route::delete("/destroy/{id}" , "PermissionController@destroy")->name("admin.user.permission.destroy");
         });
-
 
     });
 
@@ -305,14 +304,41 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
     Route::prefix("ticket")->namespace("Ticket")->group(function (){
 
         // ticket
+        Route::get("/" , "TicketController@index")->name("admin.ticket.index");
         Route::get("/new-tickets" , "TicketController@newTickets")->name("admin.ticket.newTickets");
         Route::get("/open-tickets" , "TicketController@openTickets")->name("admin.ticket.openTickets");
         Route::get("/close-tickets" , "TicketController@closeTickets")->name("admin.ticket.closeTickets");
-        Route::get("/show" , "TicketController@show")->name("admin.ticket.show");
-        Route::post("/store" , "TicketController@store")->name("admin.ticket.store");
-        Route::get("/edit/{id}" , "TicketController@edit")->name("admin.ticket.edit");
-        Route::put("/update/{id}" , "TicketController@update")->name("admin.ticket.update");
-        Route::delete("/destroy/{id}" , "TicketController@destroy")->name("admin.ticket.destroy");
+        Route::get("/show/{ticket}" , "TicketController@show")->name("admin.ticket.show");
+        Route::post("/answer/{ticket}" , "TicketController@answer")->name("admin.ticket.answer");
+        Route::get("/change/{ticket}" , "TicketController@change")->name("admin.ticket.change");
+
+        // ticket category
+        Route::prefix("category")->group(function (){
+            Route::get("/" , "TicketCategoryController@index")->name("admin.ticket.category.index");
+            Route::get("/create" , "TicketCategoryController@create")->name("admin.ticket.category.create");
+            Route::post("/store" , "TicketCategoryController@store")->name("admin.ticket.category.store");
+            Route::get("/edit/{ticketCategory}" , "TicketCategoryController@edit")->name("admin.ticket.category.edit");
+            Route::put("/update/{ticketCategory}" , "TicketCategoryController@update")->name("admin.ticket.category.update");
+            Route::delete("/destroy/{ticketCategory}" , "TicketCategoryController@destroy")->name("admin.ticket.category.destroy");
+            Route::get("/status/{ticketCategory}" , "TicketCategoryController@status")->name("admin.ticket.category.status");
+        });
+
+        // ticket priority
+        Route::prefix("priority")->group(function (){
+            Route::get("/" , "TicketPriorityController@index")->name("admin.ticket.priority.index");
+            Route::get("/create" , "TicketPriorityController@create")->name("admin.ticket.priority.create");
+            Route::post("/store" , "TicketPriorityController@store")->name("admin.ticket.priority.store");
+            Route::get("/edit/{ticketPriority}" , "TicketPriorityController@edit")->name("admin.ticket.priority.edit");
+            Route::put("/update/{ticketPriority}" , "TicketPriorityController@update")->name("admin.ticket.priority.update");
+            Route::delete("/destroy/{ticketPriority}" , "TicketPriorityController@destroy")->name("admin.ticket.priority.destroy");
+            Route::get("/status/{ticketPriority}" , "TicketPriorityController@status")->name("admin.ticket.priority.status");
+        });
+
+        // ticket admin
+        Route::prefix("admin")->group(function (){
+            Route::get("/" , "TicketAdminController@index")->name("admin.ticket.admin.index");
+            Route::get("/set/{admin}" , "TicketAdminController@set")->name("admin.ticket.admin.set");
+        });
 
     });
 

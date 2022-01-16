@@ -59,7 +59,7 @@
                         3. مشاهده نظرات<br>
                     </td>
                     <td class="max-width-18 text-left">
-                        <a href="{{ route("admin.content.comment.show") }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-user-cog ml-2"></i>نقش</a>
+                        <a href="{{ route("admin.user.adminUser.create") }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-user-cog ml-2"></i>نقش</a>
                         <a href="" class="btn btn-sm btn-success border-radius-2 mb-2 mb-md-0"><i class="fas fa-user-edit ml-2"></i>ویرایش</a>
                         <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-trash ml-2"></i>حذف</a>
                     </td>

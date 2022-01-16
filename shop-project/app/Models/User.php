@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Ticket\Ticket;
+use App\Models\Ticket\TicketAdmin;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -70,5 +72,13 @@ class User extends Authenticatable
 
     public function getFullNameAttribute(){
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function ticketAdmin(){
+        return $this->hasOne(TicketAdmin::class);
+    }
+
+    public function tickets(){
+        return $this->hasMany(Ticket::class);
     }
 }
