@@ -241,9 +241,11 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "RoleController@index")->name("admin.user.role.index");
             Route::get("/create" , "RoleController@create")->name("admin.user.role.create");
             Route::post("/store" , "RoleController@store")->name("admin.user.role.store");
-            Route::get("/edit/{user}" , "RoleController@edit")->name("admin.user.role.edit");
-            Route::put("/update/{user}" , "RoleController@update")->name("admin.user.role.update");
-            Route::delete("/destroy/{user}" , "RoleController@destroy")->name("admin.user.role.destroy");
+            Route::get("/edit/{role}" , "RoleController@edit")->name("admin.user.role.edit");
+            Route::put("/update/{role}" , "RoleController@update")->name("admin.user.role.update");
+            Route::delete("/destroy/{role}" , "RoleController@destroy")->name("admin.user.role.destroy");
+            Route::get("/permissionForm{role}" , "RoleController@permissionForm")->name("admin.user.role.permissionForm");
+            Route::put("/permissionUpdate/{role}" , "RoleController@permissionUpdate")->name("admin.user.role.permissionUpdate");
         });
 
         // permission
