@@ -165,6 +165,9 @@ return [
         "subject"                   => "عنوان",
         "keywords"                  => "کلمات کلیدی",
         "national_code"             => "کد ملی",
+        "amount"                    => "هزینه",
+        "delivery_time"             => "زمان ارسال",
+        "delivery_time_unit"        => "واحد زمان ارسال",
 
     ],
 ];

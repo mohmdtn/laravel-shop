@@ -29,9 +29,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "CategoryController@index")->name("admin.market.category.index");
             Route::get("/create" , "CategoryController@create")->name("admin.market.category.create");
             Route::post("/store" , "CategoryController@store")->name("admin.market.category.store");
-            Route::get("/edit/{id}" , "CategoryController@edit")->name("admin.market.category.edit");
-            Route::put("/update/{id}" , "CategoryController@update")->name("admin.market.category.update");
-            Route::delete("/destroy/{id}" , "CategoryController@destroy")->name("admin.market.category.destroy");
+            Route::get("/edit/{productCategory}" , "CategoryController@edit")->name("admin.market.category.edit");
+            Route::put("/update/{productCategory}" , "CategoryController@update")->name("admin.market.category.update");
+            Route::delete("/destroy/{productCategory}" , "CategoryController@destroy")->name("admin.market.category.destroy");
+            Route::get("/status/{productCategory}" , "CategoryController@status")->name("admin.market.category.status");
         });
 
         // brand
@@ -59,9 +60,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "DeliveryController@index")->name("admin.market.delivery.index");
             Route::get("/create" , "DeliveryController@create")->name("admin.market.delivery.create");
             Route::post("/store" , "DeliveryController@store")->name("admin.market.delivery.store");
-            Route::get("/edit/{id}" , "DeliveryController@edit")->name("admin.market.delivery.edit");
-            Route::put("/update/{id}" , "DeliveryController@update")->name("admin.market.delivery.update");
-            Route::delete("/destroy/{id}" , "DeliveryController@destroy")->name("admin.market.delivery.destroy");
+            Route::get("/edit/{delivery}" , "DeliveryController@edit")->name("admin.market.delivery.edit");
+            Route::put("/update/{delivery}" , "DeliveryController@update")->name("admin.market.delivery.update");
+            Route::delete("/destroy/{delivery}" , "DeliveryController@destroy")->name("admin.market.delivery.destroy");
+            Route::get("/status/{delivery}", "DeliveryController@status")->name("admin.market.delivery.status");
         });
 
         // discount

@@ -22,7 +22,7 @@ class CreateProductCategoriesTable extends Migration
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('show_in_menu')->default(0);
             $table->string('tags');
-            $table->foreignId('parent_id')->constrained('product_categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('parent_id')->nullable()->constrained('product_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

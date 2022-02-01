@@ -1,7 +1,7 @@
 @extends("admin.layouts.master")
 
 @section("head-tag")
-    <title>ایجاد دسته بندی</title>
+    <title>ویرایش دسته بندی</title>
 @endsection
 
 @section("content")
@@ -11,13 +11,13 @@
             <li class="breadcrumb-item"><a href="#">خانه</a></li>
             <li class="breadcrumb-item"><a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item"><a href="#">دسته بندی</a></li>
-            <li class="breadcrumb-item active" aria-current="page">ایجاد دسته بندی</li>
+            <li class="breadcrumb-item active" aria-current="page">ویرایش دسته بندی</li>
         </ol>
     </nav>
 
     <section class="pagesContent py-3 px-2">
         <div class="sectionHeader d-flex justify-content-between align-items-center">
-            <h4>ایجاد دسته بندی:</h4>
+            <h4>ویرایش دسته بندی:</h4>
 
             <a href="{{ route("admin.market.category.index") }}" class="btn btn-info btn-sm border-radius-4 box-shadow-normal">بازگشت</a>
         </div>
@@ -27,13 +27,14 @@
         </div>
 
         <section class="pageContentInner">
-            <form action="{{ route("admin.market.category.store") }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route("admin.market.category.update", $productCategory["id"]) }}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method("put")
                 <div class="row">
 
                     <div class="form-group col-md-4">
                         <label for="">نام دسته</label>
-                        <input type="text" class="form-control border-radius-5" name="name" value="{{ old("name") }}">
+                        <input type="text" class="form-control border-radius-5" name="name" value="{{ old("name", $productCategory["name"]) }}">
 
                         @error("name")
                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>
@@ -44,7 +45,7 @@
                         <label for="">دسته والد</label>
                         <select name="parent_id" id="" class="form-control border-radius-5">
                             <option value="">دسته اصلی</option>
-                            @foreach($categories as $category)
+                            @foreach($productCategories as $category)
                                 <option value="{{ $category["id"] }}" @if(old("parent_id") == $category["id"]) selected @endif>{{ $category["name"] }}</option>
                             @endforeach
                         </select>
@@ -56,7 +57,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="">تگ ها</label>
-                        <input type="hidden" class="form-control border-radius-5" name="tags" id="tags" value="{{ old('tags') }}">
+                        <input type="hidden" class="form-control border-radius-5" name="tags" id="tags" value="{{ old('tags', $productCategory["tags"]) }}">
                         <select class="select2 form-control border-radius-5" id="select_tags" multiple></select>
 
                         @error("tags")
@@ -67,8 +68,8 @@
                     <div class="form-group col-md-4">
                         <label for="">وضعیت</label>
                         <select id="" class="form-control border-radius-5" name="status">
-                            <option value="0" @if(old('status') == 0) selected @endif>غیر فعال</option>
-                            <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                            <option value="0" @if(old('status', $productCategory["status"]) == 0) selected @endif>غیر فعال</option>
+                            <option value="1" @if(old('status', $productCategory["status"]) == 1) selected @endif>فعال</option>
                         </select>
 
                         @error("status")
@@ -79,8 +80,8 @@
                     <div class="form-group col-md-4">
                         <label for="">نمایش در منو</label>
                         <select id="" class="form-control border-radius-5" name="show_in_menu">
-                            <option value="0" @if(old('show_in_menu') == 0) selected @endif>غیر فعال</option>
-                            <option value="1" @if(old('show_in_menu') == 1) selected @endif>فعال</option>
+                            <option value="0" @if(old('show_in_menu', $productCategory["show_in_menu"]) == 0) selected @endif>غیر فعال</option>
+                            <option value="1" @if(old('show_in_menu', $productCategory["show_in_menu"]) == 1) selected @endif>فعال</option>
                         </select>
 
                         @error("show_in_menu")
@@ -97,8 +98,8 @@
 
                         <input type="file" id="imgInp" class="d-none" name="image">
 
-                        <div class="imagePreview">
-                            <center><img src="" alt="" id="blah"></center>
+                        <div class="imagePreview editImagePreview">
+                            <center><img src="{{ asset($productCategory['image']['indexArray'][$productCategory['image']['currentImage']]) }}" alt="" id="blah"></center>
                         </div>
 
                         @error("image")
@@ -108,7 +109,7 @@
 
                     <div class="form-group col-md-12">
                         <label for="">توضیحات</label>
-                        <textarea name="description" id="" class="form-control border-radius-5" rows="3">{{ old('description') }}</textarea>
+                        <textarea name="description" id="" class="form-control border-radius-5" rows="3">{{ old('description', $productCategory["description"]) }}</textarea>
 
                         @error("description")
                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>
