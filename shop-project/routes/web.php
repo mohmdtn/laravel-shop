@@ -40,9 +40,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "BrandController@index")->name("admin.market.brand.index");
             Route::get("/create" , "BrandController@create")->name("admin.market.brand.create");
             Route::post("/store" , "BrandController@store")->name("admin.market.brand.store");
-            Route::get("/edit/{id}" , "BrandController@edit")->name("admin.market.brand.edit");
-            Route::put("/update/{id}" , "BrandController@update")->name("admin.market.brand.update");
-            Route::delete("/destroy/{id}" , "BrandController@destroy")->name("admin.market.brand.destroy");
+            Route::get("/edit/{brand}" , "BrandController@edit")->name("admin.market.brand.edit");
+            Route::put("/update/{brand}" , "BrandController@update")->name("admin.market.brand.update");
+            Route::delete("/destroy/{brand}" , "BrandController@destroy")->name("admin.market.brand.destroy");
+            Route::get("/status/{brand}" , "BrandController@status")->name("admin.market.brand.status");
         });
 
         // comment

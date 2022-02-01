@@ -31,6 +31,8 @@
                     <th>#</th>
                     <th>نام دسته</th>
                     <th>دسته والد</th>
+                    <th>اسلاگ</th>
+                    <th>تگ ها</th>
                     <th>وضعیت</th>
                     <th class="width-18 text-center">تنظیمات</th>
                 </thead>
@@ -41,6 +43,8 @@
                             <th>{{ $loop->iteration }}</th>
                             <td>{{ $category["name"] }}</td>
                             <td>{{ $category["parent_id"] ? $category["parent"]["name"] : "دسته اصلی" }}</td>
+                            <td>{{ $category["slug"] }}</td>
+                            <td>{{ $category["tags"] }}</td>
                             <td>
                                 <label class="switch">
                                     <input id="{{ $category["id"] }}" onchange="changeStatus({{ $category["id"] }})" data-url="{{ route("admin.market.category.status" , $category["id"]) }}" type="checkbox"

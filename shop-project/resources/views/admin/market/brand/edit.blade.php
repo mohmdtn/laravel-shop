@@ -1,7 +1,7 @@
 @extends("admin.layouts.master")
 
 @section("head-tag")
-    <title>ایجاد برند</title>
+    <title>ویرایش برند</title>
 @endsection
 
 @section("content")
@@ -11,13 +11,13 @@
             <li class="breadcrumb-item"><a href="#">خانه</a></li>
             <li class="breadcrumb-item"><a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item"><a href="#">برند</a></li>
-            <li class="breadcrumb-item active" aria-current="page">ایجاد برند</li>
+            <li class="breadcrumb-item active" aria-current="page">ویرایش برند</li>
         </ol>
     </nav>
 
     <section class="pagesContent py-3 px-2">
         <div class="sectionHeader d-flex justify-content-between align-items-center">
-            <h4>ایجاد برند:</h4>
+            <h4>ویرایش برند:</h4>
 
             <a href="{{ route("admin.market.brand.index") }}" class="btn btn-info btn-sm border-radius-4 box-shadow-normal">بازگشت</a>
         </div>
@@ -27,13 +27,14 @@
         </div>
 
         <section class="pageContentInner">
-            <form action="{{ route("admin.market.brand.store") }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route("admin.market.brand.update", $brand["id"]) }}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method("put")
                 <div class="row">
 
                     <div class="form-group col-md-4">
                         <label for="">نام فارسی برند</label>
-                        <input type="text" class="form-control border-radius-5" name="persian_name" value="{{ old("persian_name") }}">
+                        <input type="text" class="form-control border-radius-5" name="persian_name" value="{{ old("persian_name", $brand["persian_name"]) }}">
 
                         @error("persian_name")
                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>
@@ -42,7 +43,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="">نام اصلی برند</label>
-                        <input type="text" class="form-control border-radius-5" name="original_name" value="{{ old("original_name") }}">
+                        <input type="text" class="form-control border-radius-5" name="original_name" value="{{ old("original_name", $brand["original_name"]) }}">
 
                         @error("original_name")
                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>
@@ -58,8 +59,8 @@
 
                         <input type="file" id="imgInp" class="d-none" name="logo">
 
-                        <div class="imagePreview">
-                            <center><img src="" alt="" id="blah"></center>
+                        <div class="imagePreview editImagePreview">
+                            <center><img src="{{ asset($brand['logo']) }}" alt="" id="blah"></center>
                         </div>
 
                         @error("logo")
@@ -69,7 +70,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="">تگ ها</label>
-                        <input type="hidden" class="form-control border-radius-5" name="tags" id="tags" value="{{ old('tags') }}">
+                        <input type="hidden" class="form-control border-radius-5" name="tags" id="tags" value="{{ old('tags', $brand["tags"]) }}">
                         <select class="select2 form-control border-radius-5" id="select_tags" multiple></select>
 
                         @error("tags")
@@ -80,8 +81,8 @@
                     <div class="form-group col-md-4">
                         <label for="">وضعیت</label>
                         <select id="" class="form-control border-radius-5" name="status">
-                            <option value="0" @if(old('status') == 0) selected @endif>غیر فعال</option>
-                            <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                            <option value="0" @if(old('status', $brand["status"]) == 0) selected @endif>غیر فعال</option>
+                            <option value="1" @if(old('status', $brand["status"]) == 1) selected @endif>فعال</option>
                         </select>
 
                         @error("status")
