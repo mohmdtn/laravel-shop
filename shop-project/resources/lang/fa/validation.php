@@ -171,6 +171,14 @@ return [
         "logo"                      => "لوگو",
         "persian_name"              => "نام فارسی",
         "original_name"             => "نام انگلیسی",
+        "price"                     => "قیمت",
+        "width"                     => "عرض",
+        "weight"                    => "وزن",
+        "height"                    => "ارتفاع",
+        "length"                    => "طول",
+        "introduction"              => "توضیحات",
+        "brand_id"                  => "برند",
+        "marketable"                => "قابل فروش بودن",
 
     ],
 ];

@@ -107,9 +107,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "ProductController@index")->name("admin.market.product.index");
             Route::get("/create" , "ProductController@create")->name("admin.market.product.create");
             Route::post("/store" , "ProductController@store")->name("admin.market.product.store");
-            Route::get("/edit/{id}" , "ProductController@edit")->name("admin.market.product.edit");
-            Route::put("/update/{id}" , "ProductController@update")->name("admin.market.product.update");
-            Route::delete("/destroy/{id}" , "ProductController@destroy")->name("admin.market.product.destroy");
+            Route::get("/edit/{product}" , "ProductController@edit")->name("admin.market.product.edit");
+            Route::put("/update/{product}" , "ProductController@update")->name("admin.market.product.update");
+            Route::delete("/destroy/{product}" , "ProductController@destroy")->name("admin.market.product.destroy");
+            Route::get("/status/{product}" , "ProductController@status")->name("admin.market.product.status");
 
             Route::get("/gallery" , "GalleryController@index")->name("admin.market.gallery.index");
             Route::post("/gallery/store" , "GalleryController@store")->name("admin.market.gallery.store");

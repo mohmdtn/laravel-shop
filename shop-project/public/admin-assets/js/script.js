@@ -77,8 +77,8 @@ $(".dropdown2").click(function () {
 
 
 
-$(".dropdown-toggle").on("onclick" , function (){
-    alert("1");
+$(".dropdown-toggle").click(function (){
+    $(this).parent().find(".dropdown-menu").slideToggle();
 });
 
 function test(){
