@@ -170,4 +170,23 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route("admin.market.product.index")->with("swal-success" , "محصول شما با موفقیت حذف شد.");
     }
+
+    public function status(Product $product){
+
+        $product["status"] = $product["status"] == 0 ? 1 : 0;
+        $result = $product->save();
+
+        if ($result){
+            if ($product["status"] == 0){
+                return response()->json(["status" => true , "checked" => false]);
+            }
+            else{
+                return response()->json(["status" => true , "checked" => true]);
+            }
+        }
+        else{
+            return response()->json(["status" => false]);
+        }
+
+    }
 }

@@ -244,6 +244,10 @@ input:checked + .slider:before {
     width: 18rem;
 }
 
+.width-100{
+    width: 100%;
+}
+
 
 
 .submit-custom{

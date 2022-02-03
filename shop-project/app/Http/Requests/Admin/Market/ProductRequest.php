@@ -41,6 +41,8 @@ class ProductRequest extends FormRequest
                 "slug"              => "nullable",
                 "tags"              => "required|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,#؟?!+= ]+$/u",
                 "published_at"      => "required|numeric",
+                "meta_key.*"        => "required",
+                "meta_value.*"      => "required",
             ];
         }
 

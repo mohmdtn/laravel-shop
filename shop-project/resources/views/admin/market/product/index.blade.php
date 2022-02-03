@@ -36,6 +36,7 @@
                 <th>دسته</th>
                 <th>برند</th>
                 <th>فرم</th>
+                <th>وضعیت</th>
                 <th class="max-width-18">تنظیمات</th>
 
                 </thead>
@@ -52,12 +53,22 @@
                         <td>{{ $product->brand->persian_name }}</td>
                         <td>لپتاپ</td>
                         <td>
+                            <label class="switch">
+                                <input id="{{ $product["id"] }}" onchange="changeStatus({{ $product["id"] }})" data-url="{{ route("admin.market.product.status" , $product["id"]) }}" type="checkbox"
+                                       @if($product['status'] === 1)
+                                       checked
+                                    @endif
+                                >
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                        <td>
                             <div class="dropdown">
                                 <a href="#" class="btn btn-sm btn-info border-radius-2 dropdown-toggle" role="button" id="dropdownBtn" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tools ml-1"></i>عملیات</a>
 
                                 <div class="dropdown-menu border-radius-5 text-right" aria-labelledby="dropdownBtn">
-                                    <a href="" class="dropdown-item"><i class="fa fa-images ml-1"></i>گالری</a>
-                                    <a href="" class="dropdown-item"><i class="fa fa-list-ul ml-1"></i>فرم کالا</a>
+                                    <a href="{{ route("admin.market.gallery.index", $product["id"]) }}" class="dropdown-item"><i class="fa fa-images ml-1"></i>گالری</a>
+                                    <a href="{{ route("admin.market.color.index", $product["id"]) }}" class="dropdown-item"><i class="	fas fa-paint-roller ml-1"></i>رنگ کالا</a>
                                     <a href="{{ route("admin.market.product.edit", $product["id"]) }}" class="dropdown-item"><i class="fa fa-edit ml-1"></i>ویرایش</a>
                                     <form action="{{ route("admin.market.product.destroy" , $product["id"]) }}" method="post">
                                         @csrf
@@ -100,11 +111,11 @@
                     if (response.status){
                         if (response.checked){
                             element.prop("checked" , true);
-                            successToast("ایمیل با موفقیت فعال شد.");
+                            successToast("محصول با موفقیت فعال شد.");
                         }
                         else {
                             element.prop("checked" , false);
-                            successToast("ایمیل با موفقیت غیر فعال شد.");
+                            successToast("محصول با موفقیت غیر فعال شد.");
                         }
                     }
                     else {

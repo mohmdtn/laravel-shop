@@ -111,10 +111,17 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::put("/update/{product}" , "ProductController@update")->name("admin.market.product.update");
             Route::delete("/destroy/{product}" , "ProductController@destroy")->name("admin.market.product.destroy");
             Route::get("/status/{product}" , "ProductController@status")->name("admin.market.product.status");
+            // gallery
+            Route::get("/gallery/{product}" , "GalleryController@index")->name("admin.market.gallery.index");
+            Route::get("/gallery/{product}/create" , "GalleryController@create")->name("admin.market.gallery.create");
+            Route::post("/gallery/{product}/store" , "GalleryController@store")->name("admin.market.gallery.store");
+            Route::delete("/gallery/destroy/{product}/{gallery}" , "GalleryController@destroy")->name("admin.market.gallery.destroy");
+            // color
+            Route::get("/color/{product}" , "ProductColorController@index")->name("admin.market.color.index");
+            Route::get("/color/{product}/create" , "ProductColorController@create")->name("admin.market.color.create");
+            Route::post("/color/{product}/store" , "ProductColorController@store")->name("admin.market.color.store");
+            Route::delete("/color/destroy/{product}/{color}" , "ProductColorController@destroy")->name("admin.market.color.destroy");
 
-            Route::get("/gallery" , "GalleryController@index")->name("admin.market.gallery.index");
-            Route::post("/gallery/store" , "GalleryController@store")->name("admin.market.gallery.store");
-            Route::delete("/gallery/destroy/{id}" , "GalleryController@destroy")->name("admin.market.gallery.destroy");
         });
 
         // property

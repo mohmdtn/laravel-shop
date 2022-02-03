@@ -190,11 +190,19 @@
                             <div class="form-group col-md-5 col-6 pl-0 pl-md-2 d-flex align-items-center">
                                 <label for="">ویژگی</label>
                                 <input type="text" class="form-control border-radius-5 mr-2" name="meta_key[]">
+
+                                @error("meta_key.*")
+                                <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                                @enderror
                             </div>
 
                             <div class="form-group col-md-5 col-6 pr-1 pr-md-2  d-flex align-items-center">
                                 <label for="">مقدار</label>
                                 <input type="text" class="form-control border-radius-5 mr-2" name="meta_value[]">
+
+                                @error("meta_value.*")
+                                <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                                @enderror
                             </div>
 
                             <div class="form-group col-md-2 text-left">
@@ -205,9 +213,6 @@
 
                         </div>
 
-                        @error("logo")
-                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
-                        @enderror
                     </div>
 
                     <div class="col-md-12 d-flex justify-content-center pt-5">

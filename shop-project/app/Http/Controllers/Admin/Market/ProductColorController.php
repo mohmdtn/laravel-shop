@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\image\ImageService;
 use App\Models\Market\Product;
-use App\Models\Market\ProductImage;
+use App\Models\Market\ProductColor;
 use Illuminate\Http\Request;
 
-class GalleryController extends Controller
+class ProductColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class GalleryController extends Controller
      */
     public function index(Product $product)
     {
-        return view("admin.market.product.gallery.index", compact("product"));
+        return view("admin.market.product.color.index", compact("product"));
     }
 
     /**
@@ -27,7 +26,7 @@ class GalleryController extends Controller
      */
     public function create(Product $product)
     {
-        return view("admin.market.product.gallery.create", compact("product"));
+        return view("admin.market.product.color.create", compact("product"));
     }
 
     /**
@@ -36,29 +35,18 @@ class GalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Product $product, ImageService $imageService)
+    public function store(Request $request, Product $product)
     {
         $validated = $request->validate([
-            "image" => "required|image|mimes:png,jpg,jpeg,gif"
+            "color_name"        => "required|max:150|min:2|regex:/^[ا-یa-zA-Z0-9-۰-۹ء-ي. ]+$/u",
+            "price_increase"    => "required|numeric",
         ]);
+
         $inputs = $request->all();
-
-        if ($request->hasFile("image")){
-            $imageService->setExclusiveDirectory("images" . DIRECTORY_SEPARATOR . "product-gallery");
-            $result = $imageService->save($request->file("image"));
-
-            if ($result === false){
-                return redirect()->route("admin.market.gallery.index", $product["id"])->with("swal-error" , "آپلود تصویر با خطا مواجه شد.");
-            }
-
-            $inputs["image"] = $result;
-        }
-
         $inputs["product_id"] = $product["id"];
 
-        ProductImage::create($inputs);
-        return redirect()->route("admin.market.gallery.index", $product["id"])->with("swal-success", "تصویر جدید با موفقیت ایجاد شد.");
-
+        ProductColor::create($inputs);
+        return redirect()->route("admin.market.color.index", $product["id"])->with("swal-success", "رنگ جدید با موفقیت ایجاد شد.");
     }
 
     /**
@@ -101,9 +89,9 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product, ProductImage $gallery)
+    public function destroy(Product $product, ProductColor $color)
     {
-        $gallery->delete();
-        return redirect()->route("admin.market.gallery.index", $product["id"])->with("swal-success", "تصویر با موفقیت حذف شد.");
+        $color->delete();
+        return redirect()->route("admin.market.color.index", $product["id"])->with("swal-success", "رنگ با موفقیت حذف شد.");
     }
 }

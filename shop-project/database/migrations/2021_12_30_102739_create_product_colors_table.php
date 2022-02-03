@@ -23,6 +23,7 @@ class CreateProductColorsTable extends Migration
             $table->tinyInteger('frozen_number')->default(0);
             $table->tinyInteger('marketable_number')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
