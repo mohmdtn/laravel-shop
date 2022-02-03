@@ -179,6 +179,7 @@ return [
         "introduction"              => "توضیحات",
         "brand_id"                  => "برند",
         "marketable"                => "قابل فروش بودن",
+        "unit"                      => "واحد اندازه گیری",
 
     ],
 ];

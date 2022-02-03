@@ -46,7 +46,7 @@
                         <select name="parent_id" id="" class="form-control border-radius-5">
                             <option value="">دسته اصلی</option>
                             @foreach($productCategories as $category)
-                                <option value="{{ $category["id"] }}" @if(old("parent_id") == $category["id"]) selected @endif>{{ $category["name"] }}</option>
+                                <option value="{{ $category["id"] }}" @if(old("parent_id", $productCategory["parent_id"]) == $category["id"]) selected @endif>{{ $category["name"] }}</option>
                             @endforeach
                         </select>
 

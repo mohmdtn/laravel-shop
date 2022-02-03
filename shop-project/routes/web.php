@@ -129,9 +129,9 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/" , "PropertyController@index")->name("admin.market.property.index");
             Route::get("/create" , "PropertyController@create")->name("admin.market.property.create");
             Route::post("/store" , "PropertyController@store")->name("admin.market.property.store");
-            Route::get("/edit/{id}" , "PropertyController@edit")->name("admin.market.property.edit");
-            Route::put("/update/{id}" , "PropertyController@update")->name("admin.market.property.update");
-            Route::delete("/destroy/{id}" , "PropertyController@destroy")->name("admin.market.property.destroy");
+            Route::get("/edit/{categoryAttribute}" , "PropertyController@edit")->name("admin.market.property.edit");
+            Route::put("/update/{categoryAttribute}" , "PropertyController@update")->name("admin.market.property.update");
+            Route::delete("/destroy/{categoryAttribute}" , "PropertyController@destroy")->name("admin.market.property.destroy");
         });
 
         // store

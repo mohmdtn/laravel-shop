@@ -30,41 +30,40 @@
                 <thead class="table-info">
                     <th>#</th>
                     <th>نام فرم</th>
+                    <th>واحد اندازه گیری</th>
                     <th>فرم والد</th>
                     <th class="width-18 text-center">تنظیمات</th>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>نمایشگر</td>
-                        <td>کالای الکترونیک</td>
-                        <td class="max-width-18 text-left">
-                            <a href="" class="btn btn-sm btn-warning border-radius-2 mb-1 mb-md-0"><i class="fa fa-edit ml-2"></i>ویژگی ها</a>
-                            <a href="" class="btn btn-sm btn-info border-radius-2 mb-1 mb-md-0"><i class="fa fa-edit ml-2"></i>ویرایش</a>
-                            <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-trash-alt ml-2"></i>حذف</a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>2</th>
-                        <td>نمایشگر</td>
-                        <td>کالای الکترونیک</td>
-                        <td class="max-width-18 text-left">
-                            <a href="" class="btn btn-sm btn-warning border-radius-2 mb-1 mb-md-0"><i class="fa fa-edit ml-2"></i>ویژگی ها</a>
-                            <a href="" class="btn btn-sm btn-info border-radius-2 mb-1 mb-md-0"><i class="fa fa-edit ml-2"></i>ویرایش</a>
-                            <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-trash-alt ml-2"></i>حذف</a>
-                        </td>
-                    </tr>
-                </tbody>
-
-                <tbody>
-
+                    @foreach($categoryAttributes as $categoryAttribute)
+                        <tr>
+                            <th>{{ $loop->iteration }}</th>
+                            <td>{{ $categoryAttribute["name"] }}</td>
+                            <td>{{ $categoryAttribute["unit"] }}</td>
+                            <td>{{ $categoryAttribute->category->name }}</td>
+                            <td class="max-width-18 text-left">
+                                <a href="" class="btn btn-sm btn-warning border-radius-2 mb-1 mb-md-0"><i class="fa fa-edit ml-2"></i>ویژگی ها</a>
+                                <a href="{{ route("admin.market.property.edit", $categoryAttribute["id"]) }}" class="btn btn-sm btn-info border-radius-2 mb-1 mb-md-0"><i class="fa fa-edit ml-2"></i>ویرایش</a>
+                                <form action="{{ route("admin.market.property.destroy", $categoryAttribute["id"]) }}" method="post">
+                                    @csrf
+                                    @method("delete")
+                                    <button class="btn btn-sm btn-danger border-radius-2 deleteBtn"><i class="fa fa-trash-alt ml-2"></i>حذف</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
 
         </section>
 
     </section>
+
+@endsection
+
+@section("scripts")
+
+    @include("admin.alerts.sweetAlert.deleteConfirm" , ["className" => "deleteBtn"])
 
 @endsection
