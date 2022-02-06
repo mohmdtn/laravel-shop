@@ -132,6 +132,13 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/edit/{categoryAttribute}" , "PropertyController@edit")->name("admin.market.property.edit");
             Route::put("/update/{categoryAttribute}" , "PropertyController@update")->name("admin.market.property.update");
             Route::delete("/destroy/{categoryAttribute}" , "PropertyController@destroy")->name("admin.market.property.destroy");
+            // value
+            Route::get("/value/{categoryAttribute}" , "PropertyValueController@index")->name("admin.market.property.value.index");
+            Route::get("/value/{categoryAttribute}/create" , "PropertyValueController@create")->name("admin.market.property.value.create");
+            Route::post("/value/{categoryAttribute}/store" , "PropertyValueController@store")->name("admin.market.property.value.store");
+            Route::get("/value/edit/{categoryAttribute}/{value}" , "PropertyValueController@edit")->name("admin.market.property.value.edit");
+            Route::put("/value/update/{categoryAttribute}/{value}" , "PropertyValueController@update")->name("admin.market.property.value.update");
+            Route::delete("/value/destroy/{categoryAttribute}/{value}" , "PropertyValueController@destroy")->name("admin.market.property.value.destroy");
         });
 
         // store
