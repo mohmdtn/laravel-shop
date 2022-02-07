@@ -180,6 +180,10 @@ return [
         "brand_id"                  => "برند",
         "marketable"                => "قابل فروش بودن",
         "unit"                      => "واحد اندازه گیری",
+        "value"                     => "مقدار",
+        "type"                      => "نوع",
+        "product_id"                => "محصول",
+        "price_increase"            => "افزایش قیمت",
 
     ],
 ];
