@@ -15,4 +15,8 @@ class ProductMeta extends Model
     public function product(){
         return $this->belongsTo(Product::class, "product_id");
     }
+
+    public function comments(){
+        return $this->morphMany("App\Models\Content\Comment", "commentable");
+    }
 }

@@ -30,33 +30,40 @@
 
             <div class="productInfo my-3 border-radius-3">
                 <div class="productInfoInner py-3 px-2 border-radius-3 d-flex justify-content-between align-items-center">
-                    <div><i class="fas fa-user pl-1"></i> سینا مهدوی - 13891</div>
+                    <div><i class="fas fa-user pl-1"></i> {{ $comment["user"]["fullName"] }} - {{ $comment["author_id"] }}</div>
 
-                    <div><i class="fas fa-clock"></i> دوشنبه 20 آذر 1400 , 22:01</div>
+                    <div><i class="fas fa-clock"></i> {{ jalaliDate($comment["created_at"], "H:i:s %A %d %B %Y") }}</div>
                 </div>
                 <div class="productInfoInnerSec py-4 px-3">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <p class="pl-4 d-inline-block"><span>مشخصات کالا:</span> ساعت هوشمند اپل واچ</p>
-                            <p class="d-inline-block"><span>کد کالا:</span> 234401 </p>
+                            <p class="pl-4 d-inline-block"><span>مشخصات کالا:</span> {{ $comment["commentable"]["title"] }}</p>
+                            <p class="d-inline-block"><span>کد کالا:</span> {{ $comment["commentable"]["id"] }} </p>
                         </div>
 
                     </div>
 
-                    <i class="fas fa-comment pl-2">:</i>به نظر من ساعت خوبیه ولی قیمتش یکم زیاده
+                    <i class="fas fa-comment pl-2">:</i>{{ $comment["body"] }}
                 </div>
             </div>
 
-            <form action="">
-                <div class="form-group">
-                    <label for="replay">پاسخ ادمین</label>
-                    <textarea name="" id="replay" rows="4" class="form-control border-radius-5"></textarea>
-                </div>
+            @if($comment["parent_id"] == null)
+                <form action="{{ route("admin.market.comment.answer", $comment["id"]) }}" method="post">
+                    @csrf
+                    <div class="form-group">
+                        <label for="replay">پاسخ ادمین</label>
+                        <textarea name="body" id="replay" rows="4" class="form-control border-radius-5"></textarea>
 
-                <div class="col-md-12 d-flex justify-content-center pt-5">
-                    <input type="button" class="btn btn-primary border-radius-4 box-shadow-normal submit-custom" value="ثبت">
-                </div>
-            </form>
+                        @error("body")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-12 d-flex justify-content-center pt-5">
+                        <input type="submit" class="btn btn-primary border-radius-4 box-shadow-normal submit-custom" value="ثبت">
+                    </div>
+                </form>
+            @endif
 
         </section>
 
