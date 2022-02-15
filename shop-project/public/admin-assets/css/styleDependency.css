@@ -259,6 +259,13 @@ input:checked + .slider:before {
     padding-left: 25px;
 }
 
+
+
+
+.color-blue{
+    color: #17a2b8;
+}
+
 /* ////////////////////// end of most class */
 
 

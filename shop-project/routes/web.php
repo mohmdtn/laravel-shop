@@ -144,11 +144,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
         // store
         Route::prefix("store")->group(function (){
             Route::get("/" , "StoreController@index")->name("admin.market.store.index");
-            Route::get("/add-to-store" , "StoreController@addToStore")->name("admin.market.store.addToStore");
-            Route::post("/store" , "StoreController@store")->name("admin.market.store.store");
-            Route::get("/edit/{id}" , "StoreController@edit")->name("admin.market.store.edit");
-            Route::put("/update/{id}" , "StoreController@update")->name("admin.market.store.update");
-            Route::delete("/destroy/{id}" , "StoreController@destroy")->name("admin.market.store.destroy");
+            Route::get("/add-to-store/{product}" , "StoreController@addToStore")->name("admin.market.store.addToStore");
+            Route::post("/store/{product}" , "StoreController@store")->name("admin.market.store.store");
+            Route::get("/edit/{product}" , "StoreController@edit")->name("admin.market.store.edit");
+            Route::put("/update/{product}" , "StoreController@update")->name("admin.market.store.update");
         });
 
     });

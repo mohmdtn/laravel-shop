@@ -184,6 +184,9 @@ return [
         "type"                      => "نوع",
         "product_id"                => "محصول",
         "price_increase"            => "افزایش قیمت",
+        "receiver"                  => "تحویل گیرنده",
+        "deliverer"                 => "تحویل دهنده",
+        "marketable_number"         => "تعداد",
 
     ],
 ];

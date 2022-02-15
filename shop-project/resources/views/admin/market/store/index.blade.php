@@ -32,41 +32,28 @@
                     <th>#</th>
                     <th>نام کالا</th>
                     <th>تصویر کالا</th>
-                    <th>موجودی</th>
-                    <th>ورودی انبار</th>
-                    <th>خروجی انبار</th>
+                    <th>تعداد قابل فروش</th>
+                    <th>تعداد فروخته شده</th>
+                    <th>تعداد رزرو شده</th>
                     <th class="width-18 text-center">تنظیمات</th>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>آیفون 13</td>
-                        <td><img src="{{ asset("admin-assets/images/iphone.jpg") }}" alt=""></td>
-                        <td>12</td>
-                        <td>22</td>
-                        <td>10</td>
-                        <td class="max-width-18 text-left">
-                            <a href="{{ route("admin.market.store.addToStore") }}" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>افزایش موجودی</a>
-                            <a href="" class="btn btn-sm btn-warning border-radius-2"><i class="fa fa-edit ml-2"></i>اصلاح موجودی</a>
-                        </td>
-                    </tr>
 
-                    <tr>
-                        <th>2</th>
-                        <td>سورفیس پرو 5</td>
-                        <td><img src="{{ asset("admin-assets/images/surface.jpg") }}" alt=""></td>
-                        <td>11</td>
-                        <td>24</td>
-                        <td>13</td>
-                        <td class="max-width-18 text-left">
-                            <a href="{{ route("admin.market.store.addToStore") }}" class="btn btn-sm btn-info border-radius-2 mb-1 mb-sm-0"><i class="fa fa-edit ml-2"></i>افزایش موجودی</a>
-                            <a href="" class="btn btn-sm btn-warning border-radius-2"><i class="fa fa-edit ml-2"></i>اصلاح موجودی</a>
-                        </td>
-                    </tr>
-                </tbody>
-
-                <tbody>
+                    @foreach($products as $product)
+                        <tr>
+                            <th>{{ $loop->iteration }}</th>
+                            <td>{{ $product["name"] }}</td>
+                            <td><img src="{{ asset($product['image']['indexArray'][$product['image']['currentImage']]) }}" alt=""></td>
+                            <td>{{ $product["marketable_number"] }}</td>
+                            <td>{{ $product["sold_number"] }}</td>
+                            <td>{{ $product["frozen_number"] }}</td>
+                            <td class="max-width-18 text-left">
+                                <a href="{{ route("admin.market.store.addToStore", $product["id"]) }}" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>افزایش موجودی</a>
+                                <a href="{{ route("admin.market.store.edit", $product["id"]) }}" class="btn btn-sm btn-warning border-radius-2"><i class="fa fa-edit ml-2"></i>اصلاح موجودی</a>
+                            </td>
+                        </tr>
+                    @endforeach
 
                 </tbody>
             </table>
