@@ -341,6 +341,11 @@ main{
     background: linear-gradient(to right, #4cb8c4, #3cd3ad);
 }
 
+.chartWrapper{
+    max-width: 900px;
+    padding: 10px 15px;
+}
+
 /* ////////////////////////// end of main cards */
 
 
