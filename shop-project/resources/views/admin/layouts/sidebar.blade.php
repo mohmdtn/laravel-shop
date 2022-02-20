@@ -161,7 +161,7 @@
                         </div>
                     </a>
 
-                    <a href="{{ route("admin.market.payment.attendance") }}" class="sidebarLink">
+                    <a href="{{ route("admin.market.payment.cash") }}" class="sidebarLink">
                         <div>
                             <i class="fas fa-money-bill-wave"></i>
                             <span>پرداخت در محل</span>

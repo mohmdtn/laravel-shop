@@ -125,14 +125,18 @@
     </section>
 
     <section class="container-fluid">
-        <div class="row">
+        <div class="row px-2">
             <div class="col-md-8">
                 <section class="chartWrapper">
                     <canvas id="myChart"></canvas>
                 </section>
             </div>
             <div class="col-md-4">
-
+                <section>
+                    <section class="chartWrapper">
+                        <canvas id="myChart2"></canvas>
+                    </section>
+                </section>
             </div>
         </div>
     </section>
@@ -144,8 +148,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
     <script>
         const ctx = document.getElementById('myChart').getContext('2d');
-        var labels = ['galaxy s21 ultra', 'iphone 13 pro max', 'xiaomi redmi note 9', 'surface pro 7', 'galaxy a71', 'iphone X', 'iphone 12 pro'];
-        var data = [12, 19, 3, 5, 2, 3, 9];
+        var labels = ['galaxy s21 ultra', 'iphone 13 pro max', 'xiaomi redmi note 9', 'surface pro 7', 'galaxy a71', 'iphone X', 'iphone 12 pro', 'ipad'];
+        var data = [12, 19, 3, 5, 2, 3, 9, 6];
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -160,11 +164,47 @@
                         'rgba(75, 192, 192, 0.4)',
                         'rgba(153, 102, 255, 0.4)',
                         'rgba(255, 159, 64, 0.4)',
+                        'rgba(255, 133, 64, 0.4)',
+                        'rgba(200,54,255,0.45)'
+                    ],
+                    tension: .15,
+                    borderRadius: 5,
+                }],
+            },
+        });
+    </script>
+
+    <script>
+        const ctx2 = document.getElementById('myChart2').getContext('2d');
+        var labels2 = ['galaxy s21 ultra', 'iphone 13 pro max', 'xiaomi redmi note 9', 'iphone X', 'iphone 12 pro'];
+        var data2 = [12, 19, 3, 5, 2];
+        const myChart2 = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: labels2,
+                datasets: [{
+                    data: data2,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.4)',
+                        'rgba(54, 162, 235, 0.4)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.4)',
+                        'rgba(153, 102, 255, 0.4)',
+                        'rgba(255, 159, 64, 0.4)',
                         'rgba(255, 133, 64, 0.4)'
                     ],
                     tension: .15,
                     borderRadius: 5,
                 }],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'پر طرفدار ترین دسته بندی ها'
+                    }
+                }
             },
         });
     </script>

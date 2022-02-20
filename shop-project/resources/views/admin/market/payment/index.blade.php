@@ -32,6 +32,7 @@
                 <th>#</th>
                 <th>کد تراکنش</th>
                 <th>بانک</th>
+                <th>مبلغ</th>
                 <th>پرداخت کننده</th>
                 <th>وضعیت پرداخت</th>
                 <th>نوع پرداخت</th>
@@ -39,37 +40,34 @@
                 </thead>
 
                 <tbody>
-                <tr>
-                    <th>1</th>
-                    <td>1238173</td>
-                    <td>ملت</td>
-                    <td>محمد تقی نسب</td>
-                    <td>تایید شده</td>
-                    <td>آنلاین</td>
-                    <td class=" text-left">
-                        <a href="{{ route("admin.market.comment.show") }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-eye ml-2"></i>مشاهده</a>
-                        <a href="" class="btn btn-sm btn-warning border-radius-2 text-white mb-2 mb-md-0"><i class="fa fa-window-close ml-2"></i>باطل کردن</a>
-                        <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-undo ml-2"></i>برگرداندن</a>
-                    </td>
-                </tr>
 
-                <tr>
-                    <th>2</th>
-                    <td>3535678</td>
-                    <td>رفاه</td>
-                    <td>سینا مهدوی</td>
-                    <td>تایید شده</td>
-                    <td>آفلاین</td>
-                    <td class=" text-left">
-                        <a href="{{ route("admin.market.comment.show") }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-eye ml-2"></i>مشاهده</a>
-                        <a href="" class="btn btn-sm btn-warning border-radius-2 text-white mb-2 mb-md-0"><i class="fa fa-window-close ml-2"></i>باطل کردن</a>
-                        <a href="" class="btn btn-sm btn-danger border-radius-2"><i class="fa fa-undo ml-2"></i>برگرداندن</a>
-                    </td>
-                </tr>
-
-                </tbody>
-
-                <tbody>
+                    @foreach($payments as $payment)
+                        <tr>
+                            <th>{{ $loop->iteration }}</th>
+                            <td>{{ $payment->paymentable->transaction_id ?? "-" }}</td>
+                            <td>{{ $payment->paymentable->gateway ?? "-" }}</td>
+                            <td>{{ $payment->paymentable->amount }}</td>
+                            <td>{{ $payment->user->FullName }}</td>
+                            <td>
+                                @if($payment["status"] == 0) پرداخت نشده <i class="fa fa-window-close"></i>
+                                @elseif($payment["status"] == 1) پرداخت شده <i class="fa fa-check-square"></i>
+                                @elseif($payment["status"] == 2) باطل شده <i class="fas fa-ban"></i>
+                                @elseif($payment["status"] == 3) برگشت داده شده <i class="fa fa-undo"></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if($payment["type"] == 0) آنلاین <i class="fas fa-credit-card"></i>
+                                @elseif($payment["type"] == 1) آفلاین <i class="fas fa-money-check-alt"></i>
+                                @else در محل <i class="fas fa-money-bill-wave"></i>
+                                @endif
+                            </td>
+                            <td class=" text-left">
+                                <a href="" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-eye ml-2"></i>مشاهده</a>
+                                <a href="{{ route("admin.market.payment.canceled", $payment["id"]) }}" class="btn btn-sm btn-warning border-radius-2 text-white mb-2 mb-md-0 cancelBtn"><i class="fa fa-window-close ml-2"></i>باطل کردن</a>
+                                <a href="{{ route("admin.market.payment.returned", $payment["id"]) }}" class="btn btn-sm btn-danger border-radius-2 returnBtn"><i class="fa fa-undo ml-2"></i>برگرداندن</a>
+                            </td>
+                        </tr>
+                    @endforeach
 
                 </tbody>
             </table>
@@ -77,5 +75,12 @@
         </section>
 
     </section>
+
+@endsection
+
+@section("scripts")
+
+    @include("admin.alerts.sweetAlert.cancelConfirm" , ["className" => "cancelBtn"])
+    @include("admin.alerts.sweetAlert.returnConfirm" , ["className" => "returnBtn"])
 
 @endsection

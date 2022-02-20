@@ -344,6 +344,8 @@ main{
 .chartWrapper{
     max-width: 900px;
     padding: 10px 15px;
+    background-color: #f7f7f7;
+    border-radius: 15px;
 }
 
 /* ////////////////////////// end of main cards */
