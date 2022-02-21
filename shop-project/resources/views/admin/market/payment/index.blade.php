@@ -62,9 +62,14 @@
                                 @endif
                             </td>
                             <td class=" text-left">
-                                <a href="" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-eye ml-2"></i>مشاهده</a>
-                                <a href="{{ route("admin.market.payment.canceled", $payment["id"]) }}" class="btn btn-sm btn-warning border-radius-2 text-white mb-2 mb-md-0 cancelBtn"><i class="fa fa-window-close ml-2"></i>باطل کردن</a>
-                                <a href="{{ route("admin.market.payment.returned", $payment["id"]) }}" class="btn btn-sm btn-danger border-radius-2 returnBtn"><i class="fa fa-undo ml-2"></i>برگرداندن</a>
+                                <a href="{{ route("admin.market.payment.show", $payment["id"]) }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-eye ml-2"></i>مشاهده</a>
+                                @if($payment["status"] !== 2)
+                                    <a href="{{ route("admin.market.payment.canceled", $payment["id"]) }}" class="btn btn-sm btn-warning border-radius-2 text-white mb-2 mb-md-0 cancelBtn"><i class="fa fa-window-close ml-2"></i>باطل کردن</a>
+                                @endif
+                                @if($payment["status"] !== 3)
+                                    <a href="{{ route("admin.market.payment.returned", $payment["id"]) }}" class="btn btn-sm btn-danger border-radius-2 returnBtn"><i class="fa fa-undo ml-2"></i>برگرداندن</a>
+                                @endif
+
                             </td>
                         </tr>
                     @endforeach
