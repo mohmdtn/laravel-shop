@@ -70,10 +70,15 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
         // discount
         Route::prefix("discount")->group(function (){
             Route::get("/copan" , "DiscountController@copan")->name("admin.market.discount.copan");
-            Route::get("/copan/create" , "DiscountController@copanCreate")->name("admin.market.discount.copan.create");
+            Route::get("/copan/create" , "DiscountController@copanCreate")->name("admin.market.discount.copan.create");;
 
             Route::get("/common-discount" , "DiscountController@commonDiscount")->name("admin.market.discount.commonDiscount");
             Route::get("/common-discount/create" , "DiscountController@commonDiscountCreate")->name("admin.market.discount.commonDiscount.create");
+            Route::post("/common-discount/store" , "DiscountController@commonDiscountStore")->name("admin.market.discount.commonDiscount.store");
+            Route::get("/common-discount/edit/{commonDiscount}" , "DiscountController@commonDiscountEdit")->name("admin.market.discount.commonDiscount.edit");
+            Route::put("/common-discount/update/{commonDiscount}" , "DiscountController@commonDiscountUpdate")->name("admin.market.discount.commonDiscount.update");
+            Route::delete("/common-discount/destroy/{commonDiscount}" , "DiscountController@commonDiscountDestroy")->name("admin.market.discount.commonDiscount.destroy");
+            Route::get("/common-discount/status/{commonDiscount}" , "DiscountController@commonDiscountStatus")->name("admin.market.discount.commonDiscount.status");
 
             Route::get("/amazing-sale" , "DiscountController@amazingSale")->name("admin.market.discount.amazingSale");
             Route::get("/amazing-sale/create" , "DiscountController@amazingSaleCreate")->name("admin.market.discount.amazingSale.create");

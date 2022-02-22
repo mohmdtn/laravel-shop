@@ -187,6 +187,11 @@ return [
         "receiver"                  => "تحویل گیرنده",
         "deliverer"                 => "تحویل دهنده",
         "marketable_number"         => "تعداد",
+        "percentage"                => "درصد",
+        "discount_ceiling"          => "حداکثر تخفیف",
+        "minimal_order_amount"      => "حداقل مبلغ خرید",
+        "start_date"                => "تاریخ شروع",
+        "end_date"                  => "تاریخ پایان",
 
     ],
 ];
