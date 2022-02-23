@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CommonDiscount extends Model
+class AmazingSale extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $table = "common_discount";
+    protected $fillable = ["product_id", "percentage", "status", "start_date", "end_date"];
 
-    protected $fillable = ["name", "percentage", "discount_ceiling", "minimal_order_amount", "status", "start_date", "end_date"];
-
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
 }

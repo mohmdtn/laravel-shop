@@ -82,6 +82,11 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
 
             Route::get("/amazing-sale" , "DiscountController@amazingSale")->name("admin.market.discount.amazingSale");
             Route::get("/amazing-sale/create" , "DiscountController@amazingSaleCreate")->name("admin.market.discount.amazingSale.create");
+            Route::post("/amazing-sale/store" , "DiscountController@amazingSaleStore")->name("admin.market.discount.amazingSale.store");
+            Route::get("/amazing-sale/edit/{amazingSale}" , "DiscountController@amazingSaleEdit")->name("admin.market.discount.amazingSale.edit");
+            Route::put("/amazing-sale/update/{amazingSale}" , "DiscountController@amazingSaleUpdate")->name("admin.market.discount.amazingSale.update");
+            Route::delete("/amazing-sale/destroy/{amazingSale}" , "DiscountController@amazingSaleDestroy")->name("admin.market.discount.amazingSale.destroy");
+            Route::get("/amazing-sale/status/{amazingSale}" , "DiscountController@amazingSaleStatus")->name("admin.market.discount.amazingSale.status");
         });
 
         // order

@@ -47,4 +47,8 @@ class Product extends Model
         return $this->hasMany(CategoryValue::class);
     }
 
+    public function amazingSale(){
+        return $this->hasMany(AmazingSale::class);
+    }
+
 }
