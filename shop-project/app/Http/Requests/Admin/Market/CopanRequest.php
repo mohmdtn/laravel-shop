@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Market;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CommonDiscountRequest extends FormRequest
+class CopanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,15 @@ class CommonDiscountRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"                  => "required|min:2|max:40|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,+=* ]+$/u",
-            "percentage"            => "required|max:100|min:1|numeric",
+            "code"                  => "required|max:20|min:1|regex:/^[a-zA-Z0-9-]+$/u",
             "discount_ceiling"      => "required|max:100000000000|min:1|numeric",
-            "minimal_order_amount"  => "required|max:100000000000|min:1|numeric",
+            "amount_type"           => "required|numeric|in:0,1",
+            "amount"                => [request()->amount_type == 0 ? "max:100" : "max:10000000", "required", "numeric"],
+            "user_id"               => "required_if:type,==,1|min:1|regex:/^[0-9]+$/u|exists:users,id",
             "start_date"            => "required|numeric",
             "end_date"              => "required|numeric",
+            "status"                => "required|numeric|in:0,1",
+            "type"                  => "required|numeric|in:0,1",
         ];
     }
 }
