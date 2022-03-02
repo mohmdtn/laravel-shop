@@ -76,9 +76,12 @@
                             </td>
                             <td>{{ $order->delivery->name }}</td>
                             <td>
-                                @if($order["status"] == 0) در انتظار تایید
-                                @elseif($order["status"] == 1) تایید نشده
-                                @elseif($order["status"] == 2) تایید شده
+                                @if($order["order_status"] == 0) برسی نشده
+                                @elseif($order["order_status"] == 1) در انتظار تایید
+                                @elseif($order["order_status"] == 2) تایید نشده
+                                @elseif($order["order_status"] == 3) تایید شده
+                                @elseif($order["order_status"] == 4) باطل شده
+                                @elseif($order["order_status"] == 5) مرجوع شده
                                 @endif
                             </td>
                             <td>
