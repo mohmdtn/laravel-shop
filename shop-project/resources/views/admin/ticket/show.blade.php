@@ -39,7 +39,6 @@
                         <div>
                             <p class="pl-4 d-inline-block"><span>موضوع:</span>{{ $ticket["subject"] }}</p>
                         </div>
-
                     </div>
 
                     <i class="fas fa-comment pl-2">:</i>{{ $ticket["description"] }}

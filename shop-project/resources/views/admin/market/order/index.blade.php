@@ -89,7 +89,7 @@
                                     <a href="#" class="btn btn-sm btn-info border-radius-2 dropdown-toggle" role="button" id="dropdownBtn" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tools ml-1"></i>عملیات</a>
 
                                     <div class="dropdown-menu border-radius-5 text-right" aria-labelledby="dropdownBtn">
-                                        <a href="" class="dropdown-item"><i class="fas fa-scroll ml-1"></i>مشاهده فاکتور</a>
+                                        <a href="{{ route("admin.market.order.show", $order["id"]) }}" class="dropdown-item"><i class="fas fa-scroll ml-1"></i>مشاهده فاکتور</a>
                                         <a href="{{ route("admin.market.order.changeSendStatus", $order["id"]) }}" class="dropdown-item"><i class="fas fa-shipping-fast ml-1"></i>تغییر وضعیت ارسال</a>
                                         <a href="{{ route("admin.market.order.changeOrderStatus", $order["id"]) }}" class="dropdown-item"><i class="fa fa-edit ml-1"></i>تغییر وضعیت سفارش</a>
                                         <a href="{{ route("admin.market.order.cancelOrder", $order["id"]) }}" class="dropdown-item"><i class="fa fa-window-close ml-1"></i>باطل کردن سفارش</a>

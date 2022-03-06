@@ -16,4 +16,8 @@ class Copan extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function Order(){
+        return $this->hasOne(Order::class);
+    }
 }
