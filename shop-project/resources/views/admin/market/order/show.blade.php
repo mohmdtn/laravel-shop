@@ -34,7 +34,7 @@
 
                     <div class="">
                         <a class="btn btn-info rounded-pill" id="print" href="#"><i class="fas fa-print pl-1"></i> چاپ </a>
-                        <a class="btn btn-success rounded-pill" href=""><i class="fas fa-book pl-1"></i> جزئیات </a>
+                        <a class="btn btn-success rounded-pill" href="{{ route("admin.market.order.detail", $order["id"]) }}"><i class="fas fa-book pl-1"></i> جزئیات </a>
                     </div>
 
 {{--                    <div><i class="fas fa-clock"></i> {{ jalaliDate($order["created_at"], "H:i:s %A %d %B %Y") }}</div>--}}
