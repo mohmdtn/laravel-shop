@@ -103,23 +103,12 @@
 
                             <tr>
                                 <th>نوع پرداخت :</th>
-                                <td>
-                                    @if($order["payment_type"] == 0)آنلاین
-                                    @elseif($order["payment_type"] == 1)آفلاین
-                                    @elseif($order["payment_type"] == 2)در محل
-                                    @endif
-                                </td>
+                                <td>{{ $order->paymentTypeValue }}</td>
                             </tr>
 
                             <tr>
                                 <th>وضعیت پرداخت :</th>
-                                <td>
-                                    @if($order["payment_status"] == 0) پرداخت نشده
-                                    @elseif($order["payment_status"] == 1) پرداخت شده
-                                    @elseif($order["payment_status"] == 2) باطل شده
-                                    @elseif($order["payment_status"] == 3) برگشت داده شده
-                                    @endif
-                                </td>
+                                <td>{{ $order->paymentStatusValue }}</td>
                             </tr>
 
                             <tr>
@@ -129,13 +118,7 @@
 
                             <tr>
                                 <th>وضعیت ارسال :</th>
-                                <td>
-                                    @if($order["delivery_status"] == 0) ارسال نشده
-                                    @elseif($order["delivery_status"] == 1) در حال ارسال
-                                    @elseif($order["delivery_status"] == 2) ارسال شده
-                                    @elseif($order["delivery_status"] == 3) تحویل شده
-                                    @endif
-                                </td>
+                                <td>{{ $order->deliveryStatusValue }}</td>
                             </tr>
 
                             <tr>
@@ -190,15 +173,7 @@
 
                             <tr>
                                 <th>وضعیت سفارش :</th>
-                                <td>
-                                    @if($order["order_status"] == 0) برسی نشده
-                                    @elseif($order["order_status"] == 1) در انتظار تایید
-                                    @elseif($order["order_status"] == 2) تایید نشده
-                                    @elseif($order["order_status"] == 3) تایید شده
-                                    @elseif($order["order_status"] == 4) باطل شده
-                                    @elseif($order["order_status"] == 5) مرجوع شده
-                                    @endif
-                                </td>
+                                <td>{{ $order->orderStatusValue }}</td>
                             </tr>
 
                         </tbody>

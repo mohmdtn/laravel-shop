@@ -71,7 +71,11 @@
                         </span>
 
                     <span class="px-2 position-relative notifWrapperClick">
-                            <span class="pointer"><i class="far fa-comment shake"></i><sup class="badge badge-info">36</sup></span>
+                            <span class="pointer"><i class="far fa-comment shake"></i>
+                                @if($unseenComments->count() !== 0)
+                                    <sup class="badge badge-info">{{ $unseenComments->count() }}</sup>
+                                @endif
+                            </span>
 
                             <div class="notifWrapper notifWrapper2 position-absolute">
                                 <div class="headOfNotif d-flex justify-content-between align-items-center px-3">
@@ -83,36 +87,30 @@
 
                                 <ul class="list-group">
 
+                                    @forelse($unseenComments as $unseenComment)
+{{--                                    <li class="list-group-item">--}}
+{{--                                        <div class="media align-items-center">--}}
+{{--                                            <img src="{{ asset("admin-assets/images/unkonwPrfmale.png") }}" alt="">--}}
+{{--                                            <div class="media-body pr-2 d-flex justify-content-between align-items-center">--}}
+{{--                                                <h6>{{ $unseenComment->user->fullName }}</h6>--}}
+{{--                                                <i class="fas fa-circle text-success"></i>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </li>--}}
+
                                     <li class="list-group-item">
-                                        <div class="media align-items-center">
+                                        <div class="media">
                                             <img src="{{ asset("admin-assets/images/unkonwPrfmale.png") }}" alt="">
-                                            <div class="media-body pr-2 d-flex justify-content-between align-items-center">
-                                                <h6>محمد تقی نسب</h6>
-                                                <i class="fas fa-circle text-success"></i>
+                                            <div class="media-body pr-2">
+                                                <h6>{{ $unseenComment->user->fullName }}</h6>
+                                                <p class="notifText">{{ $unseenComment["body"] }}</p>
+                                                <p class="notifTime">40 دقیقه قبل</p>
                                             </div>
                                         </div>
                                     </li>
-
-                                    <li class="list-group-item">
-                                        <div class="media align-items-center">
-                                            <img src="{{ asset("admin-assets/images/unkonwPrfmale.png") }}" alt="">
-                                            <div class="media-body pr-2 d-flex justify-content-between align-items-center">
-                                                <h6>محمد تقی نسب</h6>
-                                                <i class="fas fa-circle text-success"></i>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <div class="media align-items-center">
-                                            <img src="{{ asset("admin-assets/images/unkonwPrfmale.png") }}" alt="">
-                                            <div class="media-body pr-2 d-flex justify-content-between align-items-center">
-                                                <h6>محمد تقی نسب</h6>
-                                                <i class="fas fa-circle text-success"></i>
-                                            </div>
-                                        </div>
-                                    </li>
-
+                                    @empty
+                                        <span class="text-center">کامنت جدید وجود ندارد</span>
+                                    @endforelse
                                 </ul>
                             </div>
 

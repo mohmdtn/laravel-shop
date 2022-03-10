@@ -104,7 +104,8 @@ body , html{
 .notifWrapper li p{
     line-height: 1.5;
     margin-bottom: 8px;
-    padding-right: 14px;
+    padding-right: 2px;
+    margin-right: 12px;
 }
 
 .notifWrapper li h6{
@@ -112,7 +113,8 @@ body , html{
 }
 
 .notifText{
-    font-size: 16px;
+    font-size: 12px;
+    border-right: 2px solid var(--site-pourple);
 }
 
 .notifTime{

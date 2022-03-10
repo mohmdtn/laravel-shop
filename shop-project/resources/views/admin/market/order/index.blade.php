@@ -53,37 +53,12 @@
                             <td>{{ $order["order_discount_amount"] }} تومان</td>
                             <td>{{ $order["order_total_products_discount_amount"] }} تومان</td>
                             <td>{{ $order["order_final_amount"] - $order["order_discount_amount"] }} تومان</td>
-                            <td>
-                                @if($order["payment_status"] == 0) پرداخت نشده
-                                @elseif($order["payment_status"] == 1) پرداخت شده
-                                @elseif($order["payment_status"] == 2) باطل شده
-                                @elseif($order["payment_status"] == 3) برگشت داده شده
-                                @endif
-                            </td>
-                            <td>
-                                @if($order["payment_type"] == 0)آنلاین
-                                @elseif($order["payment_type"] == 1)آفلاین
-                                @elseif($order["payment_type"] == 2)در محل
-                                @endif
-                            </td>
+                            <td>{{ $order->paymentStatusValue }}</td>
+                            <td>{{ $order->paymentTypeValue }}</td>
                             <td>{{ $order->payment->paymanetable->grtway ?? "-" }}</td>
-                            <td>
-                                @if($order["delivery_status"] == 0) ارسال نشده
-                                @elseif($order["delivery_status"] == 1) در حال ارسال
-                                @elseif($order["delivery_status"] == 2) ارسال شده
-                                @elseif($order["delivery_status"] == 3) تحویل شده
-                                @endif
-                            </td>
+                            <td>{{ $order->deliveryStatusValue }}</td>
                             <td>{{ $order->delivery->name }}</td>
-                            <td>
-                                @if($order["order_status"] == 0) برسی نشده
-                                @elseif($order["order_status"] == 1) در انتظار تایید
-                                @elseif($order["order_status"] == 2) تایید نشده
-                                @elseif($order["order_status"] == 3) تایید شده
-                                @elseif($order["order_status"] == 4) باطل شده
-                                @elseif($order["order_status"] == 5) مرجوع شده
-                                @endif
-                            </td>
+                            <td>{{ $order->orderStatusValue }}</td>
                             <td>
                                 <div class="dropdown">
                                     <a href="#" class="btn btn-sm btn-info border-radius-2 dropdown-toggle" role="button" id="dropdownBtn" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tools ml-1"></i>عملیات</a>
