@@ -24,7 +24,11 @@
                 <section>
 
                         <span class="px-2 position-relative notifWrapperClick">
-                            <span class="pointer"><i class="far fa-bell shake"></i><sup class="badge badge-info">74</sup></span>
+                            <span class="pointer notificationClick"><i class="far fa-bell shake"></i>
+                                @if($notifications->count() !== 0)
+                                    <sup class="badge badge-info">{{ $notifications->count() }}</sup>
+                                @endif
+                            </span>
 
                             <div class="notifWrapper notifWrapper1 position-absolute">
                                 <div class="headOfNotif d-flex justify-content-between align-items-center px-3">
@@ -33,38 +37,18 @@
                                 </div>
                                 <ul class="list-group">
 
-                                    <li class="list-group-item">
-                                        <div class="media">
-                                            <img src="{{ asset("admin-assets/images/unkonwPrfmale.png") }}" alt="">
-                                            <div class="media-body pr-2">
-                                                <h6>محمد تقی نسب</h6>
-                                                <p class="notifText">این متن صرفا تست است</p>
-                                                <p class="notifTime">40 دقیقه قبل</p>
+                                    @forelse($notifications as $notification)
+                                        <li class="list-group-item">
+                                            <div class="media align-items-center">
+                                                <div class="media-body pr-2 d-flex justify-content-center align-items-center">
+                                                    <i class="fa fa-user pl-2"></i><h6 class="mb-0">{{ $notification["data"]["message"] }}</h6>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
 
-                                    <li class="list-group-item">
-                                        <div class="media">
-                                            <img src="{{ asset("admin-assets/images/unkonwPrfmale.png") }}" alt="">
-                                            <div class="media-body pr-2">
-                                                <h6>محمد تقی نسب</h6>
-                                                <p class="notifText">این متن صرفا تست است</p>
-                                                <p class="notifTime">40 دقیقه قبل</p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <div class="media">
-                                            <img src="{{ asset("admin-assets/images/unkonwPrfmale.png") }}" alt="">
-                                            <div class="media-body pr-2">
-                                                <h6>محمد تقی نسب</h6>
-                                                <p class="notifText">این متن صرفا تست است</p>
-                                                <p class="notifTime">40 دقیقه قبل</p>
-                                            </div>
-                                        </div>
-                                    </li>
+                                    @empty
+                                        <span class="text-center">اطلاعیه جدید وجود ندارد</span>
+                                    @endforelse
 
                                 </ul>
                             </div>
@@ -88,26 +72,16 @@
                                 <ul class="list-group">
 
                                     @forelse($unseenComments as $unseenComment)
-{{--                                    <li class="list-group-item">--}}
-{{--                                        <div class="media align-items-center">--}}
-{{--                                            <img src="{{ asset("admin-assets/images/unkonwPrfmale.png") }}" alt="">--}}
-{{--                                            <div class="media-body pr-2 d-flex justify-content-between align-items-center">--}}
-{{--                                                <h6>{{ $unseenComment->user->fullName }}</h6>--}}
-{{--                                                <i class="fas fa-circle text-success"></i>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </li>--}}
-
-                                    <li class="list-group-item">
-                                        <div class="media">
-                                            <img src="{{ asset("admin-assets/images/unkonwPrfmale.png") }}" alt="">
-                                            <div class="media-body pr-2">
-                                                <h6>{{ $unseenComment->user->fullName }}</h6>
-                                                <p class="notifText">{{ $unseenComment["body"] }}</p>
-                                                <p class="notifTime">40 دقیقه قبل</p>
+                                        <li class="list-group-item">
+                                            <div class="media">
+                                                <img src="{{ asset("admin-assets/images/unkonwPrfmale.png") }}" alt="">
+                                                <div class="media-body pr-2">
+                                                    <h6>{{ $unseenComment->user->fullName }}</h6>
+                                                    <p class="notifText">{{ $unseenComment["body"] }}</p>
+                                                    <p class="notifTime">40 دقیقه قبل</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
                                     @empty
                                         <span class="text-center">کامنت جدید وجود ندارد</span>
                                     @endforelse
@@ -121,7 +95,7 @@
 
                     <span class="px-2 position-relative notifWrapperClick">
                             <span class="pointer"><i class="fas fa-shopping-cart shake"></i><sup class="badge badge-info">9</sup></span>
-                        </span>
+                    </span>
 
 
                     <spaan class="pr-5 position-relative notifWrapperClick">

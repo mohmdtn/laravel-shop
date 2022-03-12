@@ -393,6 +393,9 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
 
     });
 
+    // notifications
+    Route::post("/notifications/read-all" , "NotificationController@readAll")->name("admin.notification.readAll");
+
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
