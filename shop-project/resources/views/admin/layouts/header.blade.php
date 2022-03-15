@@ -47,7 +47,7 @@
                                         </li>
 
                                     @empty
-                                        <span class="text-center">اطلاعیه جدید وجود ندارد</span>
+                                        <span class="text-center">نوتفیکیشن جدید وجود ندارد</span>
                                     @endforelse
 
                                 </ul>

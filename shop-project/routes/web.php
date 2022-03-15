@@ -398,6 +398,10 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
 
 });
 
+Route::get("/", function (){
+    return view("user.home");
+})->name("user.home");
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
