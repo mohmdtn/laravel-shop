@@ -196,6 +196,7 @@ main{
 
 .main{
     flex: calc(100% - 17rem);
+    min-width: 0
 }
 
 .sidebarLink , .sidebarGroupToggle{

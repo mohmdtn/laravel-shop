@@ -58,7 +58,7 @@
                                 </label>
                             </td>
                             <td class="max-width-18 text-left">
-                                <a href="{{ route("admin.market.discount.commonDiscount.edit", $commonDiscount["id"]) }}" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
+                                <a href="{{ route("admin.market.discount.commonDiscount.edit", $commonDiscount["id"]) }}" class="btn btn-sm btn-info mb-1 mb-md-0 border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
                                 <form action="{{ route("admin.market.discount.commonDiscount.destroy" , $commonDiscount["id"]) }}" method="post">
                                     @csrf
                                     @method("delete")

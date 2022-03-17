@@ -49,7 +49,7 @@
                             <td>{{ $product["sold_number"] }}</td>
                             <td>{{ $product["frozen_number"] }}</td>
                             <td class="max-width-18 text-left">
-                                <a href="{{ route("admin.market.store.addToStore", $product["id"]) }}" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>افزایش موجودی</a>
+                                <a href="{{ route("admin.market.store.addToStore", $product["id"]) }}" class="btn btn-sm btn-info mb-1 mb-md-0 border-radius-2"><i class="fa fa-edit ml-2"></i>افزایش موجودی</a>
                                 <a href="{{ route("admin.market.store.edit", $product["id"]) }}" class="btn btn-sm btn-warning border-radius-2"><i class="fa fa-edit ml-2"></i>اصلاح موجودی</a>
                             </td>
                         </tr>

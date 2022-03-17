@@ -62,7 +62,7 @@
                                 </label>
                             </td>
                             <td class="max-width-18 text-left">
-                                <a href="{{ route("admin.market.discount.copan.edit", $copan["id"]) }}" class="btn btn-sm btn-info border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
+                                <a href="{{ route("admin.market.discount.copan.edit", $copan["id"]) }}" class="btn btn-sm btn-info mb-1 mb-md-0 border-radius-2"><i class="fa fa-edit ml-2"></i>ویرایش</a>
                                 <form action="{{ route("admin.market.discount.copan.destroy" , $copan["id"]) }}" method="post">
                                     @csrf
                                     @method("delete")
