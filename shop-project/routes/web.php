@@ -398,6 +398,12 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
 
 });
 
+
+Route::namespace("App\Http\Controllers\Auth\User")->group(function (){
+    Route::get("login-register" , "LoginRegisterController@LoginRegisterForm")->name("auth.user.loginRegisterForm");
+});
+
+
 Route::get("/", function (){
     return view("user.home");
 })->name("user.home");

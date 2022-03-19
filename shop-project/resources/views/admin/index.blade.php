@@ -126,12 +126,12 @@
 
     <section class="container-fluid">
         <div class="row px-2">
-            <div class="col-md-8">
+            <div class="col-lg-8 pb-3 pb-lg-0">
                 <section class="chartWrapper">
                     <canvas id="myChart"></canvas>
                 </section>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <section>
                     <section class="chartWrapper">
                         <canvas id="myChart2"></canvas>
