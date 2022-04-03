@@ -280,7 +280,7 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/edit/{role}" , "RoleController@edit")->name("admin.user.role.edit");
             Route::put("/update/{role}" , "RoleController@update")->name("admin.user.role.update");
             Route::delete("/destroy/{role}" , "RoleController@destroy")->name("admin.user.role.destroy");
-            Route::get("/permissionForm{role}" , "RoleController@permissionForm")->name("admin.user.role.permissionForm");
+            Route::get("/permissionForm/{role}" , "RoleController@permissionForm")->name("admin.user.role.permissionForm");
             Route::put("/permissionUpdate/{role}" , "RoleController@permissionUpdate")->name("admin.user.role.permissionUpdate");
         });
 

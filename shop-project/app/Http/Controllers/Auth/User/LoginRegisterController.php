@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\User\LoginRegisterRequest;
-use http\Client\Curl\User;
+use App\Models\Otp;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LoginRegisterController extends Controller
 {
@@ -21,7 +23,7 @@ class LoginRegisterController extends Controller
             $type = 1; // yani email daryaft kardim
             $user = User::where("email", $input["id"])->first();
             if (empty($user)){
-                $newUser["newUser"] = $input["id"];
+                $newUser["email"] = $input["id"];
             }
         }
 
@@ -35,6 +37,7 @@ class LoginRegisterController extends Controller
             $input["id"] = str_replace("+98" , '', $input["id"]);
 
             $user = User::where("mobile", $input["id"])->first();
+
             if (empty($user)){
                 $newUser["mobile"] = $input["id"];
             }
@@ -44,5 +47,24 @@ class LoginRegisterController extends Controller
             $errorText = "شناسه ورودی شما نه شماره موبایل است نه ایمیل";
             return redirect()->route("auth.user.loginRegisterForm")->withErrors(["id" => $errorText]);
         }
+
+        if (empty($user)){
+            $newUser["password"] = "98355154";
+            $newUser["activation"] = "1";
+            $user = User::create($newUser);
+        }
+
+        // create otp code
+        $otpCode = rand(111111, 999999);
+        $token = Str::random(60);
+        $otpInputs = [
+            'token'     => $token,
+            'user_id'   => $user->id,
+            'otp_code'  => $otpCode,
+            'login_id'  => $input["id"],
+            'type'      => $type,
+        ];
+
+        Otp::create($otpInputs);
     }
 }
