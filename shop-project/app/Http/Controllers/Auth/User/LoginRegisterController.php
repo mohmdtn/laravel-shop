@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\User\LoginRegisterRequest;
+use App\Http\Services\Message\MessageService;
+use App\Http\Services\Message\Sms\SmsService;
 use App\Models\Otp;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 
 class LoginRegisterController extends Controller
@@ -70,6 +73,17 @@ class LoginRegisterController extends Controller
         // send sms or email
         if ($type == 0){
             // send sms
+            $smsService = new SmsService();
+            $smsService->setFrom(Config::get('sms.otp_from'));
+            $smsService->setTo(['0' . $user->mobile]);
+            $smsService->setText('مجموعه محمد تقی نسب, کد تایید:' . $otpCode);
+            $smsService->setIsFlash(true);
+
+            $messageService = new MessageService($smsService);
         }
+
+        $messageService->send();
+
     }
+
 }
