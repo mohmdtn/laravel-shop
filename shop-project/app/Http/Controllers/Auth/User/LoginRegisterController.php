@@ -76,13 +76,16 @@ class LoginRegisterController extends Controller
             $smsService = new SmsService();
             $smsService->setFrom(Config::get('sms.otp_from'));
             $smsService->setTo(['0' . $user->mobile]);
-            $smsService->setText('مجموعه محمد تقی نسب, کد تایید:' . $otpCode);
+            $smsService->setText( 'فروشگاه محمد تقی نسب' . PHP_EOL . 'کد تایید: ' . $otpCode);
             $smsService->setIsFlash(true);
 
             $messageService = new MessageService($smsService);
+            $messageService->send();
         }
 
-        $messageService->send();
+        elseif ($type == 1){
+
+        }
 
     }
 
