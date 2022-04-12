@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\User\LoginRegisterRequest;
+use App\Http\Services\Message\Email\EmailService;
 use App\Http\Services\Message\MessageService;
 use App\Http\Services\Message\Sms\SmsService;
 use App\Models\Otp;
@@ -84,6 +85,19 @@ class LoginRegisterController extends Controller
         }
 
         elseif ($type == 1){
+            // send email
+            $emailService = new EmailService();
+            $details = [
+                'title' => 'ایمیل فعال سازی',
+                'body'  => "کد فعال سازی شما: $otpCode"
+            ];
+            $emailService->setDetails($details);
+            $emailService->setFrom("noreply@example.com", "example");
+            $emailService->setSubject("کد احراز هویت");
+            $emailService->setTo($input["id"]);
+
+            $messageService = new MessageService($emailService);
+            $messageService->send();
 
         }
 
