@@ -89,18 +89,26 @@ class LoginRegisterController extends Controller
             $emailService = new EmailService();
             $details = [
                 'title' => 'ایمیل فعال سازی',
-                'body'  => "کد فعال سازی شما: $otpCode"
+                'body'  => "کد فعال سازی شما:  $otpCode"
             ];
             $emailService->setDetails($details);
-            $emailService->setFrom("noreply@example.com", "example");
+            $emailService->setFrom("noreply@example.com", "ultra X");
             $emailService->setSubject("کد احراز هویت");
             $emailService->setTo($input["id"]);
 
             $messageService = new MessageService($emailService);
             $messageService->send();
-
         }
 
+        return redirect()->route("auth.user.loginConfirmForm", $token);
+    }
+
+    public function loginConfirmForm($token){
+        $otp = Otp::where('token', $token)->first();
+        if(empty($otp)){
+            return redirect()->route("auth.user.loginRegisterForm")->withErrors(['id' => 'آدرس وارد شده نا معتبر میباشد']);
+        }
+        return view("user.auth.loginConfirm", compact("token", "otp"));
     }
 
 }
