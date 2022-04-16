@@ -87,6 +87,61 @@ function test(){
 }
 
 
+
+// reactive element
+// const reactiveElement = document.querySelector('.Reactive-element');
+// reactiveElement.addEventListener('mousemove', (e) => {
+//     let rect = e.target.getBoundingClientRect();
+//     let x = e.clientX - rect.left;
+//     let y = e.clientY - rect.top;
+//     let roateIndex = 2;
+//     const halfWidth = rect.width / 2;
+//     const halfHeight = rect.height / 2;
+//     if (x < halfWidth) {
+//         if (y < halfHeight) {
+//             reactiveElement.style.transform = `perspective(200px) rotateX(${roateIndex}deg) rotateY(-${roateIndex}deg)`;
+//         } else if (y > halfHeight) {
+//             reactiveElement.style.transform = `perspective(200px) rotateX(-${roateIndex}deg) rotateY(-${roateIndex}deg)`;
+//         }
+//     } else {
+//         if (y < halfHeight) {
+//             reactiveElement.style.transform = `perspective(200px) rotateX(${roateIndex}deg) rotateY(${roateIndex}deg)`;
+//         } else if (y > halfHeight) {
+//             reactiveElement.style.transform = `perspective(200px) rotateX(-${roateIndex}deg) rotateY(${roateIndex}deg)`;
+//         }
+//     }
+//
+// });
+// reactiveElement.addEventListener('mouseout', () => {
+//     reactiveElement.style.transform = `perspective(200px) rotateX(0deg) rotateY(0deg)`;
+// })
+// $(".Reactive-element").mouseover(function(e){
+//     let rect = e.target.getBoundingClientRect();
+//     let x = e.clientX - rect.left;
+//     let y = e.clientY - rect.top;
+//     let roateIndex = 3;
+//     const halfWidth = rect.width / 2;
+//     const halfHeight = rect.height / 2;
+//     if (x < halfWidth) {
+//         if (y < halfHeight) {
+//             // $(this).style.transform = `perspective(200px) rotateX(${roateIndex}deg) rotateY(-${roateIndex}deg)`;
+//             $(this).css( "transform", 'perspective(200px) rotateX(2deg) rotateY(-2deg)' );
+//         } else if (y > halfHeight) {
+//             $(this).css( "transform", 'perspective(200px) rotateX(-2deg) rotateY(-2deg)' );
+//         }
+//     } else {
+//         if (y < halfHeight) {
+//             $(this).css( "transform", 'perspective(200px) rotateX(2deg) rotateY(2deg)' );
+//         } else if (y > halfHeight) {
+//             $(this).css( "transform", 'perspective(200px) rotateX(-2deg) rotateY(2deg)' );
+//         }
+//     }
+// });
+//
+// $(".Reactive-element").mouseout(function(){
+//     $(this).css("transform", `perspective(200px) rotateX(0deg) rotateY(0deg)`);
+// });
+
 imgInp.onchange = evt => {
     const [file] = imgInp.files
     if (file) {

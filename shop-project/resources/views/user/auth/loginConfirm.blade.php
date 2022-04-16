@@ -27,8 +27,8 @@
 
                 </section>
                 <section class="login-input-text">
-                    <input type="text" class="form-control" name="code" value="{{ old("code") }}">
-                    @error("code")
+                    <input type="text" class="form-control" name="otp" value="{{ old("otp") }}">
+                    @error("otp")
                     <div class="errors"><span class="text-danger">{{ $message }}</span></div>
                     @enderror
                 </section>

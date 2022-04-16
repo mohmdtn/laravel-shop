@@ -14,7 +14,7 @@ class AddMobileVerifyToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->timestamp('mobile_verified_at')->nullable()->after('email_verified_at');
         });
     }
 
@@ -26,7 +26,7 @@ class AddMobileVerifyToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('mobile_verified_at')->nullable()->after('email_verified_at');
+            //
         });
     }
 }

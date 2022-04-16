@@ -401,11 +401,11 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
 
 Route::namespace("App\Http\Controllers\Auth\User")->group(function (){
     // login register pages
-    Route::get("login-register" , "LoginRegisterController@LoginRegisterForm")->name("auth.user.loginRegisterForm");
-    Route::post("login-register" , "LoginRegisterController@LoginRegister")->name("auth.user.loginRegister");
+    Route::get("login-register" , "LoginRegisterController@loginRegisterForm")->name("auth.user.loginRegisterForm");
+    Route::post("login-register" , "LoginRegisterController@loginRegister")->name("auth.user.loginRegister");
     // confirm login register code page
-    Route::get("login-confirm/{token}" , "LoginRegisterController@LoginConfirmForm")->name("auth.user.loginConfirmForm");
-    Route::post("login-confirm" , "LoginRegisterController@LoginConfirm")->name("auth.user.loginConfirm");
+    Route::get("login-confirm/{token}" , "LoginRegisterController@loginConfirmForm")->name("auth.user.loginConfirmForm");
+    Route::post("login-confirm/{token}" , "LoginRegisterController@loginConfirm")->name("auth.user.loginConfirm");
 });
 
 

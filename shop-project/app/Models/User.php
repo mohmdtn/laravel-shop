@@ -40,6 +40,8 @@ class User extends Authenticatable
         'activation',
         'profile_photo_path',
         'national_code',
+        'email_verified_at',
+        'mobile_verified_at',
     ];
 
     /**

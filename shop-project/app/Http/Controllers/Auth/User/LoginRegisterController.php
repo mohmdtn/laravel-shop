@@ -9,17 +9,19 @@ use App\Http\Services\Message\MessageService;
 use App\Http\Services\Message\Sms\SmsService;
 use App\Models\Otp;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 
 class LoginRegisterController extends Controller
 {
-    public function LoginRegisterForm(){
+    public function loginRegisterForm(){
         return view("user.auth.loginRegister");
     }
 
-    public function LoginRegister(LoginRegisterRequest $request){
+    public function loginRegister(LoginRegisterRequest $request){
         $input = $request->all();
 
         // check email
@@ -109,6 +111,35 @@ class LoginRegisterController extends Controller
             return redirect()->route("auth.user.loginRegisterForm")->withErrors(['id' => 'آدرس وارد شده نا معتبر میباشد']);
         }
         return view("user.auth.loginConfirm", compact("token", "otp"));
+    }
+
+    public function loginConfirm($token, LoginRegisterRequest $request){
+        $input = $request->all();
+        $otp = Otp::where("token", $token)->where("used", 0)->where("created_at", ">=", Carbon::now()->subMinutes(5)->toDateTimeString())->first();
+
+        if (empty($otp)){
+            return redirect()->route("auth.user.loginRegisterForm", $token)->withErrors(['id' => 'آدرس وارد شده نا معتبر میباشد']);
+        }
+
+        // if otp not match
+        if ($otp["otp_code"] !== $input["otp"]){
+            return redirect()->route("auth.user.loginConfirm", $token)->withErrors(['otp' => 'کد وارد شده صحیح نمی باشد']);
+        }
+
+        // if everything is ok
+        $otp->update(["used" => 1]);
+        $user = $otp->user()->first();
+
+        // verify kardane filde mobile_verified_at ya email_verified_at jadvale user
+        if ($otp["type"] == 0 && empty($user["mobile_verified_at"])){
+            $user->update(["mobile_verified_at" => Carbon::now()]);
+        }
+        else if ($otp["type"] == 1 && empty($user["email_verified_at"])){
+            $user->update(["email_verified_at" => Carbon::now()]);
+        }
+
+        Auth::login($user);
+        return redirect()->route("user.home");
     }
 
 }
