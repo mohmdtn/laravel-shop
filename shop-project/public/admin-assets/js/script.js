@@ -142,7 +142,7 @@ function test(){
 //     $(this).css("transform", `perspective(200px) rotateX(0deg) rotateY(0deg)`);
 // });
 
-imgInp.onchange = evt => {
+$("#imgInp").change(function (){
     const [file] = imgInp.files
     if (file) {
         blah.src = URL.createObjectURL(file)
@@ -152,9 +152,10 @@ imgInp.onchange = evt => {
             "border-bottom-right-radius" : "0"
         })
     }
-}
+});
 
-imgInp1.onchange = evt => {
+
+$("#imgInp1").change(function (){
     const [file] = imgInp1.files
     if (file) {
         blah1.src = URL.createObjectURL(file)
@@ -164,4 +165,5 @@ imgInp1.onchange = evt => {
             "border-bottom-right-radius" : "0"
         })
     }
-}
+});
+

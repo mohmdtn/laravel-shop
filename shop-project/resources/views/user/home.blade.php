@@ -14,11 +14,11 @@
                     <section class="item"><a class="w-100 d-block h-auto text-decoration-none" href="#"><img class="w-100 rounded-2 d-block h-auto" src="{{ asset("user-assets/images/slideshow/3.jpg") }}" alt=""></a></section>
                     <section class="item"><a class="w-100 d-block h-auto text-decoration-none" href="#"><img class="w-100 rounded-2 d-block h-auto" src="{{ asset("user-assets/images/slideshow/4.jpg") }}" alt=""></a></section>
                     <section class="item"><a class="w-100 d-block h-auto text-decoration-none" href="#"><img class="w-100 rounded-2 d-block h-auto" src="{{ asset("user-assets/images/slideshow/5.jpg") }}" alt=""></a></section>
-                    <section class="item"><a class="w-100 d-block h-auto text-decoration-none" href="#"><img class="w-100 rounded-2 d-block h-auto" src="{{ asset("user-assets/images/slideshow/6.jpg") }}" alt=""></a></section>
+                    <section class="item"><a class="w-100 d-block h-auto text-decoration-none" href="#"><img class="w-100 rounded-2 d-block h-auto" src="{{ asset("user-assets/images/slideshow/3.jpg") }}" alt=""></a></section>
                 </section>
             </section>
             <section class="col-md-4 ps-1">
-                <section class="mb-2"><a href="#" class="d-block"><img class="w-100 rounded-2" src="{{ asset("user-assets/images/slideshow/12.jpg") }}" alt=""></a></section>
+                <section class="mb-2"><a href="#" class="d-block"><img class="w-100 rounded-2" src="{{ asset("user-assets/images/slideshow/11.jpg") }}" alt=""></a></section>
                 <section class="mb-2"><a href="#" class="d-block"><img class="w-100 rounded-2" src="{{ asset("user-assets/images/slideshow/11.jpg") }}" alt=""></a></section>
             </section>
         </section>
@@ -54,7 +54,7 @@
                                             <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
                                             <a class="product-link" href="#">
                                                 <section class="product-image">
-                                                    <img class="" src="{{ asset("user-assets/images/slideshow/21.jpg") }}" alt="">
+                                                    <img class="" src="{{ asset("user-assets/images/products/21.jpg") }}" alt="">
                                                 </section>
                                                 <section class="product-colors"></section>
                                                 <section class="product-name"><h3>گوشی موبایل شیائومی مدل POCO X3 Pro M2102J20SG دو ...</h3></section>
@@ -81,7 +81,7 @@
                                             <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
                                             <a class="product-link" href="#">
                                                 <section class="product-image">
-                                                    <img class="" src="{{ asset("user-assets/images/slideshow/22.jpg") }}" alt="">
+                                                    <img class="" src="{{ asset("user-assets/images/products/22.jpg") }}" alt="">
                                                 </section>
                                                 <section class="product-colors"></section>
                                                 <section class="product-name"><h3>گوشی موبایل سامسونگ مدل Galaxy A32 SM-A325F/DS دو ...</h3></section>
@@ -99,7 +99,7 @@
                                             <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
                                             <a class="product-link" href="#">
                                                 <section class="product-image">
-                                                    <img class="" src="{{ asset("user-assets/images/slideshow/17.jpg") }}" alt="">
+                                                    <img class="" src="{{ asset("user-assets/images/products/17.jpg") }}" alt="">
                                                 </section>
                                                 <section class="product-name"><h3>کیف هندزفری جانتا مدل 141مجموعه 3 عددی</h3></section>
                                                 <section class="product-price-wrapper">
@@ -127,7 +127,7 @@
                                             <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
                                             <a class="product-link" href="#">
                                                 <section class="product-image">
-                                                    <img class="" src="{{ asset("user-assets/images/slideshow/19.jpg") }}" alt="">
+                                                    <img class="" src="{{ asset("user-assets/images/products/19.jpg") }}" alt="">
                                                 </section>
                                                 <section class="product-colors"></section>
                                                 <section class="product-name"><h3>گوشی موبایل شیائومی مدل POCO M3 M2010J19CG دو سیم‌...</h3></section>
@@ -163,7 +163,7 @@
                                             <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
                                             <a class="product-link" href="#">
                                                 <section class="product-image">
-                                                    <img class="" src="{{ asset("user-assets/images/slideshow/18.jpg") }}" alt="">
+                                                    <img class="" src="{{ asset("user-assets/images/products/18.jpg") }}" alt="">
                                                 </section>
                                                 <section class="product-colors"></section>
                                                 <section class="product-name"><h3>کیف رودوشی چرم جانتا مدل D078</h3></section>
@@ -185,7 +185,7 @@
                                             <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
                                             <a class="product-link" href="#">
                                                 <section class="product-image">
-                                                    <img class="" src="{{ asset("user-assets/images/slideshow/16.jpg") }}" alt="">
+                                                    <img class="" src="{{ asset("user-assets/images/products/16.jpg") }}" alt="">
                                                 </section>
                                                 <section class="product-colors"></section>
                                                 <section class="product-name"><h3>گوشی موبایل سامسونگ مدل Galaxy A12 SM-A125F/DS دو ...</h3></section>
@@ -203,7 +203,7 @@
                                             <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
                                             <a class="product-link" href="#">
                                                 <section class="product-image">
-                                                    <img class="" src="{{ asset("user-assets/images/slideshow/14.jpg") }}" alt="">
+                                                    <img class="" src="{{ asset("user-assets/images/products/14.jpg") }}" alt="">
                                                 </section>
                                                 <section class="product-colors"></section>
                                                 <section class="product-name"><h3>گوشی موبایل شیائومی مدل POCO M3 PRO 5G M2103K19PG ...</h3></section>
@@ -221,7 +221,7 @@
                                             <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
                                             <a class="product-link" href="#">
                                                 <section class="product-image">
-                                                    <img class="" src="{{ asset("user-assets/images/slideshow/10.jpg") }}" alt="">
+                                                    <img class="" src="{{ asset("user-assets/images/products/10.jpg") }}" alt="">
                                                 </section>
                                                 <section class="product-colors"></section>
                                                 <section class="product-name"><h3>مجموعه کتاب من پیش از تو، پس از تو، باز هم من</h3></section>
@@ -239,7 +239,7 @@
                                             <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
                                             <a class="product-link" href="#">
                                                 <section class="product-image">
-                                                    <img class="" src="{{ asset("user-assets/images/slideshow/21.jpg") }}" alt="">
+                                                    <img class="" src="{{ asset("user-assets/images/products/21.jpg") }}" alt="">
                                                 </section>
                                                 <section class="product-colors"></section>
                                                 <section class="product-name"><h3>کتاب سلخ اثر غزاله شکوهی</h3></section>
@@ -257,7 +257,7 @@
                                             <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
                                             <a class="product-link" href="#">
                                                 <section class="product-image">
-                                                    <img class="" src="{{ asset("user-assets/images/slideshow/13.jpg") }}" alt="">
+                                                    <img class="" src="{{ asset("user-assets/images/products/13.jpg") }}" alt="">
                                                 </section>
                                                 <section class="product-colors"></section>
                                                 <section class="product-name"><h3>کتاب تختخوابت را مرتب کن اثر ژنرال ویلیام مک ریون</h3></section>
@@ -616,62 +616,62 @@
                         <section class="brands dark-owl-nav owl-carousel owl-theme">
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/huawei.jpg" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/huawei.jpg") }}" alt=""></a>
                                 </section>
                             </section>
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/adata.png" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/adata.png") }}" alt=""></a>
                                 </section>
                             </section>
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/casio.jpg" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/casio.jpg") }}" alt=""></a>
                                 </section>
                             </section>
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/gplus.jpg" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/gplus.jpg") }}" alt=""></a>
                                 </section>
                             </section>
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/logitech.jpg" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/logitech.jpg") }}" alt=""></a>
                                 </section>
                             </section>
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/nokia.jpg" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/nokia.jpg") }}" alt=""></a>
                                 </section>
                             </section>
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/pakshoma.png" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/pakshoma.png") }}" alt=""></a>
                                 </section>
                             </section>
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/panasonic.png" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/panasonic.png") }}" alt=""></a>
                                 </section>
                             </section>
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/parskhazar.png" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/parskhazar.png") }}" alt=""></a>
                                 </section>
                             </section>
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/samsung.png" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/samsung.png") }}" alt=""></a>
                                 </section>
                             </section>
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/snowa.png" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/snowa.png") }}" alt=""></a>
                                 </section>
                             </section>
                             <section class="item">
                                 <section class="brand-item">
-                                    <a href="#"><img class="rounded-2" src="assets/images/brand/xvision.png" alt=""></a>
+                                    <a href="#"><img class="rounded-2" src="{{ asset("user-assets/images/brand/xvision.png") }}" alt=""></a>
                                 </section>
                             </section>
                         </section>

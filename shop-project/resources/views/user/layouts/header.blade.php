@@ -6,7 +6,7 @@
     <section class="top-header">
         <section class="container-xxl ">
             <section class="d-flex justify-content-between align-items-center py-3">
-                <section class=""><a class="text-decoration-none" href="index.html"><img src="assets/images/logo/8.png" alt="logo"></a></section>
+                <section class=""><a class="text-decoration-none" href="index.html"><img src="{{ asset("user-assets/images/logo/8.png") }}" alt="logo"></a></section>
                 <section class="search-wrapper">
                     <section class="search-box">
                         <section class="search-textbox">
