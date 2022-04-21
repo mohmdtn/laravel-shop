@@ -142,4 +142,59 @@ class LoginRegisterController extends Controller
         return redirect()->route("user.home");
     }
 
+    public function loginResendOtp($token){
+        $otp = Otp::where("token", $token)->where("used", 0)->where("created_at", "<=", Carbon::now()->subMinutes(5)->toDateTimeString())->first();
+
+        if (empty($otp)){
+            return redirect()->route("auth.user.loginRegisterForm", $token)->withErrors(["id" => "آدرس وارد شده نا معتبر است."]);
+        }
+
+        $user = $otp->user()->first();
+
+        // create otp code
+        $otpCode = rand(111111, 999999);
+        $token = Str::random(60);
+        $otpInputs = [
+            'token'     => $token,
+            'user_id'   => $user->id,
+            'otp_code'  => $otpCode,
+            'login_id'  => $otp->login_id,
+            'type'      => $otp->type,
+        ];
+
+        Otp::create($otpInputs);
+
+        // send sms or email
+        if ($otp->type == 0){
+            // send sms
+            $smsService = new SmsService();
+            $smsService->setFrom(Config::get('sms.otp_from'));
+            $smsService->setTo(['0' . $user->mobile]);
+            $smsService->setText( 'فروشگاه محمد تقی نسب' . PHP_EOL . 'کد تایید: ' . $otpCode);
+            $smsService->setIsFlash(true);
+
+            $messageService = new MessageService($smsService);
+            $messageService->send();
+        }
+
+        elseif ($otp->type == 1){
+            // send email
+            $emailService = new EmailService();
+            $details = [
+                'title' => 'ایمیل فعال سازی',
+                'body'  => "کد فعال سازی شما:  $otpCode"
+            ];
+            $emailService->setDetails($details);
+            $emailService->setFrom("noreply@example.com", "ultra X");
+            $emailService->setSubject("کد احراز هویت");
+            $emailService->setTo($otp->login_id);
+
+            $messageService = new MessageService($emailService);
+            $messageService->send();
+        }
+
+        return redirect()->route("auth.user.loginConfirmForm", $token);
+
+    }
+
 }

@@ -406,6 +406,8 @@ Route::namespace("App\Http\Controllers\Auth\User")->group(function (){
     // confirm login register code page
     Route::get("login-confirm/{token}" , "LoginRegisterController@loginConfirmForm")->name("auth.user.loginConfirmForm");
     Route::post("login-confirm/{token}" , "LoginRegisterController@loginConfirm")->name("auth.user.loginConfirm");
+    // resend otp code
+    Route::get("login-resend-otp/{token}", "LoginRegisterController@loginResendOtp")->name("auth.user.loginResendOtp");
 });
 
 

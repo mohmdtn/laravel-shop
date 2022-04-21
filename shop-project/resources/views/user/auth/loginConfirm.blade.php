@@ -45,7 +45,7 @@
                 <section class="login-btn d-grid g-2"><button class="btn btn-danger">ثبت کد</button></section>
 {{--                <section class="login-terms-and-conditions"><a href="#">شرایط و قوانین</a> را خوانده ام و پذیرفته ام</section>--}}
                 <div class="text-center fw-bold timer" id="#time"></div>
-                <div class="text-center d-none resendOtp"><a href="" class="text-decoration-none text-info fw-bold">ارسال مجدد کد تایید</a></div>
+                <div class="text-center d-none resendOtp"><a href="{{ route("auth.user.loginResendOtp", $token) }}" class="text-decoration-none text-info fw-bold">ارسال مجدد کد تایید</a></div>
             </section>
         </form>
     </section>
