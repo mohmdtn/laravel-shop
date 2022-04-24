@@ -402,12 +402,13 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
 Route::namespace("App\Http\Controllers\Auth\User")->group(function (){
     // login register pages
     Route::get("login-register" , "LoginRegisterController@loginRegisterForm")->name("auth.user.loginRegisterForm");
-    Route::post("login-register" , "LoginRegisterController@loginRegister")->name("auth.user.loginRegister");
+    Route::middleware("throttle:user-login-register-limiter")->post("login-register" , "LoginRegisterController@loginRegister")->name("auth.user.loginRegister");
     // confirm login register code page
     Route::get("login-confirm/{token}" , "LoginRegisterController@loginConfirmForm")->name("auth.user.loginConfirmForm");
-    Route::post("login-confirm/{token}" , "LoginRegisterController@loginConfirm")->name("auth.user.loginConfirm");
+    Route::middleware("throttle:user-login-confirm-limiter")->post("login-confirm/{token}" , "LoginRegisterController@loginConfirm")->name("auth.user.loginConfirm");
     // resend otp code
-    Route::get("login-resend-otp/{token}", "LoginRegisterController@loginResendOtp")->name("auth.user.loginResendOtp");
+    Route::middleware("throttle:user-login-resend-otp-limiter")->get("login-resend-otp/{token}", "LoginRegisterController@loginResendOtp")->name("auth.user.loginResendOtp");
+    Route::get("/logout", "LoginRegisterController@logout")->name("auth.user.logout");
 });
 
 
