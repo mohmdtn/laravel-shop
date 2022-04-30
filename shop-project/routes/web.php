@@ -243,6 +243,17 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/commentable/{post}" , "PostController@commentable")->name("admin.content.post.commentable");
         });
 
+        // banner
+        Route::prefix("banner")->group(function (){
+            Route::get("/" , "BannerController@index")->name("admin.content.banner.index");
+            Route::get("/create" , "BannerController@create")->name("admin.content.banner.create");
+            Route::post("/store" , "BannerController@store")->name("admin.content.banner.store");
+            Route::get("/edit/{banner}" , "BannerController@edit")->name("admin.content.banner.edit");
+            Route::put("/update/{banner}" , "BannerController@update")->name("admin.content.banner.update");
+            Route::delete("/destroy/{banner}" , "BannerController@destroy")->name("admin.content.banner.destroy");
+            Route::get("/status/{banner}" , "BannerController@status")->name("admin.content.banner.status");
+        });
+
     });
 
 

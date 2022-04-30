@@ -260,8 +260,15 @@
 
             <a href="{{ route("admin.content.page.index") }}" class="sidebarLink">
                 <div>
-                    <i class="fas fa-scroll"></i>
+                    <i class="fas fa-copy"></i>
                     <span>پیج ساز</span>
+                </div>
+            </a>
+
+            <a href="{{ route("admin.content.banner.index") }}" class="sidebarLink">
+                <div>
+                    <i class="fas fa-scroll"></i>
+                    <span>بنر ها</span>
                 </div>
             </a>
 
