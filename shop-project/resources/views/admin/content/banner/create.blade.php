@@ -83,7 +83,11 @@
 
                     <div class="form-group col-md-4">
                         <label for="">مکان</label>
-                        <input type="text" class="form-control border-radius-5" name="position" value="{{ old("position") }}">
+                        <select id="" class="form-control border-radius-5" name="position">
+                            @foreach($positions as $key => $value)
+                                <option value="{{ $key }}" @if(old('position') == $key) selected @endif>{{ $value }}</option>
+                            @endforeach
+                        </select>
 
                         @error("position")
                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>

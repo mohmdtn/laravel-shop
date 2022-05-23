@@ -68,7 +68,8 @@
 
                                 <div class="dropdown-menu border-radius-5 text-right" aria-labelledby="dropdownBtn">
                                     <a href="{{ route("admin.market.gallery.index", $product["id"]) }}" class="dropdown-item"><i class="fa fa-images ml-1"></i>گالری</a>
-                                    <a href="{{ route("admin.market.color.index", $product["id"]) }}" class="dropdown-item"><i class="	fas fa-paint-roller ml-1"></i>رنگ کالا</a>
+                                    <a href="{{ route("admin.market.color.index", $product["id"]) }}" class="dropdown-item"><i class="fas fa-paint-roller ml-1"></i>رنگ کالا</a>
+                                    <a href="{{ route("admin.market.guarantee.index", $product["id"]) }}" class="dropdown-item"><i class="fa fa-shield-alt ml-1"></i>گارانتی</a>
                                     <a href="{{ route("admin.market.product.edit", $product["id"]) }}" class="dropdown-item"><i class="fa fa-edit ml-1"></i>ویرایش</a>
                                     <form action="{{ route("admin.market.product.destroy" , $product["id"]) }}" method="post">
                                         @csrf

@@ -51,7 +51,7 @@
                         <input type="file" id="imgInp" class="d-none" name="image">
 
                         <div class="imagePreview editImagePreview">
-                            <center><img src="{{ asset($banner['image']['indexArray'][$banner['image']['currentImage']]) }}" alt="" id="blah"></center>
+                            <center><img src="{{ asset($banner['image']) }}" alt="" id="blah"></center>
                         </div>
 
                         @error("image")
@@ -82,7 +82,11 @@
 
                     <div class="form-group col-md-4">
                         <label for="">مکان</label>
-                        <input type="text" class="form-control border-radius-5" name="position" value="{{ old("position", $banner["position"]) }}">
+                        <select id="" class="form-control border-radius-5" name="position">
+                            @foreach($positions as $key => $value)
+                                <option value="{{ $key }}" @if(old('position', $banner["position"]) == $key) selected @endif>{{ $value }}</option>
+                            @endforeach
+                        </select>
 
                         @error("position")
                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>

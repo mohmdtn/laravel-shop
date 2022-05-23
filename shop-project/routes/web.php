@@ -141,7 +141,11 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/color/{product}/create" , "ProductColorController@create")->name("admin.market.color.create");
             Route::post("/color/{product}/store" , "ProductColorController@store")->name("admin.market.color.store");
             Route::delete("/color/destroy/{product}/{color}" , "ProductColorController@destroy")->name("admin.market.color.destroy");
-
+            // guarantee
+            Route::get("/guarantee/{product}" , "ProductGuaranteeController@index")->name("admin.market.guarantee.index");
+            Route::get("/guarantee/{product}/create" , "ProductGuaranteeController@create")->name("admin.market.guarantee.create");
+            Route::post("/guarantee/{product}/store" , "ProductGuaranteeController@store")->name("admin.market.guarantee.store");
+            Route::delete("/guarantee/destroy/{product}/{guarantee}" , "ProductGuaranteeController@destroy")->name("admin.market.guarantee.destroy");
         });
 
         // property
@@ -422,10 +426,9 @@ Route::namespace("App\Http\Controllers\Auth\User")->group(function (){
     Route::get("/logout", "LoginRegisterController@logout")->name("auth.user.logout");
 });
 
-
-Route::get("/", function (){
-    return view("user.home");
-})->name("user.home");
+Route::namespace("App\Http\Controllers\User")->group(function (){
+    Route::get("/", "HomeController@home")->name("user.home");
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

@@ -39,6 +39,10 @@ class Product extends Model
         return $this->hasMany(ProductColor::class);
     }
 
+    public function guarantees(){
+        return $this->hasMany(ProductGuarantee::class);
+    }
+
     public function images(){
         return $this->hasMany(ProductImage::class);
     }

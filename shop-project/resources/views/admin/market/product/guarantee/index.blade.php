@@ -1,7 +1,7 @@
 @extends("admin.layouts.master")
 
 @section("head-tag")
-    <title>رنگ کالا</title>
+    <title>گارانتی کالا</title>
 @endsection
 
 @section("content")
@@ -11,17 +11,17 @@
             <li class="breadcrumb-item"><a href="#">خانه</a></li>
             <li class="breadcrumb-item"><a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item"><a href="{{ route("admin.market.product.index") }}">کالا ها</a></li>
-            <li class="breadcrumb-item active" aria-current="page">رنگ کالا</li>
+            <li class="breadcrumb-item active" aria-current="page">گارانتی کالا</li>
         </ol>
     </nav>
 
     <section class="pagesContent py-3 px-2">
         <div class="sectionHeader sectionHeaderBottom d-flex justify-content-between align-items-center py-3">
-            <h4>رنگ ها:</h4>
+            <h4>گارانتی ها:</h4>
         </div>
 
         <div class="sectionHeaderBottom d-flex justify-content-between align-items-center py-3">
-            <a href="{{ route("admin.market.color.create", $product["id"]) }}" class="btn btn-info btn-sm border-radius-4 box-shadow-normal">ایجاد رنگ جدید</a>
+            <a href="{{ route("admin.market.guarantee.create", $product["id"]) }}" class="btn btn-info btn-sm border-radius-4 box-shadow-normal">ایجاد گارانتی جدید</a>
             <input type="text" class="form-control form-control-sm border-radius-4 box-shadow-normal" placeholder="جستجو...">
         </div>
 
@@ -30,23 +30,21 @@
                 <thead class="table-info">
                 <th>#</th>
                 <th>نام کالا</th>
-                <th>نام رنگ کالا</th>
-                <th>رنگ کالا</th>
+                <th>گارانتی کالا</th>
                 <th>افزایش قیمت</th>
                 <th class="max-width-18 text-center">تنظیمات</th>
 
                 </thead>
 
                 <tbody>
-                    @foreach($product->colors as $color)
+                    @foreach($product->guarantees as $guarantee)
                         <tr>
                             <th>{{ $loop->iteration }}</th>
                             <td>{{ $product["name"] }}</td>
-                            <td>{{ $color["color_name"] }}</td>
-                            <td><div style="width: 25px; height: 25px; background-color: {{ $color["color"] }}"></div></td>
-                            <td>{{ $color["price_increase"] }}تومان </td>
+                            <td>{{ $guarantee["name"] }}</td>
+                            <td>{{ $guarantee["price_increase"] }}تومان </td>
                             <td class="max-width-18 text-center">
-                                <form action="{{ route("admin.market.color.destroy", ["product" => $product["id"], "color" => $color["id"]]) }}" method="post">
+                                <form action="{{ route("admin.market.guarantee.destroy", ["product" => $product["id"], "guarantee" => $guarantee["id"]]) }}" method="post">
                                     @csrf
                                     @method("delete")
                                     <button class="btn btn-sm btn-danger border-radius-2 deleteBtn"><i class="fa fa-trash-alt ml-2"></i>حذف</button>

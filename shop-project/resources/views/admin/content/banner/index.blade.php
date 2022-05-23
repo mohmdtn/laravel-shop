@@ -1,7 +1,7 @@
 @extends("admin.layouts.master")
 
 @section("head-tag")
-    <title>پست ها</title>
+    <title>بنر ها</title>
 @endsection
 
 @section("content")
@@ -43,9 +43,9 @@
                     <tr>
                         <th>{{ $loop->iteration }}</th>
                         <td>{{ $banner["url"] }}</td>
-                        <td><img src="{{ asset($banner['image']['indexArray'][$banner['image']['currentImage']]) }}" alt=""></td>
+                        <td><img src="{{ asset($banner['image']) }}" alt=""></td>
                         <td>{{ $banner["title"] }}</td>
-                        <td>{{ $banner["position"] }}</td>
+                        <td>{{ $positions[$banner->position] }}</td>
                         <td>
                             <label class="switch">
                                 <input id="{{ $banner["id"] }}" onchange="changeStatus({{ $banner["id"] }})" data-url="{{ route("admin.content.banner.status" , $banner["id"]) }}" type="checkbox"
