@@ -18,8 +18,8 @@ class HomeController extends Controller
 
         $brands = Brand::where("status", 1)->get();
 
-        $mostVisitedProducts    = Product::latest()->take(10);
-        $offerProducts          = Product::latest()->take(10);
+        $mostVisitedProducts    = Product::where("status", 1)->latest()->take(10)->get();
+        $offerProducts          = Product::where("status", 1)->latest()->take(10)->get();
 
         return view("user.home", compact("slideShowImages", "topBanners", "middleBanners", "bottomBanner", "brands", "mostVisitedProducts", "offerProducts"));
     }
