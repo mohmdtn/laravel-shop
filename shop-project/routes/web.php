@@ -428,6 +428,12 @@ Route::namespace("App\Http\Controllers\Auth\User")->group(function (){
 
 Route::namespace("App\Http\Controllers\User")->group(function (){
     Route::get("/", "HomeController@home")->name("user.home");
+
+    Route::namespace("Market")->group(function (){
+        Route::get("/product/{product:slug}", "ProductController@product")->name("user.market.product");
+        Route::post("/add-comment/{product:slug}", "ProductController@addComment")->name("user.market.addComment");
+    });
+
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

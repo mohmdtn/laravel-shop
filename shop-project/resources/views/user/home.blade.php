@@ -1,5 +1,7 @@
 @extends("user.layouts.master-one-col")
+
 @section("head-tag")
+    <title>فروشگاه آمازون</title>
 @endsection
 
 @section("content")
@@ -59,7 +61,7 @@
                                             <section class="product">
                                                 <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
                                                 <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
-                                                <a class="product-link" href="#">
+                                                <a class="product-link" href="{{ route("user.market.product", $mostVisitedProduct["slug"]) }}">
                                                     <section class="product-image">
                                                         <img class="" src="{{ asset($mostVisitedProduct['image']['indexArray'][$mostVisitedProduct['image']['currentImage']]) }}" alt="{{ $mostVisitedProduct["name"] }}">
                                                     </section>
@@ -140,7 +142,7 @@
                                             <section class="product">
                                                 <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
                                                 <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
-                                                <a class="product-link" href="#">
+                                                <a class="product-link" href="{{ route("user.market.product", $offerProduct["slug"]) }}">
                                                     <section class="product-image">
                                                         <img class="" src="{{ asset($offerProduct['image']['indexArray'][$offerProduct['image']['currentImage']]) }}" alt="{{ $offerProduct["name"] }}">
                                                     </section>

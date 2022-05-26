@@ -16,4 +16,3 @@
 <link rel="stylesheet" href="{{ asset("user-assets/css/product.css") }}">
 <link rel="stylesheet" href="{{ asset("user-assets/css/profile.css") }}">
 <link rel="stylesheet" href="{{ asset("user-assets/css/login.css") }}">
-<title>فروشگاه آمازون</title>
