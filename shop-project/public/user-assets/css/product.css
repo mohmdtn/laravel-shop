@@ -90,6 +90,12 @@
     border-radius: 0.25rem;
 }
 
+.product-comment-answer{
+    background-color: #fff;
+    border-radius: 25px 2px 25px 25px;
+    padding-right: 20px;
+}
+
 .product-comment-header {
     border-bottom: 1px solid #efefef;
     padding: 0rem 0rem 0.4rem 0rem;

@@ -2,6 +2,7 @@
 
 namespace App\Models\Market;
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -55,8 +56,19 @@ class Product extends Model
         return $this->hasMany(AmazingSale::class);
     }
 
+    public function comments(){
+        return $this->morphMany("App\Models\Content\Comment", "commentable");
+    }
+
 //    public function orderItems(){
 //        return $this->hasMany(OrderItem::class);
 //    }
 
+    public function activeAmazingSale(){
+        return $this->amazingSale()->where("start_date", "<", Carbon::now())->where("end_date", ">", Carbon::now())->first();
+    }
+
+    public function activeComments(){
+        return $this->comments()->where("approved", 1)->where("status", 1)->where("parent_id", NULL)->get();
+    }
 }

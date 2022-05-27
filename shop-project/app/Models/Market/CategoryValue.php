@@ -14,7 +14,7 @@ class CategoryValue extends Model
     protected $table = "category_values";
 
     public function attribute(){
-        return $this->belongsTo(CategoryAttribute::class);
+        return $this->belongsTo(CategoryAttribute::class, "category_attribute_id");
     }
 
     public function product(){
