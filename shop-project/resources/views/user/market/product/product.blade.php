@@ -2,6 +2,12 @@
 
 @section("head-tag")
     <title>{{ $product["name"] }}</title>
+    <style>
+        .selected-color{
+            transform: scale(.8);
+            transition: .3s;
+        }
+    </style>
 @endsection
 
 @section("content")
@@ -67,18 +73,24 @@
                                 <section class="product-info">
 
                                     @if($product->colors->count() != 0)
-                                        <p><span>رنگ : {{ $product->colors->first()->color_name }}</span></p>
+                                        <p><span>رنگ انتخاب شده : <span id="selected_color_name">{{ $product->colors->first()->color_name }}</span></span></p>
                                         <p>
-                                            @foreach($product->colors as $color)
-                                                <span style="background-color: {{ $color->color }};" class="product-info-colors me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $color->color_name }}"></span>
+                                            @foreach($product->colors as $key => $color)
+                                                <label for="{{ "color_" . $color->id }}" style="background-color: {{ $color->color }};" class="product-info-colors me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $color->color_name }}"></label>
+                                                <input class="d-none" type="radio" name="color" id="{{ "color_" . $color->id }}" value="{{ $color->id }}" data-color-name="{{ $color->color_name }}" data-color-price="{{ $color->price_increase }}" @if($key == 0) checked @endif>
                                             @endforeach
                                         </p>
                                     @endif
 
                                     @if($product->guarantees->count() != 0)
-                                        @foreach($product->guarantees as $guarantee)
-                                            <p><i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i> <span> {{ $guarantee->name }}ا</span></p>
-                                        @endforeach
+                                        <p class="d-flex justify-content-center align-items-center"><i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>
+                                        گارانتی:
+                                            <select name="guarantee" id="guarantee" class="p-1 form-control">
+                                                @foreach($product->guarantees as $key => $guarantee)
+                                                    <option value="{{ $guarantee->id }}" data-guarantee-price="{{ $guarantee->price_increase }}" @if($key == 0) selected @endif>{{ $guarantee->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </p>
                                     @endif
 
                                     @if($product["marketable_number"] > 0)
@@ -89,9 +101,9 @@
                                     <p><a class="btn btn-light  btn-sm text-decoration-none" href="#"><i class="fa fa-heart text-danger"></i> افزودن به علاقه مندی</a></p>
                                     <section>
                                         <section class="cart-product-number d-inline-block ">
-                                            <button class="cart-number-down" type="button">-</button>
-                                            <input class="" type="number" min="1" max="5" step="1" value="1" readonly="readonly">
-                                            <button class="cart-number-up" type="button">+</button>
+                                            <button class="cart-number cart-number-down" type="button">-</button>
+                                            <input id="number" name="number" type="number" min="1" max="5" step="1" value="1" readonly="readonly">
+                                            <button class="cart-number cart-number-up" type="button">+</button>
                                         </section>
                                     </section>
                                     <p class="mb-3 mt-5">
@@ -107,7 +119,7 @@
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">قیمت کالا</p>
-                                    <p class="text-muted">{{ priceFormat($product["price"]) }} <span class="small">تومان</span></p>
+                                    <p class="text-muted"><span id="product_price">{{ priceFormat($product["price"]) }}</span> <span class="small">تومان</span></p>
                                 </section>
 
                                 @php
@@ -116,13 +128,13 @@
                                 @if(!empty($amazingSale))
                                     <section class="d-flex justify-content-between align-items-center">
                                         <p class="text-muted">تخفیف کالا</p>
-                                        <p class="text-danger fw-bolder">{{ priceFormat($product["price"] * $amazingSale["percentage"] / 100) }} <span class="small">تومان</span></p>
+                                        <p class="text-danger fw-bolder" id="product_discount_price" data-product-discount-price="{{ $product["price"] * $amazingSale["percentage"] / 100 }}">{{ priceFormat($product["price"] * $amazingSale["percentage"] / 100) }} <span class="small">تومان</span></p>
                                     </section>
                                 @endif
                                 <section class="border-bottom mb-3"></section>
 
                                 <section class="d-flex justify-content-end align-items-center">
-{{--                                    <p class="fw-bolder">{{ priceFormat( $product["price"] - ($product["price"] * $amazingSale["percentage"] / 100)) }} <span class="small">تومان</span></p>--}}
+                                    <p class="fw-bolder"><span id="final_price"></span> <span class="small">تومان</span></p>
                                 </section>
 
                                 <section class="">
@@ -385,4 +397,60 @@
 @endsection
 
 @section("scripts")
+    <script>
+        $(document).ready(function(){
+            bill();
+
+            $("input[name='color']").change(function (){
+                bill();
+            });
+
+            $("select[name='guarantee']").change(function (){
+                bill();
+            });
+
+            $(".cart-number").click(function (){
+                bill();
+            });
+
+        });
+
+        function bill(){
+            const selected_color = $("input[name='color']:checked");
+
+            if ($("input[name='color']:checked").length != 0){
+                $("#selected_color_name").html(selected_color.attr("data-color-name"));
+            }
+
+            // calculate price
+            var selected_color_price = 0;
+            var selected_guarantee_price = 0;
+            var number = 1;
+            var product_discount_price = 0;
+            var product_original_price = parseFloat({{ $product->price }});
+
+            if ($("input[name='color']:checked").length != 0){
+                selected_color_price = parseFloat(selected_color.attr("data-color-price"));
+            }
+
+            if ($("#guarantee option:selected") != 0){
+                selected_guarantee_price = parseFloat($("#guarantee option:selected").attr("data-guarantee-price"));
+            }
+
+            if ($("#number").val() > 0){
+                number = $("#number").val();
+            }
+
+            if ($("#product_discount_price").length != 0){
+                product_discount_price = parseFloat($("#product_discount_price").attr("data-product-discount-price"));
+            }
+
+            // final price
+            var product_price = product_original_price + selected_color_price + selected_guarantee_price;
+            var final_price = number * (product_price - product_discount_price);
+
+            $("#product_price").html(product_price);
+            $("#final_price").html(final_price);
+        }
+    </script>
 @endsection
