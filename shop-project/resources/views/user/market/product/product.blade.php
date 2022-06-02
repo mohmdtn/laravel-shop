@@ -183,7 +183,11 @@
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
                                                 <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
-                                                <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
+                                                <section class="product-add-to-favorite">
+                                                    <span class="add_to_favorite" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
+                                                        <i class="fa fa-heart"></i>
+                                                    </span>
+                                                </section>
                                                 <a class="product-link" href="{{ route("user.market.product", $relatedProduct["slug"]) }}">
                                                     <section class="product-image">
                                                         <img class="" src="{{ asset($relatedProduct['image']['indexArray'][$relatedProduct['image']['currentImage']]) }}" alt="{{ $relatedProduct["name"] }}">
@@ -198,9 +202,9 @@
                                                         <section class="product-price">{{ priceFormat($relatedProduct["price"]) }} تومان</section>
                                                     </section>
                                                     <section class="product-colors">
-                                                        <section class="product-colors-item" style="background-color: white;"></section>
-                                                        <section class="product-colors-item" style="background-color: blue;"></section>
-                                                        <section class="product-colors-item" style="background-color: red;"></section>
+                                                        @foreach($relatedProduct->colors as $color)
+                                                            <section class="product-colors-item" style="background-color: {{ $color->color }};"></section>
+                                                        @endforeach
                                                     </section>
                                                 </a>
                                             </section>
@@ -456,7 +460,7 @@
 
         function toFarsiNumber(number){
             const farsiDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-            
+
             // add comma
             number = new Intl.NumberFormat().format(number);
 

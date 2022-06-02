@@ -60,7 +60,11 @@
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
                                                 <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
-                                                <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
+                                                <section class="product-add-to-favorite">
+                                                    <span class="add_to_favorite" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
+                                                        <i class="fa fa-heart"></i>
+                                                    </span>
+                                                </section>
                                                 <a class="product-link" href="{{ route("user.market.product", $mostVisitedProduct["slug"]) }}">
                                                     <section class="product-image">
                                                         <img class="" src="{{ asset($mostVisitedProduct['image']['indexArray'][$mostVisitedProduct['image']['currentImage']]) }}" alt="{{ $mostVisitedProduct["name"] }}">
@@ -75,9 +79,9 @@
                                                         <section class="product-price">{{ priceFormat($mostVisitedProduct["price"]) }} تومان</section>
                                                     </section>
                                                     <section class="product-colors">
-                                                        <section class="product-colors-item" style="background-color: white;"></section>
-                                                        <section class="product-colors-item" style="background-color: blue;"></section>
-                                                        <section class="product-colors-item" style="background-color: red;"></section>
+                                                        @foreach($mostVisitedProduct->colors as $color)
+                                                            <section class="product-colors-item" style="background-color: {{ $color->color }};"></section>
+                                                        @endforeach
                                                     </section>
                                                 </a>
                                             </section>
@@ -141,7 +145,11 @@
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
                                                 <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
-                                                <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>
+                                                <section class="product-add-to-favorite">
+                                                    <span class="add_to_favorite" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
+                                                        <i class="fa fa-heart"></i>
+                                                    </span>
+                                                </section>
                                                 <a class="product-link" href="{{ route("user.market.product", $offerProduct["slug"]) }}">
                                                     <section class="product-image">
                                                         <img class="" src="{{ asset($offerProduct['image']['indexArray'][$offerProduct['image']['currentImage']]) }}" alt="{{ $offerProduct["name"] }}">
@@ -156,9 +164,9 @@
                                                         <section class="product-price">{{ priceFormat($offerProduct["price"]) }} تومان</section>
                                                     </section>
                                                     <section class="product-colors">
-                                                        <section class="product-colors-item" style="background-color: white;"></section>
-                                                        <section class="product-colors-item" style="background-color: blue;"></section>
-                                                        <section class="product-colors-item" style="background-color: red;"></section>
+                                                        @foreach($offerProduct->colors as $color)
+                                                            <section class="product-colors-item" style="background-color: {{ $color->color }};"></section>
+                                                        @endforeach
                                                     </section>
                                                 </a>
                                             </section>
@@ -227,4 +235,9 @@
 @endsection
 
 @section("scripts")
+    <script>
+        $(".add_to_favorite").click(function (){
+            alert()
+        });
+    </script>
 @endsection

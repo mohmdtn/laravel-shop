@@ -29,4 +29,8 @@ class ProductController extends Controller
 
         return back();
     }
+
+    public function addToFavorite(Product $product){
+
+    }
 }

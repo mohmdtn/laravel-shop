@@ -432,6 +432,7 @@ Route::namespace("App\Http\Controllers\User")->group(function (){
     Route::namespace("Market")->group(function (){
         Route::get("/product/{product:slug}", "ProductController@product")->name("user.market.product");
         Route::post("/add-comment/{product:slug}", "ProductController@addComment")->name("user.market.addComment");
+        Route::get("/add-to-favorite/{product:slug}", "ProductController@addToFavorite")->name("user.market.addToFavorite");
     });
 
 });
