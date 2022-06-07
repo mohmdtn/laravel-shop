@@ -790,7 +790,7 @@ body {
     padding: 0.2rem;
 }
 
-.product-add-to-favorite a{
+.product-add-to-favorite span{
     text-decoration: none;
     background-color: rgba(255,255,255, 0.2);
     padding: 0.2rem 0.4rem 0rem 0.4rem;
@@ -798,9 +798,10 @@ body {
     box-shadow: 0rem 0rem 0.4rem 0.1rem rgba(0,0,0,0.1);
     border-radius: 0.25rem;
     transition: 0.4s;
+    cursor: pointer;
 }
 
-.product-add-to-favorite-active, .product-add-to-favorite a:hover {
+.product-add-to-favorite-active, .product-add-to-favorite span:hover {
     background-color: rgba(255,255,255, 1)!important;
     color: #ff253a!important;
     text-decoration: none;
