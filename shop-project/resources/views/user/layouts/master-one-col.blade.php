@@ -9,7 +9,7 @@
 </head>
 <body>
 @include("user.layouts.header")
-
+@include("admin.alerts.alertSection.success")
 <main id="main-body-one-col" class="main-body">
     @yield("content")
 </main>
