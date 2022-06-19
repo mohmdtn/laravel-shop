@@ -56,13 +56,13 @@
                         <a class="text-decoration-none text-dark mx-2" href="{{ route("auth.user.loginRegisterForm") }}">ورود/ثبت نام</a>
                     @endguest
                     <section class="header-cart d-inline ps-3 border-start position-relative">
-                        <a class="btn btn-link position-relative text-dark header-cart-link" href="javascript:void(0)">
+                        <a class="btn btn-link position-relative text-dark header-cart-link" href="{{ route("user.salesProcess.cart") }}">
                             <i class="fa fa-shopping-cart"></i> <span style="top: 80%;" class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">2</span>
                         </a>
                         <section class="header-cart-dropdown">
                             <section class="border-bottom d-flex justify-content-between p-2">
                                 <span class="text-muted">2 کالا</span>
-                                <a class="text-decoration-none text-info" href="cart.html">مشاهده سبد خرید </a>
+                                <a class="text-decoration-none text-info" href="{{ route("user.salesProcess.cart") }}">مشاهده سبد خرید </a>
                             </section>
                             <section class="header-cart-dropdown-body">
 

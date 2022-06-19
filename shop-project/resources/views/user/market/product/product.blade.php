@@ -102,7 +102,7 @@
 
                                             @guest
                                                 <p>
-                                                    <button class="btn btn-light  btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
+                                                    <button type="button" class="btn btn-light  btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
                                                         <i class="fa fa-heart text-dark"></i><span class="addFave"> افزودن به علاقه مندی</span>
                                                     </button>
                                                 </p>
@@ -110,13 +110,13 @@
                                             @auth
                                                 @if($product->user->contains(auth()->user()->id))
                                                     <p>
-                                                        <button class="btn btn-light  btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
+                                                        <button type="button" class="btn btn-light  btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
                                                             <i class="fa fa-heart text-danger"></i><span class="addFave"> حذف از علاقه مندی</span>
                                                         </button>
                                                     </p>
                                                 @else
                                                     <p>
-                                                        <button class="btn btn-light  btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
+                                                        <button type="button" class="btn btn-light  btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
                                                             <i class="fa fa-heart text-dark"></i><span class="addFave"> افزودن به علاقه مندی</span>
                                                         </button>
                                                     </p>
@@ -446,7 +446,7 @@
     </section>
 
 
-    <section class="position-fixed p-4 flex-row-reverse" style="z-index: 99999; left: 0; top: 0; width: 26rem; max-width: 80%;">
+    <section class="position-fixed p-4 flex-row-reverse" style="z-index: 99999; left: 0; bottom: 0; width: 26rem; max-width: 80%;">
         <section class="toast" data-delay="6000">
             <section class="toast-header p-1 px-3 d-flex justify-content-between text-white font-weight-bold bg-info">
                 <strong>
@@ -590,5 +590,23 @@
                 }
             })
         });
+    </script>
+
+    <script>
+        //start product introduction, features and comment
+        $(document).ready(function() {
+            var s = $("#introduction-features-comments");
+            var pos = s.position();
+            $(window).scroll(function() {
+                var windowpos = $(window).scrollTop();
+
+                if (windowpos >= pos.top) {
+                    s.addClass("stick");
+                } else {
+                    s.removeClass("stick");
+                }
+            });
+        });
+        //end product introduction, features and comment
     </script>
 @endsection
