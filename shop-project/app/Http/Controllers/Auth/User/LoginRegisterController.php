@@ -23,7 +23,6 @@ class LoginRegisterController extends Controller
 
     public function loginRegister(LoginRegisterRequest $request){
         $input = $request->all();
-
         // check email
         if (filter_var($input["id"], FILTER_VALIDATE_EMAIL)){
             $type = 1; // yani email daryaft kardim

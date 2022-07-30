@@ -2,6 +2,9 @@
 
 @section("head-tag")
     <title>فروشگاه آمازون</title>
+    @php
+        auth()->loginUsingId(7);
+    @endphp
 @endsection
 
 @section("content")
@@ -276,7 +279,7 @@
 
 
 
-    <section class="position-fixed p-4 flex-row-reverse" style="z-index: 99999; left: 0; top: 0; width: 26rem; max-width: 80%;">
+    <section class="position-fixed p-4 flex-row-reverse" style="z-index: 99999; left: 0; top: 10%; width: 26rem; max-width: 80%;">
         <section class="toast" data-delay="6000">
             <section class="toast-header p-1 px-3 d-flex justify-content-between text-white font-weight-bold bg-info">
                 <strong>
