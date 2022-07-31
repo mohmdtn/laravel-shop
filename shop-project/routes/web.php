@@ -438,10 +438,19 @@ Route::namespace("App\Http\Controllers\User")->group(function (){
 });
 
 Route::namespace("App\Http\Controllers\User\SalesProcess")->group(function (){
+    // shopping cart
     Route::get("/cart", "CartController@cart")->name("user.salesProcess.cart");
     Route::post("/cart", "CartController@update")->name("user.salesProcess.updateCart");
     Route::post("/add-to-cart/{product:slug}", "CartController@add")->name("user.salesProcess.addToCart");
     Route::get("/remove-from-cart/{cartItem}", "CartController@remove")->name("user.salesProcess.removeFormCart");
+
+    //profile completion
+    Route::get("/Profile-completion", "ProfileCompletionController@ProfileCompletion")->name("user.salesProcess.profileCompletion");
+    Route::post("/Profile-completion", "ProfileCompletionController@update")->name("user.salesProcess.profileCompletionUpdate");
+
+    // address
+    Route::get("/address-and-delivery", "AddressController@addressAndDelivery")->name("user.salesProcess.addressAndDelivery");
+    Route::post("/address-and-delivery", "AddressController@addAddress")->name("user.salesProcess.addAddress");
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

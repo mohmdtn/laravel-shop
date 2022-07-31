@@ -26,7 +26,7 @@
                         <section class="col-md-9 mb-3">
                             <section class="content-wrapper bg-white p-3 rounded-2">
 
-                                <form action="" id="cart_items">
+                                <form action="{{ route("user.salesProcess.updateCart") }}" id="cart_items" method="post">
                                     @csrf
                                     @php
                                         $totalProductPrice = 0;
@@ -58,7 +58,7 @@
                                                 <section>
                                                     <section class="cart-product-number d-inline-block ">
                                                         <button class="cart-number cart-number-down" type="button">-</button>
-                                                        <input class="number" data-product-price="{{ $cartItem->cartItemProductPrice() }}" data-product-discount="{{ $cartItem->cartItemProductDiscount() }}" type="number" min="1" max="5" step="1" value="{{ $cartItem["number"] }}" readonly="readonly">
+                                                        <input name="number[{{ $cartItem['id'] }}]" class="number" data-product-price="{{ $cartItem->cartItemProductPrice() }}" data-product-discount="{{ $cartItem->cartItemProductDiscount() }}" type="number" min="1" max="5" step="1" value="{{ $cartItem["number"] }}" readonly="readonly">
                                                         <button class="cart-number cart-number-up" type="button">+</button>
                                                     </section>
                                                     <a class="text-decoration-none ms-4 cart-delete" href="{{ route("user.salesProcess.removeFormCart", $cartItem) }}"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
@@ -99,7 +99,7 @@
 
 
                                 <section class="">
-                                    <a href="address.html" class="btn btn-danger d-block">تکمیل فرآیند خرید</a>
+                                    <button onclick="document.getElementById('cart_items').submit();" class="btn btn-danger d-block w-100">تکمیل فرآیند خرید</button>
                                 </section>
 
                             </section>
