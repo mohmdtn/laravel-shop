@@ -448,9 +448,12 @@ Route::namespace("App\Http\Controllers\User\SalesProcess")->group(function (){
     Route::get("/Profile-completion", "ProfileCompletionController@ProfileCompletion")->name("user.salesProcess.profileCompletion");
     Route::post("/Profile-completion", "ProfileCompletionController@update")->name("user.salesProcess.profileCompletionUpdate");
 
-    // address
-    Route::get("/address-and-delivery", "AddressController@addressAndDelivery")->name("user.salesProcess.addressAndDelivery");
-    Route::post("/address-and-delivery", "AddressController@addAddress")->name("user.salesProcess.addAddress");
+    Route::middleware("profile.completion")->group(function (){
+        // address
+        Route::get("/address-and-delivery", "AddressController@addressAndDelivery")->name("user.salesProcess.addressAndDelivery");
+        Route::post("/address-and-delivery", "AddressController@addAddress")->name("user.salesProcess.addAddress");
+    });
+
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

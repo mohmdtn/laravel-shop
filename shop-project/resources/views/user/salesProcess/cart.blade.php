@@ -80,17 +80,20 @@
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">قیمت کالاها ({{ $cartItems->count() }})</p>
-                                    <p class="text-muted" id="total_product_price">{{ priceFormat($totalProductPrice) }} تومان</p>
+                                    <p class="text-muted"><span id="total_product_price">{{ priceFormat($totalProductPrice) }}</span> تومان</p>
                                 </section>
 
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">تخفیف کالاها</p>
-                                    <p class="text-danger fw-bolder" id="total_discount">{{ priceFormat($totalDiscount) }} تومان</p>
-                                </section>
+                                @if($totalDiscount != 0)
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">تخفیف کالاها</p>
+                                        <p class="text-danger fw-bolder"><span id="total_discount">{{ priceFormat($totalDiscount) }}</span> تومان</p>
+                                    </section>
+                                @endif
+
                                 <section class="border-bottom mb-3"></section>
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">جمع سبد خرید</p>
-                                    <p class="fw-bolder" id="total_price">{{ priceFormat($totalProductPrice - $totalDiscount) }} تومان</p>
+                                    <p class="fw-bolder"><span id="total_price">{{ priceFormat($totalProductPrice - $totalDiscount) }}</span> تومان</p>
                                 </section>
 
                                 <p class="my-3">

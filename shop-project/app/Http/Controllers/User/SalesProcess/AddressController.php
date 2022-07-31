@@ -10,12 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class AddressController extends Controller
 {
     public function addressAndDelivery(){
-        // check profile
-        $user = Auth::user();
 
-        if (empty($user["mobile"]) || empty($user["first_name"]) || empty($user["last_name"]) || empty($user["email"]) || empty($user["national_code"])){
-            return redirect()->route("user.salesProcess.profileCompletion");
-        }
+        $user = Auth::user();
         if (empty(CartItem::where("user_id", $user["id"])->count())){
             return redirect()->route("user.salesProcess.cart");
         }
