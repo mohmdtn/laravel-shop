@@ -195,6 +195,11 @@ return [
         "code"                      => "کد",
         "otp"                       => "رمز یک بار مصرف",
         "color"                     => "رنگ",
+        "province_id"               => "استان",
+        "city_id"                   => "شهر",
+        "recipient_first_name"      => "نام دریافت کننده",
+        "recipient_last_name"       => "نام خانوادگی دریافت کننده",
+        "no"                        => "پلاک",
 
     ],
 ];

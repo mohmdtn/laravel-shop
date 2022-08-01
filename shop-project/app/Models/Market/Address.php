@@ -2,6 +2,7 @@
 
 namespace App\Models\Market;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Address extends Model
 {
     use HasFactory,SoftDeletes;
+
+    protected $guarded = ["id"];
 
     public function getRecipientFullNameAttribute(){
         return "{$this->recipient_first_name} {$this->recipient_last_name}";
@@ -20,5 +23,9 @@ class Address extends Model
 
     public function city(){
         return $this->belongsTo(City::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
