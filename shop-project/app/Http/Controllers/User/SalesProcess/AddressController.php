@@ -36,6 +36,11 @@ class AddressController extends Controller
         return redirect()->back();
     }
 
+    public function updateAddress(AddAddressRequest $request, Address $address){
+        $inputs = $request->all();
+        dd($inputs);
+    }
+
     public function getCities(Province $province){
         $cities = $province->cities;
         if ($cities != null)

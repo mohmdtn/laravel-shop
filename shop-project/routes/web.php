@@ -452,6 +452,7 @@ Route::namespace("App\Http\Controllers\User\SalesProcess")->group(function (){
         // address
         Route::get("/address-and-delivery", "AddressController@addressAndDelivery")->name("user.salesProcess.addressAndDelivery");
         Route::post("/address-and-delivery", "AddressController@addAddress")->name("user.salesProcess.addAddress");
+        Route::put("/update-and/{address}", "AddressController@updateAddress")->name("user.salesProcess.updateAddress");
         Route::get("/get-cities/{province}", "AddressController@getCities")->name("user.salesProcess.getCities");
 
     });
