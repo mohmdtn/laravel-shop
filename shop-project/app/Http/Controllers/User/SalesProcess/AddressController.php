@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\SalesProcess\AddAddressRequest;
 use App\Models\Market\Address;
 use App\Models\Market\CartItem;
+use App\Models\Market\Delivery;
 use App\Models\Market\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,12 +19,13 @@ class AddressController extends Controller
         $cartItems = CartItem::where("user_id", $user["id"])->get();
         $addresses = $user->addresses;
         $provinces = Province::all();
+        $deliveryMethods = Delivery::where("status", 1)->get();
 
         if (empty(CartItem::where("user_id", $user["id"])->count())){
             return redirect()->route("user.salesProcess.cart");
         }
         else{
-            return view("user.salesProcess.addressAndDelivery", compact("cartItems", "addresses", "provinces"));
+            return view("user.salesProcess.addressAndDelivery", compact("cartItems", "addresses", "provinces", "deliveryMethods"));
         }
 
     }
@@ -31,6 +33,8 @@ class AddressController extends Controller
     public function addAddress(AddAddressRequest $request){
         $inputs = $request->all();
         $inputs["user_id"] = Auth::id();
+        $inputs["postal_code"] = convertArabicToEnglish($request["postal_code"]);
+        $inputs["postal_code"] = convertPersianToEnglish($inputs["postal_code"]);
 
         $address = Address::create($inputs);
         return redirect()->back();
@@ -38,7 +42,12 @@ class AddressController extends Controller
 
     public function updateAddress(AddAddressRequest $request, Address $address){
         $inputs = $request->all();
-        dd($inputs);
+        $inputs["user_id"] = Auth::id();
+        $inputs["postal_code"] = convertArabicToEnglish($request["postal_code"]);
+        $inputs["postal_code"] = convertPersianToEnglish($inputs["postal_code"]);
+
+        $address->update($inputs);
+        return redirect()->back();
     }
 
     public function getCities(Province $province){

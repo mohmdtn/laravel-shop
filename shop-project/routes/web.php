@@ -455,6 +455,9 @@ Route::namespace("App\Http\Controllers\User\SalesProcess")->group(function (){
         Route::put("/update-and/{address}", "AddressController@updateAddress")->name("user.salesProcess.updateAddress");
         Route::get("/get-cities/{province}", "AddressController@getCities")->name("user.salesProcess.getCities");
 
+        // payment
+        Route::post("/payment", "PaymentController@payment")->name("user.salesProcess.payment");
+
     });
 
 });
