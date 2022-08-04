@@ -141,10 +141,10 @@ $(document).ready(function() {
 //start address
 $(document).ready(function() {
 
-    $('input[name="address"]').change(function(){
+    $('input[name="address_id"]').change(function(){
 
-        var address = $('input[name="address"]').is(":checked");
-        var delivery_type = $('input[name="delivery_type"]').is(":checked");
+        var address = $('input[name="address_id"]').is(":checked");
+        var delivery_type = $('input[name="delivery_id"]').is(":checked");
 
         if(address == true && delivery_type == true) {
             $("#address-button").removeClass("d-block");
@@ -154,10 +154,10 @@ $(document).ready(function() {
         }
     });
 
-    $('input[name="delivery_type"]').change(function(){
+    $('input[name="delivery_id"]').change(function(){
 
-        var address = $('input[name="address"]').is(":checked");
-        var delivery_type = $('input[name="delivery_type"]').is(":checked");
+        var address = $('input[name="address_id"]').is(":checked");
+        var delivery_type = $('input[name="delivery_id"]').is(":checked");
 
         if(address == true && delivery_type == true) {
             $("#address-button").removeClass("d-block");

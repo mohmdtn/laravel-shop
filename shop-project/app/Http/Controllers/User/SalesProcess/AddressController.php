@@ -4,9 +4,11 @@ namespace App\Http\Controllers\User\SalesProcess;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\SalesProcess\AddAddressRequest;
+use App\Http\Requests\User\SalesProcess\ChooseAddressAndDeliveryRequest;
 use App\Models\Market\Address;
 use App\Models\Market\CartItem;
 use App\Models\Market\Delivery;
+use App\Models\Market\Order;
 use App\Models\Market\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +32,7 @@ class AddressController extends Controller
 
     }
 
+
     public function addAddress(AddAddressRequest $request){
         $inputs = $request->all();
         $inputs["user_id"] = Auth::id();
@@ -39,6 +42,7 @@ class AddressController extends Controller
         $address = Address::create($inputs);
         return redirect()->back();
     }
+
 
     public function updateAddress(AddAddressRequest $request, Address $address){
         $inputs = $request->all();
@@ -50,6 +54,7 @@ class AddressController extends Controller
         return redirect()->back();
     }
 
+
     public function getCities(Province $province){
         $cities = $province->cities;
         if ($cities != null)
@@ -57,4 +62,21 @@ class AddressController extends Controller
         else
             return response()->json(["status" => false]);
     }
+
+
+    public function chooseAddressAndDelivery(ChooseAddressAndDeliveryRequest $request){
+        $user = Auth::user();
+        $inputs = [
+            "user_id"       => $user->id,
+            "address_id"    => $request->address_id,
+            "delivery_id"   => $request->delivery_id
+        ];
+
+        $order = Order::updateOrCreate(
+            ["user_id" => $user->id, "order_status" => 0],
+            $inputs
+        );
+        return redirect()->route("user.salesProcess.payment");
+    }
+
 }

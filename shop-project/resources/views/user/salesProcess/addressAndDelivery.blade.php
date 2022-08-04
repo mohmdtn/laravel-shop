@@ -439,7 +439,10 @@
 
                                 <section class="">
                                     <section id="address-button" class="text-warning border border-warning text-center py-2 pointer rounded-2 d-block">آدرس و نحوه ارسال را انتخاب کن</section>
-                                    <a id="next-level" href="payment.html" class="btn btn-danger d-none">ادامه فرآیند خرید</a>
+                                    <form action="{{ route("user.salesProcess.chooseAddressAndDelivery") }}" method="post" id="my-form">
+                                        @csrf
+                                        <button id="next-level" class="btn btn-danger d-none w-100">ادامه فرآیند خرید</button>
+                                    </form>
                                 </section>
 
                             </section>
@@ -451,10 +454,6 @@
         </section>
     </section>
     <!-- end cart -->
-
-    <form action="{{ route("user.salesProcess.payment") }}" id="my-form">
-
-    </form>
 
 @endsection
 
