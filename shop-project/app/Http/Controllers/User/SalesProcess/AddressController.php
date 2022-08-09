@@ -66,10 +66,27 @@ class AddressController extends Controller
 
     public function chooseAddressAndDelivery(ChooseAddressAndDeliveryRequest $request){
         $user = Auth::user();
+        // calc price
+        $cartItems = CartItem::where("user_id", $user->id)->get();
+        $total_product_price = 0;
+        $total_discount = 0;
+        $total_final_price = 0;
+        $total_final_discount_price_with_number = 0;
+
+        foreach ($cartItems as $cartItem){
+            $total_product_price                        += $cartItem->cartItemProductPrice();
+            $total_discount                             += $cartItem->cartItemProductDiscount();
+            $total_final_price                          += $cartItem->cartItemFinalPrice();
+            $total_final_discount_price_with_number     += $cartItem->cartItemFinalDiscount();
+        }
+
+
         $inputs = [
-            "user_id"       => $user->id,
-            "address_id"    => $request->address_id,
-            "delivery_id"   => $request->delivery_id
+            "user_id"               => $user->id,
+            "address_id"            => $request->address_id,
+            "delivery_id"           => $request->delivery_id,
+            "order_final_amount"    => $total_final_price,
+            "order_discount_amount" => $total_final_discount_price_with_number,
         ];
 
         $order = Order::updateOrCreate(
