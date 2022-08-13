@@ -7,6 +7,7 @@ use App\Http\Requests\User\SalesProcess\AddAddressRequest;
 use App\Http\Requests\User\SalesProcess\ChooseAddressAndDeliveryRequest;
 use App\Models\Market\Address;
 use App\Models\Market\CartItem;
+use App\Models\Market\CommonDiscount;
 use App\Models\Market\Delivery;
 use App\Models\Market\Order;
 use App\Models\Market\Province;
@@ -72,6 +73,7 @@ class AddressController extends Controller
         $total_discount = 0;
         $total_final_price = 0;
         $total_final_discount_price_with_number = 0;
+        $finalPrice = 0;
 
         foreach ($cartItems as $cartItem){
             $total_product_price                        += $cartItem->cartItemProductPrice();
@@ -80,14 +82,36 @@ class AddressController extends Controller
             $total_final_discount_price_with_number     += $cartItem->cartItemFinalDiscount();
         }
 
+        // common discount
+        $commonDiscount = CommonDiscount::where([["status", 1], ["end_date" ,">", now()], ["start_date", "<", now()]])->first();
+        if ($commonDiscount){
+            $commonDiscountPercentage = $total_final_price * ($commonDiscount["percentage"] / 100);
+
+            if ($commonDiscountPercentage > $commonDiscount["discount_ceiling"]){
+                $commonDiscountPercentage = $commonDiscount["discount_ceiling"];
+            }
+
+            if ($total_final_price >= $commonDiscount["minimal_order_amount"]){
+                $finalPrice = $total_final_price - $commonDiscountPercentage;
+            }
+
+            else{
+                $finalPrice = $total_final_price;
+            }
+        }
+        else{
+            $commonDiscountPercentage = null;
+        }
 
         $inputs = [
-            "user_id"               => $user->id,
-            "address_id"            => $request->address_id,
-            "delivery_id"           => $request->delivery_id,
-            "order_final_amount"    => $total_final_price,
-            "order_discount_amount" => $total_final_discount_price_with_number,
+            "user_id"                               => $user->id,
+            "address_id"                            => $request->address_id,
+            "delivery_id"                           => $request->delivery_id,
+            "order_final_amount"                    => $finalPrice,
+            "order_discount_amount"                 => $total_final_discount_price_with_number,
+            "order_common_discount_amount"          => $commonDiscountPercentage,
         ];
+        $inputs["order_total_products_discount_amount"] = $inputs["order_discount_amount"] + $inputs["order_common_discount_amount"];
 
         $order = Order::updateOrCreate(
             ["user_id" => $user->id, "order_status" => 0],
