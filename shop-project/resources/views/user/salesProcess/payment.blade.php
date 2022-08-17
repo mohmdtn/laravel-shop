@@ -48,10 +48,16 @@
 
                                 <section class="row">
                                     <section class="col-md-5">
-                                        <section class="input-group input-group-sm">
-                                            <input type="text" class="form-control" placeholder="کد تخفیف را وارد کنید">
-                                            <button class="btn btn-primary" type="button">اعمال کد</button>
-                                        </section>
+                                        <form action="{{ route("user.salesProcess.copanDiscount") }}" method="post">
+                                            @csrf
+                                            <section class="input-group input-group-sm">
+                                                <input type="text" class="form-control" name="copan" placeholder="کد تخفیف را وارد کنید">
+                                                @error("copan")
+                                                    {{ $message }}
+                                                @enderror
+                                                <button class="btn btn-primary" type="submit">اعمال کد</button>
+                                            </section>
+                                        </form>
                                     </section>
 
                                 </section>
