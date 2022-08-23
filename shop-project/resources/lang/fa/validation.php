@@ -200,6 +200,7 @@ return [
         "recipient_first_name"      => "نام دریافت کننده",
         "recipient_last_name"       => "نام خانوادگی دریافت کننده",
         "no"                        => "پلاک",
+        "copan"                     => "کد تخفیف",
 
     ],
 ];

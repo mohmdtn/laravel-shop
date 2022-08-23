@@ -52,10 +52,12 @@
                                             @csrf
                                             <section class="input-group input-group-sm">
                                                 <input type="text" class="form-control" name="copan" placeholder="کد تخفیف را وارد کنید">
-                                                @error("copan")
-                                                    {{ $message }}
-                                                @enderror
                                                 <button class="btn btn-primary" type="submit">اعمال کد</button>
+                                                @error("copan")
+                                                    <div class="errors text-danger col-12">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </section>
                                         </form>
                                     </section>
@@ -136,31 +138,51 @@
                         </section>
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
+                                @php
+                                    $totalProductPrice = 0;
+                                    $totalDiscount = 0;
+                                @endphp
+
+                                @foreach($cartItems as $cartItem)
+                                    @php
+                                        $totalProductPrice += $cartItem->cartItemProductPrice() * $cartItem->number;
+                                        $totalDiscount += $cartItem->cartItemProductDiscount() * $cartItem->number;
+                                    @endphp
+                                @endforeach
                                 <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">قیمت کالاها (2)</p>
-                                    <p class="text-muted">398,000 تومان</p>
+                                    <p class="text-muted">قیمت کالاها ({{ $cartItems->count() }})</p>
+                                    <p class="text-muted"><span  id="total_product_price">{{ priceFormat($totalProductPrice) }}</span> تومان</p>
                                 </section>
 
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">تخفیف کالاها</p>
-                                    <p class="text-danger fw-bolder">78,000 تومان</p>
-                                </section>
+                                @if($totalDiscount != 0)
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">تخفیف کالاها</p>
+                                        <p class="text-danger fw-bolder"><span id="total_discount">{{ priceFormat($totalDiscount) }}</span> تومان</p>
+                                    </section>
+                                @endif
+
+                                @if($order->commonDiscount() != null)
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">میزان تخفیف عمومی</p>
+                                        <p class="text-danger fw-bolder"><span id="total_discount">{{ priceFormat($order->commonDiscount->percentage) }}</span> درصد</p>
+                                    </section>
+
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted"> حد اکثر تخفیف عمومی</p>
+                                        <p class="text-danger fw-bolder"><span id="total_discount">{{ priceFormat($order->commonDiscount->discount_ceiling) }}</span> تومان</p>
+                                    </section>
+                                @endif
 
                                 <section class="border-bottom mb-3"></section>
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">جمع سبد خرید</p>
-                                    <p class="fw-bolder">320,000 تومان</p>
+                                    <p class="fw-bolder"><span id="total_price">{{ priceFormat($order->order_final_amount) }}</span> تومان</p>
                                 </section>
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">هزینه ارسال</p>
                                     <p class="text-warning">54,000 تومان</p>
-                                </section>
-
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">تخفیف اعمال شده</p>
-                                    <p class="text-danger">100,000 تومان</p>
                                 </section>
 
                                 <p class="my-3">
@@ -171,16 +193,20 @@
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">مبلغ قابل پرداخت</p>
-                                    <p class="fw-bold">274,000 تومان</p>
+                                    <p class="fw-bold">374,000 تومان</p>
                                 </section>
 
                                 <section class="">
-                                    <section id="payment-button" class="text-warning border border-warning text-center py-2 pointer rounded-2 d-block">نوع پرداخت را انتخاب کن</section>
-                                    <a id="final-level" href="my-orders.html" class="btn btn-danger d-none">ثبت سفارش و گرفتن کد رهگیری</a>
+                                    <section id="address-button" class="text-warning border border-warning text-center py-2 pointer rounded-2 d-block">آدرس و نحوه ارسال را انتخاب کن</section>
+                                    <form action="{{ route("user.salesProcess.chooseAddressAndDelivery") }}" method="post" id="my-form">
+                                        @csrf
+                                        <button id="next-level" class="btn btn-danger d-none w-100">ادامه فرآیند خرید</button>
+                                    </form>
                                 </section>
 
                             </section>
                         </section>
+
                     </section>
                 </section>
             </section>
