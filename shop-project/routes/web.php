@@ -458,7 +458,8 @@ Route::namespace("App\Http\Controllers\User\SalesProcess")->group(function (){
 
         // payment
         Route::get("/payment", "PaymentController@payment")->name("user.salesProcess.payment");
-        Route::post("/copan-discoubt", "PaymentController@copanDiscount")->name("user.salesProcess.copanDiscount");
+        Route::post("/copan-discount", "PaymentController@copanDiscount")->name("user.salesProcess.copanDiscount");
+        Route::post("/payment-submit", "PaymentController@paymentSubmit")->name("user.salesProcess.paymentSubmit");
 
     });
 

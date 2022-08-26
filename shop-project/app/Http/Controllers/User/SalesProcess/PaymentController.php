@@ -58,7 +58,7 @@ class PaymentController extends Controller
                     "order_copan_discount_amount"           => $copanDiscountAmount,
                     "order_total_products_discount_amount"  => $finalDiscount,
                 ]);
-                return redirect()->back();
+                return redirect()->back()->with(["done" => "کوپن تخفیف با موفقیت اعمال شد."]);
 
             }
             else{
@@ -72,5 +72,32 @@ class PaymentController extends Controller
             return redirect()->back();
         }
 
+    }
+
+    public function paymentSubmit(Request $request){
+        $request->validate([
+            "payment_type" => "required|numeric"
+        ]);
+
+        $user = Auth::user();
+        $order = Order::where("user_id", $user->id)->where("order_status", 0)->first();
+        $cartItems = CartItem::where("user_id", $user->id)->get();
+
+        switch ($request->payment_type){
+            case '1':
+                dd("online");
+                break;
+
+            case '2':
+                dd("offline");
+                break;
+
+            case '3':
+                dd("cash");
+                break;
+
+            default:
+                return redirect()->back();
+        }
     }
 }

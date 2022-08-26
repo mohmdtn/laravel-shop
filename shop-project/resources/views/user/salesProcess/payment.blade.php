@@ -58,6 +58,11 @@
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
+                                                @if(session("done"))
+                                                    <div class="errors text-success col-12">
+                                                        {{ session("done") }}
+                                                    </div>
+                                                @endif
                                             </section>
                                         </form>
                                     </section>
@@ -88,46 +93,53 @@
                                         </secrion>
                                     </section>
 
-                                    <input type="radio" name="payment_type" value="1" id="d1"/>
-                                    <label for="d1" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-credit-card mx-1"></i>
-                                            پرداخت آنلاین
-                                        </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            درگاه پرداخت زرین پال
-                                        </section>
-                                    </label>
 
-                                    <section class="mb-2"></section>
+                                    <form action="{{ route("user.salesProcess.paymentSubmit") }}" method="post" id="payment_submit">
+                                        @csrf
+                                        <section class="row">
+                                            <section class="col-12 col-md-4 ">
+                                                <input type="radio" name="payment_type" value="1" id="d1"/>
+                                                <label for="d1" class="payment-wrapper mb-2 pt-2 col-12">
+                                                    <section class="mb-2">
+                                                        <i class="fa fa-credit-card mx-1"></i>
+                                                        پرداخت آنلاین
+                                                    </section>
+                                                    <section class="mb-2">
+                                                        <i class="fa fa-calendar-alt mx-1"></i>
+                                                        درگاه پرداخت زرین پال
+                                                    </section>
+                                                </label>
+                                            </section>
 
-                                    <input type="radio" name="payment_type" value="2" id="d2"/>
-                                    <label for="d2" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-id-card-alt mx-1"></i>
-                                            پرداخت آفلاین
-                                        </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            حداکثر در 2 روز کاری بررسی می شود
-                                        </section>
-                                    </label>
+                                            <section class="col-12 col-md-4 ">
+                                                <input type="radio" name="payment_type" value="2" id="d2"/>
+                                                <label for="d2" class="col-12 payment-wrapper mb-2 pt-2">
+                                                    <section class="mb-2">
+                                                        <i class="fa fa-id-card-alt mx-1"></i>
+                                                        پرداخت آفلاین
+                                                    </section>
+                                                    <section class="mb-2">
+                                                        <i class="fa fa-calendar-alt mx-1"></i>
+                                                        حداکثر در 2 روز کاری بررسی می شود
+                                                    </section>
+                                                </label>
+                                            </section>
 
-                                    <section class="mb-2"></section>
-
-                                    <input type="radio" name="payment_type" value="3" id="d3"/>
-                                    <label for="d3" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-money-check mx-1"></i>
-                                            پرداخت در محل
+                                            <section class="col-12 col-md-4 ">
+                                                <input type="radio" name="payment_type" value="3" id="d3"/>
+                                                <label for="d3" class="col-12 payment-wrapper mb-2 pt-2">
+                                                    <section class="mb-2">
+                                                        <i class="fa fa-money-check mx-1"></i>
+                                                        پرداخت در محل
+                                                    </section>
+                                                    <section class="mb-2">
+                                                        <i class="fa fa-calendar-alt mx-1"></i>
+                                                        پرداخت به پیک هنگام دریافت کالا
+                                                    </section>
+                                                </label>
+                                            </section>
                                         </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            پرداخت به پیک هنگام دریافت کالا
-                                        </section>
-                                    </label>
-
+                                    </form>
 
                                 </section>
                             </section>
@@ -185,10 +197,6 @@
                                     <p class="text-warning">54,000 تومان</p>
                                 </section>
 
-                                <p class="my-3">
-                                    <i class="fa fa-info-circle me-1"></i> کاربر گرامی کالاها بر اساس نوع ارسالی که انتخاب می کنید در مدت زمان ذکر شده ارسال می شود.
-                                </p>
-
                                 <section class="border-bottom mb-3"></section>
 
                                 <section class="d-flex justify-content-between align-items-center">
@@ -197,11 +205,8 @@
                                 </section>
 
                                 <section class="">
-                                    <section id="address-button" class="text-warning border border-warning text-center py-2 pointer rounded-2 d-block">آدرس و نحوه ارسال را انتخاب کن</section>
-                                    <form action="{{ route("user.salesProcess.chooseAddressAndDelivery") }}" method="post" id="my-form">
-                                        @csrf
-                                        <button id="next-level" class="btn btn-danger d-none w-100">ادامه فرآیند خرید</button>
-                                    </form>
+                                    <section id="address-button" class="text-warning border border-warning text-center py-2 pointer rounded-2 d-block">روش پرداخت را انتخاب کن</section>
+                                    <button id="next-level" class="btn btn-danger d-none w-100" onclick="document.getElementById('payment_submit').submit()">ادامه فرآیند خرید</button>
                                 </section>
 
                             </section>

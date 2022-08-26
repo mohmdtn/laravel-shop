@@ -180,10 +180,10 @@ $(document).ready(function() {
         var payment_type = $('input[name="payment_type"]').is(":checked");
 
         if(payment_type == true) {
-            $("#payment-button").removeClass("d-block");
-            $("#payment-button").addClass("d-none");
-            $("#final-level").removeClass("d-none");
-            $("#final-level").addClass("d-block");
+            $("#address-button").removeClass("d-block");
+            $("#address-button").addClass("d-none");
+            $("#next-level").removeClass("d-none");
+            $("#next-level").addClass("d-block");
         }
     });
 
