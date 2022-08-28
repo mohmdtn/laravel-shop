@@ -4,8 +4,12 @@ namespace App\Http\Controllers\User\SalesProcess;
 
 use App\Http\Controllers\Controller;
 use App\Models\Market\CartItem;
+use App\Models\Market\CashPayment;
 use App\Models\Market\Copan;
+use App\Models\Market\OfflinePayment;
+use App\Models\Market\OnlinePayment;
 use App\Models\Market\Order;
+use App\Models\Market\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,19 +89,51 @@ class PaymentController extends Controller
 
         switch ($request->payment_type){
             case '1':
-                dd("online");
+                $targetModel = OnlinePayment::class;
+                $type = 0;
                 break;
 
             case '2':
-                dd("offline");
+                $targetModel = OfflinePayment::class;
+                $type = 1;
                 break;
 
             case '3':
-                dd("cash");
+                $targetModel = CashPayment::class;
+                $type = 2;
                 break;
 
             default:
-                return redirect()->back();
+                return redirect()->back()->withErrors(["error" => "خطا!"]);
         }
+
+        $paid = $targetModel::create([
+            "amount"    => $order->order_final_amount,
+            "user_id"   => $user->id,
+            "pay_date"  => now(),
+            "status"    => 1,
+        ]);
+
+        $payment = Payment::create([
+            "amount"            => $order->order_final_amount,
+            "user_id"           => $user->id,
+            "pay_date"          => now(),
+            "type"              => $type,
+            "paymentable_id"    => $paid->id,
+            "paymentable_type"  => $targetModel,
+            "status"            => 1,
+        ]);
+
+        $order->update([
+            "order_status" => 3,
+            "payment_type" => $type
+        ]);
+
+        foreach ($cartItems as $cartItem){
+            $cartItem->delete();
+        }
+
+        return redirect()->route("user.home")->with("success", "کاربر گرامی، سفارش شما با موفقیت ثبت شد.");
+
     }
 }
