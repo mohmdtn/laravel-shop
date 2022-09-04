@@ -27,12 +27,12 @@ class PaymentController extends Controller
            "copan" => "required"
         ]);
 
-        $copan = Copan::where([ ["code" => $request->code], ["status", 1], ["end_date", ">", now()], ["start_date", "<", now()] ])->first();
+        $copan = Copan::where([ ["code", $request->copan], ["status", 1], ["end_date", ">", now()], ["start_date", "<", now()] ])->first();
 
         if ($copan != null){
 
             if ($copan->user_id != null){
-                $copan = Copan::where([ ["code" => $request->code], ["status", 1], ["end_date", ">", now()], ["start_date", "<", now()], ["user_id", Auth::id()] ])->first();
+                $copan = Copan::where([ ["code", $request->copan], ["status", 1], ["end_date", ">", now()], ["start_date", "<", now()], ["user_id", Auth::id()] ])->first();
                 if ($copan == null){
                     return redirect()->back()->withErrors(["copan" => "کوپن وارد شده معتبر نمی باشد."]);
                 }
@@ -86,6 +86,7 @@ class PaymentController extends Controller
         $user = Auth::user();
         $order = Order::where("user_id", $user->id)->where("order_status", 0)->first();
         $cartItems = CartItem::where("user_id", $user->id)->get();
+        $cashReceiver = null;
 
         switch ($request->payment_type){
             case '1':
@@ -101,6 +102,7 @@ class PaymentController extends Controller
             case '3':
                 $targetModel = CashPayment::class;
                 $type = 2;
+                $cashReceiver = $request->cash_receiver ?? null;
                 break;
 
             default:
@@ -108,10 +110,11 @@ class PaymentController extends Controller
         }
 
         $paid = $targetModel::create([
-            "amount"    => $order->order_final_amount,
-            "user_id"   => $user->id,
-            "pay_date"  => now(),
-            "status"    => 1,
+            "amount"        => $order->order_final_amount,
+            "user_id"       => $user->id,
+            "pay_date"      => now(),
+            "status"        => 1,
+            "cash_receiver" => $cashReceiver,
         ]);
 
         $payment = Payment::create([

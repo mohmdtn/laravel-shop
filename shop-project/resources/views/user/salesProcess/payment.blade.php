@@ -125,8 +125,8 @@
                                                 </label>
                                             </section>
 
-                                            <section class="col-12 col-md-4 ">
-                                                <input type="radio" name="payment_type" value="3" id="d3"/>
+                                            <section class="col-12 col-md-4">
+                                                <input class="cash_payment" type="radio" name="payment_type" value="3" id="d3"/>
                                                 <label for="d3" class="col-12 payment-wrapper mb-2 pt-2">
                                                     <section class="mb-2">
                                                         <i class="fa fa-money-check mx-1"></i>
@@ -143,11 +143,8 @@
 
                                 </section>
                             </section>
-
-
-
-
                         </section>
+
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                 @php
@@ -225,42 +222,23 @@
 @section("scripts")
 
     <script>
-        $("#province").change(function(){
-            const element = $("#province option:selected");
-            const url = element.data("url");
+        $(function (){
+            $('.cash_payment').click(function (){
+                var newDiv = document.createElement('div');
+                newDiv.innerHTML = `
+                    <section class="input-group input-group-sm cash_receiver_wrapper">
+                        <input type="text" name="cash_receiver" class="form-control" form="payment_submit" placeholder="نام و نام خانوادگی دریافت کننده">
+                    </section>
+                `;
 
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function (response){
-                    $("#city option.added").remove();
-                    if (response.status == true){
-                        let cities = response.cities;
-                        cities.map( (city) => {
-                                $("#city").append(`<option class="added" value="${city.id}">${city.name}</option>`)
-                            }
-                        )
-
-                    }
-                },
-                error: function (){
-                    console.log("error");
+                if ($('.cash_receiver_wrapper').length == 0){
+                    document.getElementsByClassName('content-wrapper')[1].appendChild(newDiv);
                 }
-            });
-
-        });
-    </script>
-
-    <script>
-        function toFarsiNumber(number){
-            const farsiDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-
-            // add comma
-            number = new Intl.NumberFormat().format(number);
-
-            // convert to persian
-            return number.toString().replace(/\d/g, x => farsiDigits[x]);
-        }
+            })
+        })
+        $('.cash_payment').parent().siblings().click(function (){
+            $(".cash_receiver_wrapper").remove();
+        })
     </script>
 
 @endsection
