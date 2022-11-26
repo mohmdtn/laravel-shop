@@ -21,7 +21,7 @@ class PaymentService{
         $payment = [
             "callback_url"  => route('user.salesProcess.paymentCallback', [$order, $onlinePayment]),
             "amount"        => (int)$amount * 10,
-            "description"   => ''
+            "description"   => 'Laravel Shop Test'
         ];
 
         try {
@@ -42,11 +42,11 @@ class PaymentService{
     }
 
     public function zarinpalVerify($amount, $onlinePayment){
-        $authority = $_GET['authority'];
+        $authority = $_GET['Authority'];
         $data = [
-            "merchent_id" => Config::get('payment.zarinpal_api_key'),
+            "merchant_id" => Config::get('payment.zarinpal_api_key'),
             "authority" => $authority,
-            "amount" => (int)$amount * 10,
+            "amount" => (int)$amount,
         ];
         $jsonData = json_encode($data);
         $ch = curl_init('https://api.zarinpal.com/pg/v4/payment/verify.json');

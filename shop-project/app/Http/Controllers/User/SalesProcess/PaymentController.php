@@ -10,6 +10,7 @@ use App\Models\Market\Copan;
 use App\Models\Market\OfflinePayment;
 use App\Models\Market\OnlinePayment;
 use App\Models\Market\Order;
+use App\Models\Market\OrderItem;
 use App\Models\Market\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -118,10 +119,6 @@ class PaymentController extends Controller
             "cash_receiver" => $cashReceiver,
         ]);
 
-        if ($request->payment_type == 1){
-            $paymentService->zarinpal($order->order_final_amount, $order, $paid);
-        }
-
         $payment = Payment::create([
             "amount"            => $order->order_final_amount,
             "user_id"           => $user->id,
@@ -132,12 +129,29 @@ class PaymentController extends Controller
             "status"            => 1,
         ]);
 
+        if ($request->payment_type == 1){
+            $paymentService->zarinpal($order->order_final_amount, $order, $paid);
+        }
+
         $order->update([
             "order_status" => 3,
             "payment_type" => $type
         ]);
 
         foreach ($cartItems as $cartItem){
+            OrderItem::create([
+                'order_id'                      => $order->id,
+                'product_id'                    => $cartItem->product_id,
+                'product'                       => $cartItem->product,
+                'amazing_sale_id'               => $cartItem->product->activeAmazingSale()->id ?? null,
+                'amazing_sale_object'           => $cartItem->product->activeAmazingSale() ?? null,
+                'amazing_sale_discount_amount'  => empty($cartItem->product->activeAmazingSale()) ? 0 : $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingSale()->percentage / 100),
+                'number'                        => $cartItem->number,
+                'final_product_price'           => empty($cartItem->product->activeAmazingSale()) ? $cartItem->cartItemProductPrice() : ($cartItem->cartItemProductPrice() - $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingSale()->percentage / 100)),
+                'final_total_price'             => empty($cartItem->product->activeAmazingSale()) ? $cartItem->cartItemProductPrice() : ($cartItem->cartItemProductPrice() - $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingSale()->percentage / 100)) * ($cartItem->number),
+                'guarantee_id'                  => $cartItem->guarantee_id,
+                'color_id'                      => $cartItem->color_id
+            ]);
             $cartItem->delete();
         }
 
@@ -149,12 +163,38 @@ class PaymentController extends Controller
     public function paymentCallback(Order $order, OnlinePayment $onlinePayment, PaymentService $paymentService){
         $amount = $onlinePayment->amount * 10;
         $result = $paymentService->zarinpalVerify($amount, $onlinePayment);
+        $cartItems = CartItem::where("user_id", Auth::user()->id)->get();
+        foreach ($cartItems as $cartItem){
+            OrderItem::create([
+                'order_id'                      => $order->id,
+                'product_id'                    => $cartItem->product_id,
+                'product'                       => $cartItem->product,
+                'amazing_sale_id'               => $cartItem->product->activeAmazingSale()->id ?? null,
+                'amazing_sale_object'           => $cartItem->product->activeAmazingSale() ?? null,
+                'amazing_sale_discount_amount'  => empty($cartItem->product->activeAmazingSale()) ? 0 : $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingSale()->percentage / 100),
+                'number'                        => $cartItem->number,
+                'final_product_price'           => empty($cartItem->product->activeAmazingSale()) ? $cartItem->cartItemProductPrice() : ($cartItem->cartItemProductPrice() - $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingSale()->percentage / 100)),
+                'final_total_price'             => empty($cartItem->product->activeAmazingSale()) ? $cartItem->cartItemProductPrice() : ($cartItem->cartItemProductPrice() - $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingSale()->percentage / 100)) * ($cartItem->number),
+                'guarantee_id'                  => $cartItem->guarantee_id,
+                'color_id'                      => $cartItem->color_id
+            ]);
+            $cartItem->delete();
+        }
 
         if ($result["success"]){
-            return 'ok';
+            $order->update([
+                "order_status" => 3,
+                "payment_type" => 0
+            ]);
+            return redirect()->route("user.home")->with("success", "پرداخت شما با موفقیت انجام شد.");
         }
         else{
+            $order->update([
+                "order_status" => 2,
+                "payment_type" => 0
+            ]);
             return redirect()->route("user.home")->with("danger", "سفارش شما با خطا مواجه شد!");
         }
+
     }
 }

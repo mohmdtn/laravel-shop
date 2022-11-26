@@ -106,7 +106,7 @@ class Order extends Model
 
 
     public function getOrderStatusValueAttribute(){
-        switch ($this->delivery_status){
+        switch ($this->order_status){
             case 0:
                 $result = "برسی نشده";
                 break;
@@ -116,7 +116,7 @@ class Order extends Model
                 break;
 
             case 2:
-                $result = " تایید نشده";
+                $result = "تایید نشده";
                 break;
 
             case 3:
@@ -124,7 +124,7 @@ class Order extends Model
                 break;
 
             case 4:
-                $result = " باطل شده";
+                $result = "باطل شده";
                 break;
 
             case 5:
