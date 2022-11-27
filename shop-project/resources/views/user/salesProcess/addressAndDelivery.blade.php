@@ -78,7 +78,7 @@
                                         </label>
 
                                         <!-- start edit address Modal -->
-                                        <section class="modal fade" id="edit-address-{{ $address->id }}" tabindex="-1" aria-labelledby="add-address-label" aria-hidden="true">
+                                        <section class="address-add-wrapper modal fade" id="edit-address-{{ $address->id }}" tabindex="-1" aria-labelledby="add-address-label" aria-hidden="true">
                                             <section class="modal-dialog">
                                                 <section class="modal-content">
                                                     <section class="modal-header">

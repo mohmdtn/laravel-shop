@@ -470,6 +470,9 @@ Route::prefix("profile")->namespace("App\Http\Controllers\User\Profile")->group(
     Route::get("/orders", "OrderController@index")->name("user.profile.orders");
     Route::get("/my-favorites", "FavoriteController@index")->name("user.profile.favorites");
     Route::get("/my-favorites/delete/{product}", "FavoriteController@delete")->name("user.profile.favorites.delete");
+    Route::get("/", "ProfileCOntroller@index")->name("user.profile.profile");
+    Route::put("/update", "ProfileCOntroller@update")->name("user.profile.update");
+    Route::get("/my-addresses", "AddressController@index")->name("user.profile.addresses");
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

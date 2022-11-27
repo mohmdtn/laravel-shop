@@ -40,7 +40,11 @@
                                 <section class="cart-img align-self-start flex-shrink-1"><img src="{{ asset($product['image']['indexArray'][$product['image']['currentImage']]) }}" alt=""></section>
                                 <section class="align-self-start w-100">
                                     <p class="fw-bold">{{ $product->name }}</p>
-                                    <p><i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا موجود در انبار</span></p>
+                                    @if($product["marketable_number"] > 0)
+                                        <p class="text-success"><i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا موجود در انبار</span></p>
+                                    @else
+                                        <p class="text-danger"><i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا ناموجود</span></p>
+                                    @endif
                                     <section>
                                         <a class="text-decoration-none cart-delete" href="{{ route("user.profile.favorites.delete", $product) }}"><i class="fa fa-trash-alt"></i> حذف از لیست علاقه ها</a>
                                     </section>
