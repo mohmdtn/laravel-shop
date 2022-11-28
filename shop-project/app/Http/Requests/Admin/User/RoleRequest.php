@@ -29,7 +29,7 @@ class RoleRequest extends FormRequest
 
         if ($route->getName() === "admin.user.role.store"){
             return [
-                "name"           => "required|max:120|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,# ]+$/u",
+                "name"           => "required|max:120|regex:/^[a-zA-Z0-9]+$/u",
                 "description"    => "required|max:200|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,# ]+$/u",
                 "permissions.*"  => "exists:permissions,id",
             ];
@@ -37,7 +37,7 @@ class RoleRequest extends FormRequest
 
         else if ($route->getName() === "admin.user.role.update"){
             return [
-                "name"           => "required|max:120|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,# ]+$/u",
+                "name"           => "required|max:120|regex:/^[a-zA-Z0-9]+$/u",
                 "description"    => "required|max:200|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,# ]+$/u"
             ];
         }

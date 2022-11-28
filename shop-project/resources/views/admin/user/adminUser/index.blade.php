@@ -29,11 +29,12 @@
             <table class="table table-striped table-hover">
                 <thead class="table-info">
                 <th>#</th>
-                <th>ایمیل</th>
-                <th>شماره موبایل</th>
                 <th>نام</th>
                 <th>نام خانوادگی</th>
-                <th>نقش</th>
+                <th>ایمیل</th>
+                <th>شماره موبایل</th>
+                <th>نقش ها</th>
+                <th>سطوح دسترسی</th>
                 <th>وضعیت</th>
                 <th class="width-18 text-center">تنظیمات</th>
                 </thead>
@@ -43,15 +44,22 @@
                 @foreach($admins as $key => $admin)
                     <tr>
                         <th>{{ $key+=1 }}</th>
-                        <td>{{ $admin["email"] }}</td>
-                        <td>{{ $admin["mobile"] }}</td>
                         <td>{{ $admin["first_name"] }}</td>
                         <td>{{ $admin["last_name"] }}</td>
+                        <td>{{ $admin["email"] }}</td>
+                        <td>{{ $admin["mobile"] }}</td>
                         <td>
                             @forelse($admin->roles as $role)
                                 <div>{{ $loop->iteration .". " . $role->name }}</div>
                             @empty
-                                <div>نقشی وجود ندارد</div>
+                                <div class="text-danger">نقشی وجود ندارد</div>
+                            @endforelse
+                        </td>
+                        <td>
+                            @forelse($admin->permissions as $permission)
+                                <div>{{ $loop->iteration .". " . $permission->name }}</div>
+                            @empty
+                                <div class="text-danger">سطوح دسترسی وجود ندارد</div>
                             @endforelse
                         </td>
                         <td>
@@ -65,6 +73,7 @@
                             </label>
                         </td>
                         <td class="max-width-18 text-left">
+                            <a href="{{ route("admin.user.adminUser.permissions", $admin["id"]) }}" class="btn btn-sm btn-secondary border-radius-2 mb-2 mb-md-0"><i class="fas fa-fingerprint ml-2"></i>دسترسی</a>
                             <a href="{{ route("admin.user.adminUser.roles", $admin["id"]) }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-user-cog ml-2"></i>نقش</a>
                             <a href="{{ route("admin.user.adminUser.edit", $admin["id"]) }}" class="btn btn-sm btn-success border-radius-2 mb-2 mb-md-0"><i class="fas fa-user-edit ml-2"></i>ویرایش</a>
                             <form action="{{ route("admin.user.adminUser.destroy" , $admin["id"]) }}" method="post">

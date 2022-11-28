@@ -11,13 +11,13 @@
             <li class="breadcrumb-item"><a href="#">خانه</a></li>
             <li class="breadcrumb-item"><a href="#">بخش کاربران</a></li>
             <li class="breadcrumb-item"><a href="#">ادمین ها</a></li>
-            <li class="breadcrumb-item active" aria-current="page">ایجاد نقش ادمین</li>
+            <li class="breadcrumb-item active" aria-current="page">ایجاد سطح دسترسی ادمین</li>
         </ol>
     </nav>
 
     <section class="pagesContent py-3 px-2">
         <div class="sectionHeader d-flex justify-content-between align-items-center">
-            <h4>ایجاد نقش ادمین:</h4>
+            <h4>ایجاد سطح دسترسی ادمین:</h4>
 
             <a href="{{ route("admin.user.adminUser.index") }}" class="btn btn-info btn-sm border-radius-4 box-shadow-normal">بازگشت</a>
         </div>
@@ -27,7 +27,7 @@
         </div>
 
         <section class="pageContentInner">
-            <form action="{{ route("admin.user.adminUser.roles.store", $admin) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route("admin.user.adminUser.permissions.store", $admin) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-12">
@@ -36,15 +36,15 @@
                     </div>
 
                     <div class="form-group col-md-12 pt-4">
-                        <label for="">نقش ها:</label>
+                        <label for="">سطح دسترسی ها:</label>
                         <div class="row">
-                            @foreach($roles as $key => $role)
+                            @foreach($permissions as $key => $permission)
                                 <div class="col-md-3">
                                     <div class="form-check form-check-inline pb-3">
-                                        <input type="checkbox" id="{{ $role["id"] }}" class="form-check-input" name="roles[]" value="{{ $role["id"] }}" @foreach($admin->roles as $user_role) @if($user_role->id === $role->id) checked @endif @endforeach>
-                                        <label for="{{ $role["id"] }}" class="form-check-label mr-1">{{ $role["name"] }}</label>
+                                        <input type="checkbox" id="{{ $permission["id"] }}" class="form-check-input" name="permissions[]" value="{{ $permission["id"] }}" @foreach($admin->permissions as $user_role) @if($user_role->id === $permission->id) checked @endif @endforeach>
+                                        <label for="{{ $permission["id"] }}" class="form-check-label mr-1">{{ $permission["name"] }}</label>
                                     </div>
-                                    @error("role")
+                                    @error("permission")
                                         <div class="errors"><span class="text-danger">{{ $message }}</span></div>
                                     @enderror
                                 </div>

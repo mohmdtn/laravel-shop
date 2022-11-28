@@ -157,4 +157,18 @@ class AdminUserController extends Controller
         return redirect()->route("admin.user.adminUser.index")->with("swal-success" , "نقش ادمین با موفقیت ویرایش شد.");
     }
 
+    public function permissions(User $admin){
+        $permissions = User\Permission::all();
+        return view("admin.user.adminUser.permissions", compact('admin', 'permissions'));
+    }
+
+    public function permissionsStore(Request $request, User $admin){
+        $validated = $request->validate([
+            "permissions" => "exists:permissions,id|array"
+        ]);
+
+        $admin->permissions()->sync($request["permissions"]);
+        return redirect()->route("admin.user.adminUser.index")->with("swal-success" , "دسترسی ادمین با موفقیت ویرایش شد.");
+    }
+
 }

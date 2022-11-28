@@ -276,6 +276,8 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::get("/status/{user}" , "AdminUserController@status")->name("admin.user.adminUser.status");
             Route::get("/roles/{admin}" , "AdminUserController@roles")->name("admin.user.adminUser.roles");
             Route::post("/roles/{admin}/store" , "AdminUserController@rolesStore")->name("admin.user.adminUser.roles.store");
+            Route::get("/permissions/{admin}" , "AdminUserController@permissions")->name("admin.user.adminUser.permissions");
+            Route::post("/permissions/{admin}/store" , "AdminUserController@permissionsStore")->name("admin.user.adminUser.permissions.store");
         });
 
         // customer

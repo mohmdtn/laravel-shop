@@ -18,6 +18,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        auth()->loginUsingId(1);
+        $user = auth()->user();
+        dd($user->can('show-post'));
+
         $postCategories = PostCategory::orderBy('created_at' , 'desc')->simplePaginate(15);
         return view("admin.content.category.index" , compact('postCategories'));
     }
