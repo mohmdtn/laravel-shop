@@ -274,6 +274,8 @@ Route::prefix("admin")->namespace("App\Http\Controllers\Admin")->group(function 
             Route::put("/update/{user}" , "AdminUserController@update")->name("admin.user.adminUser.update");
             Route::delete("/destroy/{user}" , "AdminUserController@destroy")->name("admin.user.adminUser.destroy");
             Route::get("/status/{user}" , "AdminUserController@status")->name("admin.user.adminUser.status");
+            Route::get("/roles/{admin}" , "AdminUserController@roles")->name("admin.user.adminUser.roles");
+            Route::post("/roles/{admin}/store" , "AdminUserController@rolesStore")->name("admin.user.adminUser.roles.store");
         });
 
         // customer
@@ -467,11 +469,15 @@ Route::namespace("App\Http\Controllers\User\SalesProcess")->group(function (){
 
 
 Route::prefix("profile")->namespace("App\Http\Controllers\User\Profile")->group(function (){
+    // my orders
     Route::get("/orders", "OrderController@index")->name("user.profile.orders");
+    // my favorites
     Route::get("/my-favorites", "FavoriteController@index")->name("user.profile.favorites");
     Route::get("/my-favorites/delete/{product}", "FavoriteController@delete")->name("user.profile.favorites.delete");
+    // my profile
     Route::get("/", "ProfileCOntroller@index")->name("user.profile.profile");
     Route::put("/update", "ProfileCOntroller@update")->name("user.profile.update");
+    // my addresses
     Route::get("/my-addresses", "AddressController@index")->name("user.profile.addresses");
 });
 

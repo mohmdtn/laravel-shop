@@ -47,7 +47,13 @@
                         <td>{{ $admin["mobile"] }}</td>
                         <td>{{ $admin["first_name"] }}</td>
                         <td>{{ $admin["last_name"] }}</td>
-                        <td>{{ $admin["user_type"] }}</td>
+                        <td>
+                            @forelse($admin->roles as $role)
+                                <div>{{ $loop->iteration .". " . $role->name }}</div>
+                            @empty
+                                <div>نقشی وجود ندارد</div>
+                            @endforelse
+                        </td>
                         <td>
                             <label class="switch">
                                 <input id="{{ $admin["id"] }}" onchange="changeStatus({{ $admin["id"] }})" data-url="{{ route("admin.user.adminUser.status" , $admin["id"]) }}" type="checkbox"
@@ -59,7 +65,7 @@
                             </label>
                         </td>
                         <td class="max-width-18 text-left">
-                            <a href="{{ route("admin.user.adminUser.create") }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-user-cog ml-2"></i>نقش</a>
+                            <a href="{{ route("admin.user.adminUser.roles", $admin["id"]) }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-user-cog ml-2"></i>نقش</a>
                             <a href="{{ route("admin.user.adminUser.edit", $admin["id"]) }}" class="btn btn-sm btn-success border-radius-2 mb-2 mb-md-0"><i class="fas fa-user-edit ml-2"></i>ویرایش</a>
                             <form action="{{ route("admin.user.adminUser.destroy" , $admin["id"]) }}" method="post">
                                 @csrf

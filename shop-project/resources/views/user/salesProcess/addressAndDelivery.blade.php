@@ -79,10 +79,10 @@
 
                                         <!-- start edit address Modal -->
                                         <section class="address-add-wrapper modal fade" id="edit-address-{{ $address->id }}" tabindex="-1" aria-labelledby="add-address-label" aria-hidden="true">
-                                            <section class="modal-dialog">
+                                            <section class="modal-dialog modal-dialog-centered">
                                                 <section class="modal-content">
                                                     <section class="modal-header">
-                                                        <h5 class="modal-title" id="add-address-label"><i class="fa fa-plus"></i> ویرایش آدرس</h5>
+                                                        <h5 class="modal-title" id="add-address-label"><i class="fas fa-edit"></i> ویرایش آدرس</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </section>
                                                     <section class="modal-body">
@@ -213,7 +213,7 @@
                                         <button class="address-add-button" type="button" data-bs-toggle="modal" data-bs-target="#add-address" ><i class="fa fa-plus"></i> ایجاد آدرس جدید</button>
                                         <!-- start add address Modal -->
                                         <section class="modal fade" id="add-address" tabindex="-1" aria-labelledby="add-address-label" aria-hidden="true">
-                                            <section class="modal-dialog">
+                                            <section class="modal-dialog modal-dialog-centered">
                                                 <section class="modal-content">
                                                     <section class="modal-header">
                                                         <h5 class="modal-title" id="add-address-label"><i class="fa fa-plus"></i> ایجاد آدرس جدید</h5>

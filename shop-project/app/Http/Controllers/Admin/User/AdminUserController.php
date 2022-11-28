@@ -143,4 +143,18 @@ class AdminUserController extends Controller
 
     }
 
+    public function roles(User $admin){
+        $roles = User\Role::all();
+        return view("admin.user.adminUser.roles", compact('admin', 'roles'));
+    }
+
+    public function rolesStore(Request $request, User $admin){
+        $validated = $request->validate([
+            "roles" => "exists:roles,id|array"
+        ]);
+
+        $admin->roles()->sync($request["roles"]);
+        return redirect()->route("admin.user.adminUser.index")->with("swal-success" , "نقش ادمین با موفقیت ویرایش شد.");
+    }
+
 }
