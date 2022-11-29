@@ -51,8 +51,8 @@
                         <div class="row">
                             @foreach($permissions as $key => $permission)
                             <div class="col-md-3">
-                                <div class="form-check form-check-inline pb-3">
-                                    <input type="checkbox" id="{{ $permission["id"] }}" class="form-check-input" name="permissions[]" value="{{ $permission["id"] }}" checked>
+                                <div class="form-check form-check-inline pb-3" title="{{ $permission->description  }}">
+                                    <input type="checkbox" id="{{ $permission["id"] }}" class="form-check-input" name="permissions[]" value="{{ $permission["id"] }}">
                                     <label for="{{ $permission["id"] }}" class="form-check-label mr-1">{{ $permission["name"] }}</label>
                                 </div>
                                 @error("permissions." . $key)

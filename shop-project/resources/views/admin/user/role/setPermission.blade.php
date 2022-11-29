@@ -50,7 +50,7 @@
                         <div class="row">
                             @foreach($permissions as $key => $permission)
                             <div class="col-md-3">
-                                <div class="form-check form-check-inline pb-3">
+                                <div class="form-check form-check-inline pb-3" title="{{ $permission->description  }}">
                                     <input type="checkbox" id="{{ $permission["id"] }}" class="form-check-input" name="permissions[]" value="{{ $permission["id"] }}" @if(in_array($permission["id"], $rolePermissionArray)) checked @endif>
                                     <label for="{{ $permission["id"] }}" class="form-check-label mr-1">{{ $permission["name"] }}</label>
                                 </div>

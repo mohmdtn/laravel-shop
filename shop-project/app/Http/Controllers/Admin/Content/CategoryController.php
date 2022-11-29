@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Content\PostCategoryRequest;
 use App\Http\Services\image\ImageService;
 use App\Models\Content\PostCategory;
+use Database\Seeders\PermissionSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -20,10 +21,16 @@ class CategoryController extends Controller
     {
         auth()->loginUsingId(1);
         $user = auth()->user();
-        dd($user->can('show-post'));
+        $permissions = new PermissionSeeder();
+        $permissions->run();
 
-        $postCategories = PostCategory::orderBy('created_at' , 'desc')->simplePaginate(15);
-        return view("admin.content.category.index" , compact('postCategories'));
+        if ($user->can('show-post')){
+            $postCategories = PostCategory::orderBy('created_at' , 'desc')->simplePaginate(15);
+            return view("admin.content.category.index" , compact('postCategories'));
+        }
+        else{
+            abort(403);
+        }
     }
 
     /**
