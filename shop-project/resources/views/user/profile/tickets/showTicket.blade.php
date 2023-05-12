@@ -13,7 +13,7 @@
         }
 
         .bg-gradiant-2{
-            background: linear-gradient(to right, #3494e6, #ec6ead);
+            background: linear-gradient(to right, #4cb8c4, #3cd3ad);
         }
 
         .productInfo{
@@ -92,7 +92,7 @@
 
                                 @foreach($ticket->children as $child)
                                     <div class="productInfo my-3 rounded-3 ms-4">
-                                        <div class="productInfoInner py-2 px-2 rounded-3 d-flex justify-content-between align-items-center bg-gradiant-1">
+                                        <div class="productInfoInner @if($child->admin) bg-gradiant-2 @endif py-2 px-2 rounded-3 d-flex justify-content-between align-items-center bg-gradiant-1">
                                             <div><i class="fas fa-user"></i> {{ $child->admin ? $child->admin->user->fullname : $child["user"]["fullName"] }}</div>
                                             <div><i class="fas fa-clock"></i> {{ jalaliDate($child["created_at"], "H:i:s , %A %d %B %Y") }}</div>
                                         </div>

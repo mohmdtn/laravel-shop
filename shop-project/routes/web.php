@@ -432,6 +432,7 @@ Route::namespace("App\Http\Controllers\Auth\User")->group(function (){
 
 Route::namespace("App\Http\Controllers\User")->group(function (){
     Route::get("/", "HomeController@home")->name("user.home");
+    Route::get("/products", "HomeController@products")->name("user.products");
 
     Route::namespace("Market")->group(function (){
         Route::get("/product/{product:slug}", "ProductController@product")->name("user.market.product");
