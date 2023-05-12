@@ -11,6 +11,9 @@
             <span class="sidebar-nav-item-title"><a class="p-3" href="{{ route("user.profile.favorites") }}">لیست علاقه مندی</a></span>
         </section>
         <section class="sidebar-nav-item">
+            <span class="sidebar-nav-item-title"><a class="p-3" href="{{ route("user.profile.tickets") }}">مدیریت تیکت ها</a></span>
+        </section>
+        <section class="sidebar-nav-item">
             <span class="sidebar-nav-item-title"><a class="p-3" href="{{ route("user.profile.profile") }}">ویرایش حساب</a></span>
         </section>
         <section class="sidebar-nav-item">

@@ -45,6 +45,23 @@
                 </div>
             </div>
 
+            @foreach($ticket->children as $child)
+                <div class="productInfo my-3 border-radius-3 mr-4">
+                    <div class="productInfoInner py-2 px-2 border-radius-3 d-flex justify-content-between align-items-center bg-gradiant-1">
+                        <div><i class="fas fa-user pl-1"></i> {{ $child->admin ? $child->admin->user->fullname : $child["user"]["fullName"] }}</div>
+                        <div><i class="fas fa-clock"></i> {{ jalaliDate($child["created_at"], "H:i:s , %A %d %B %Y") }}</div>
+                    </div>
+                    <div class="productInfoInnerSec py-4 px-3">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="pl-4 d-inline-block"><span>موضوع:</span>{{ $child["subject"] }}</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-comment pl-2">:</i>{{ $child["description"] }}
+                    </div>
+                </div>
+            @endforeach
+
             @if($ticket["ticket_id"] == null)
             <form action="{{ route("admin.ticket.answer", $ticket["id"]) }}" method="post">
                 @csrf

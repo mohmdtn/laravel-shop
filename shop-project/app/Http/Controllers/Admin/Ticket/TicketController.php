@@ -16,7 +16,7 @@ class TicketController extends Controller
      */
 
     public function index(){
-        $tickets = Ticket::all();
+        $tickets = Ticket::whereNull("ticket_id")->get();
         return view("admin.ticket.index", compact("tickets"));
     }
 
@@ -110,15 +110,15 @@ class TicketController extends Controller
 
     public function answer(TicketRequest $request, Ticket $ticket){
         $inputs = $request->all();
-        $inputs["subject"] = $ticket["subject"];
-        $inputs["description"] = $request["description"];
-        $inputs["seen"] = 1;
-        $inputs["reference_id"] = $ticket["reference_id"];
-        $inputs["user_id"] = 1;
-        $inputs["category_id"] = $ticket["category_id"];
-        $inputs["priority_id"] = $ticket["priority_id"];
-        $inputs["ticket_id"] = $ticket["id"];
-        $inputs["status"] = 1;
+        $inputs["subject"]      = $ticket["subject"];
+        $inputs["description"]  = $request["description"];
+        $inputs["seen"]         = 1;
+        $inputs["reference_id"] = auth()->user()->ticketAdmin->id;
+        $inputs["user_id"]      = $ticket["user_id"];
+        $inputs["category_id"]  = $ticket["category_id"];
+        $inputs["priority_id"]  = $ticket["priority_id"];
+        $inputs["ticket_id"]    = $ticket["id"];
+        $inputs["status"]       = 1;
 
         Ticket::create($inputs);
         return redirect()->route("admin.ticket.index")->with("swal-success", "پاسخ شما با موفقیت ثبت شد.");

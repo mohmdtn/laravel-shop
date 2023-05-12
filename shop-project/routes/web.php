@@ -476,6 +476,14 @@ Route::prefix("profile")->namespace("App\Http\Controllers\User\Profile")->group(
     // my favorites
     Route::get("/my-favorites", "FavoriteController@index")->name("user.profile.favorites");
     Route::get("/my-favorites/delete/{product}", "FavoriteController@delete")->name("user.profile.favorites.delete");
+    // my tickets
+    Route::get("/my-tickets", "TicketController@index")->name("user.profile.tickets");
+    Route::get("/my-tickets/show/{ticket}" , "TicketController@show")->name("user.profile.tickets.show");
+    Route::post("/my-tickets/answer/{ticket}" , "TicketController@answer")->name("user.profile.tickets.answer");
+    Route::get("/my-tickets/change/{ticket}" , "TicketController@change")->name("user.profile.tickets.change");
+    Route::get("/my-tickets/create" , "TicketController@create")->name("user.profile.tickets.create");
+    Route::post("/my-tickets/create" , "TicketController@store")->name("user.profile.tickets.store");
+    Route::get("/my-tickets/download" , "TicketController@create")->name("user.profile.tickets.create");
     // my profile
     Route::get("/", "ProfileCOntroller@index")->name("user.profile.profile");
     Route::put("/update", "ProfileCOntroller@update")->name("user.profile.update");

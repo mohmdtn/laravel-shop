@@ -35,7 +35,6 @@
                 <th>دسته تیکت</th>
                 <th>اولویت تیکت</th>
                 <th>ارجاع تیکت</th>
-                <th>تیکت مرجع</th>
                 <th class="width-18 text-center">تنظیمات</th>
                 </thead>
 
@@ -48,8 +47,7 @@
                         <td>{{ $ticket["subject"] }}</td>
                         <td>{{ $ticket["category"]["name"] }}</td>
                         <td>{{ $ticket["priority"]["name"] }}</td>
-                        <td>{{ $ticket["admin"]["user"]["fullName"] }}</td>
-                        <td>{{ $ticket["parent"]["subject"] ?? "-" }}</td>
+                        <td>{{ $ticket["admin"]["user"]["fullName"] ?? "-" }}</td>
                         <td class="max-width-18 text-left">
                             <a href="{{ route("admin.ticket.show", $ticket["id"]) }}" class="btn btn-sm btn-info border-radius-2 mb-2 mb-md-0"><i class="fas fa-eye ml-2"></i>نمایش</a>
                             @if($ticket["status"] == 0)
