@@ -25,9 +25,16 @@ class HomeController extends Controller
         return view("user.home", compact("slideShowImages", "topBanners", "middleBanners", "bottomBanner", "brands", "mostVisitedProducts", "offerProducts"));
     }
 
-    public function products(Request $request){
+    public function products(Request $request, ProductCategory $category = null){
         // get brands
         $brands = Brand::where("status", 1)->get();
+        // get category for filter
+        if ($category){
+            $productModel = $category->products();
+        }
+        else{
+            $productModel = new Product();
+        }
         // get categories
         $categories = ProductCategory::whereNull("parent_id")->where("status", 1)->where("show_in_menu", 1)->get();
 
@@ -59,10 +66,10 @@ class HomeController extends Controller
         }
         // filter for search
         if($request->search){
-            $query = Product::where("name", "LIKE", "%" . $request->search . "%")->orderBy($column, $direction);
+            $query = $productModel->where("name", "LIKE", "%" . $request->search . "%")->orderBy($column, $direction);
         }
         else{
-            $query = Product::orderBy($column, $direction);
+            $query = $productModel->orderBy($column, $direction);
         }
         // filter for price
         $products = $request->max_price && $request->min_price ? $query->whereBetween("price", [$request->min_price, $request->max_price])
@@ -77,7 +84,7 @@ class HomeController extends Controller
         $products = $products->when($request->brands, function () use($request, $products) {
             $products->whereIn("brand_id", $request->brands)->get();
         });
-        $products = $products->paginate(1);
+        $products = $products->paginate(12);
         $products->appends($request->query());
 
         // get selected brands

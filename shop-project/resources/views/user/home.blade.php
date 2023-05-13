@@ -65,7 +65,7 @@
                                     <span>پربازدیدترین کالاها</span>
                                 </h2>
                                 <section class="content-header-link">
-                                    <a href="#">مشاهده همه</a>
+                                    <a href="{{ route("user.products", ["sort" => '4']) }}">مشاهده همه</a>
                                 </section>
                             </section>
                         </section>
@@ -111,8 +111,13 @@
                                                     <section class="product-name"><h3>{{ \Illuminate\Support\Str::limit($mostVisitedProduct["name"], 20) }}</h3></section>
                                                     <section class="product-price-wrapper">
                                                         <section class="product-discount">
-                                                            <span class="product-old-price">6,895,000 </span>
-                                                            <span class="product-discount-amount">10%</span>
+                                                            @php
+                                                                $amazingSale = $mostVisitedProduct->activeAmazingSale();
+                                                            @endphp
+                                                            @if(!empty($amazingSale))
+                                                                <span class="product-old-price">{{ priceFormat($mostVisitedProduct["price"]) }}</span>
+                                                                <span class="product-discount-amount">{{ $amazingSale["percentage"] }}%</span>
+                                                            @endif
                                                         </section>
                                                         <section class="product-price">{{ priceFormat($mostVisitedProduct["price"]) }} تومان</section>
                                                     </section>
@@ -170,7 +175,7 @@
                                     <span>پیشنهاد آمازون به شما</span>
                                 </h2>
                                 <section class="content-header-link">
-                                    <a href="#">مشاهده همه</a>
+                                    <a href="{{ route("user.products", ["sort" => "5"]) }}">مشاهده همه</a>
                                 </section>
                             </section>
                         </section>
@@ -279,7 +284,7 @@
                             @foreach($brands as $brand)
                                 <section class="item">
                                 <section class="brand-item">
-                                    <a href="#">
+                                    <a href="{{ route("user.products", ["brands[]" => $brand->id]) }}">
                                         <img class="rounded-2" src="{{ $brand["logo"] }}" alt="{{ $brand["name"] }}">
                                     </a>
                                 </section>

@@ -9,87 +9,7 @@
     <section class="">
         <section id="main-body-two-col" class="container-xxl body-container">
             <section class="row">
-                <aside id="sidebar" class="sidebar col-md-3">
-
-                    <form action="{{ route("user.products") }}" method="get">
-                        <input type="hidden" name="sort" value="{{ request()->sort }}">
-                        <section class="content-wrapper bg-white p-3 rounded-2 mb-3">
-                            <!-- start sidebar nav-->
-                            @include("user.layouts.partials.categories", ["categories" => $categories])
-                            <!--end sidebar nav-->
-                        </section>
-
-                        <!-- search -->
-                        <section class="content-wrapper bg-white p-3 rounded-2 mb-3">
-                            <section class="content-header mb-3">
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <h2 class="content-header-title content-header-title-small">
-                                        جستجو در نتایج
-                                    </h2>
-                                    <section class="content-header-link">
-                                        <!--<a href="#">مشاهده همه</a>-->
-                                    </section>
-                                </section>
-                            </section>
-
-                            <section class="">
-                                <input class="sidebar-input-text" type="text" placeholder="جستجو بر اساس نام، برند ..." name="search" value="{{ request()->search }}">
-                            </section>
-                        </section>
-
-                        <!-- brands -->
-                        <section class="content-wrapper bg-white p-3 rounded-2 mb-3">
-                            <section class="content-header mb-3">
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <h2 class="content-header-title content-header-title-small">
-                                        برند
-                                    </h2>
-                                    <section class="content-header-link">
-                                        <!--<a href="#">مشاهده همه</a>-->
-                                    </section>
-                                </section>
-                            </section>
-
-                            <section class="sidebar-brand-wrapper">
-                                @foreach($brands as $brand)
-
-                                    <section class="form-check sidebar-brand-item">
-                                        <input class="form-check-input" type="checkbox" @if(request()->brands && in_array($brand->id, request()->brands)) checked @endif name="brands[]" value="{{ $brand["id"] }}" id="{{ "brand" . $brand["id"] }}">
-                                        <label class="form-check-label d-flex justify-content-between" for="{{ "brand" . $brand["id"] }}">
-                                            <span>{{ $brand["persian_name"] }}</span>
-                                            <span>{{ $brand["original_name"] }}</span>
-                                        </label>
-                                    </section>
-                                @endforeach
-                            </section>
-                        </section>
-
-                        <!-- price -->
-                        <section class="content-wrapper bg-white p-3 rounded-2 mb-3">
-                            <section class="content-header mb-3">
-                                <section class="d-flex justify-content-between align-items-center">
-                                    <h2 class="content-header-title content-header-title-small">
-                                        محدوده قیمت
-                                    </h2>
-                                    <section class="content-header-link">
-                                        <!--<a href="#">مشاهده همه</a>-->
-                                    </section>
-                                </section>
-                            </section>
-                            <section class="sidebar-price-range d-flex justify-content-between">
-                                <section class="p-1"><input type="text" placeholder="قیمت از ..." name="min_price" value="{{ request()->min_price }}"></section>
-                                <section class="p-1"><input type="text" placeholder="قیمت تا ..." name="max_price" value="{{ request()->max_price }}"></section>
-                            </section>
-                        </section>
-
-                        <section class="content-wrapper bg-white p-3 rounded-2 mb-3">
-                            <section class="sidebar-filter-btn d-grid gap-2">
-                                <button class="btn btn-danger" type="submit">اعمال فیلتر</button>
-                            </section>
-                        </section>
-                    </form>
-
-                </aside>
+                @include("user.layouts.partials.product-sidebar")
                 <main id="main-body" class="main-body col-md-9">
                     <section class="content-wrapper bg-white p-3 rounded-2 mb-2">
                         <section class="filters mb-3">
@@ -112,11 +32,11 @@
                         </section>
                         <section class="sort ">
                             <span>مرتب سازی بر اساس : </span>
-                            <a class="btn {{ request()->sort == 1 ? "btn-info" : "btn-light" }} btn-sm px-1 py-0" href="{{ route("user.products", ["search" => request()->search, "min_price" => request()->min_price, "max_price" => request()->max_price,"brands" => request()->brands, "sort" => "1"]) }}">جدیدترین</a>
-                            <a class="btn {{ request()->sort == 2 ? "btn-info" : "btn-light" }} btn-sm px-1 py-0" href="{{ route("user.products", ["search" => request()->search, "min_price" => request()->min_price, "max_price" => request()->max_price,"brands" => request()->brands, "sort" => "2"]) }}">گران ترین</a>
-                            <a class="btn {{ request()->sort == 3 ? "btn-info" : "btn-light" }} btn-sm px-1 py-0" href="{{ route("user.products", ["search" => request()->search, "min_price" => request()->min_price, "max_price" => request()->max_price,"brands" => request()->brands, "sort" => "3"]) }}">ارزان ترین</a>
-                            <a class="btn {{ request()->sort == 4 ? "btn-info" : "btn-light" }} btn-sm px-1 py-0" href="{{ route("user.products", ["search" => request()->search, "min_price" => request()->min_price, "max_price" => request()->max_price,"brands" => request()->brands, "sort" => "4"]) }}">پربازدیدترین</a>
-                            <a class="btn {{ request()->sort == 5 ? "btn-info" : "btn-light" }} btn-sm px-1 py-0" href="{{ route("user.products", ["search" => request()->search, "min_price" => request()->min_price, "max_price" => request()->max_price,"brands" => request()->brands, "sort" => "5"]) }}">پرفروش ترین</a>
+                            <a class="btn {{ request()->sort == 1 ? "btn-info" : "btn-light" }} btn-sm px-1 py-0" href="{{ route("user.products", ["search" => request()->search, "min_price" => request()->min_price, "max_price" => request()->max_price,"brands" => request()->brands, "category" => request()->category ? request()->category->id : null, "sort" => "1"]) }}">جدیدترین</a>
+                            <a class="btn {{ request()->sort == 2 ? "btn-info" : "btn-light" }} btn-sm px-1 py-0" href="{{ route("user.products", ["search" => request()->search, "min_price" => request()->min_price, "max_price" => request()->max_price,"brands" => request()->brands, "category" => request()->category ? request()->category->id : null, "sort" => "2"]) }}">گران ترین</a>
+                            <a class="btn {{ request()->sort == 3 ? "btn-info" : "btn-light" }} btn-sm px-1 py-0" href="{{ route("user.products", ["search" => request()->search, "min_price" => request()->min_price, "max_price" => request()->max_price,"brands" => request()->brands, "category" => request()->category ? request()->category->id : null, "sort" => "3"]) }}">ارزان ترین</a>
+                            <a class="btn {{ request()->sort == 4 ? "btn-info" : "btn-light" }} btn-sm px-1 py-0" href="{{ route("user.products", ["search" => request()->search, "min_price" => request()->min_price, "max_price" => request()->max_price,"brands" => request()->brands, "category" => request()->category ? request()->category->id : null, "sort" => "4"]) }}">پربازدیدترین</a>
+                            <a class="btn {{ request()->sort == 5 ? "btn-info" : "btn-light" }} btn-sm px-1 py-0" href="{{ route("user.products", ["search" => request()->search, "min_price" => request()->min_price, "max_price" => request()->max_price,"brands" => request()->brands, "category" => request()->category ? request()->category->id : null, "sort" => "5"]) }}">پرفروش ترین</a>
                         </section>
 
 

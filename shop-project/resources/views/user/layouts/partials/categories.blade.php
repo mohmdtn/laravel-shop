@@ -2,7 +2,7 @@
     @foreach($categories as $category)
         <section class="sidebar-nav-item">
             <span class="sidebar-nav-item-title">
-                {{ $category->name }}
+                <a class="d-inline-block" href="{{ route("user.products", $category->id) }}">{{ $category->name }}</a>
                 @if($category->children->count())
                     <i class="fa fa-angle-left"></i>
                 @endif

@@ -100,20 +100,21 @@
 
                     <spaan class="pr-5 position-relative notifWrapperClick">
                             <span class="pointer headerProfile">
-                                <img src="{{ asset("admin-assets/images/unkonwPrfmale.png") }}" alt="">
-                                <span class="pr-1">سینا مهدوی</span>
+                                <img src="{{ auth()->user()->profile_photo_path ? asset(auth()->user()->profile_photo_path) : asset("admin-assets/images/unkonwPrfmale.png")}}" alt="">
+
+                                <span class="pr-1">{{ auth()->user()->fullName }}</span>
                                 <i class="fas fa-angle-down"></i>
                             </span>
 
                         <div class="notifWrapper notifWrapper3 position-absolute">
                             <div class="headerProfileInfo px-2 pt-2 pb-0">
-                                <a href="">
+                                <a href="{{ route("admin.setting.index") }}">
                                     <div class="">
                                         <i class="fas fa-cog"></i> تنظیمات
                                     </div>
                                 </a>
 
-                                <a href="">
+                                <a href="{{ route("admin.setting.index") }}">
                                     <div class="">
                                         <i class="fas fa-user"></i> کاربر
                                     </div>

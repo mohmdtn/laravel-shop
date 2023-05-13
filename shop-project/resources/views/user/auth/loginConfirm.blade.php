@@ -8,6 +8,7 @@
             direction: ltr;
         }
     </style>
+    {!! htmlScriptTagJsApi() !!}
 @endsection
 
 @section("content")

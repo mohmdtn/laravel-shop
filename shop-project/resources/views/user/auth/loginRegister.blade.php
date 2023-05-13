@@ -1,5 +1,9 @@
 @extends("user.layouts.master-simple")
 
+@section("head-tag")
+    {!! htmlScriptTagJsApi() !!}
+@endsection
+
 @section("content")
 
     <section class="vh-100 d-flex justify-content-center align-items-center pb-5">
