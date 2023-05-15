@@ -170,7 +170,7 @@
                                     </section>
                                 @endif
 
-                                @if($order->commonDiscount() != null)
+                                @if($order->commonDiscount != null)
                                     <section class="d-flex justify-content-between align-items-center">
                                         <p class="text-muted">میزان تخفیف عمومی</p>
                                         <p class="text-danger fw-bolder"><span id="total_discount">{{ priceFormat($order->commonDiscount->percentage) }}</span> درصد</p>

@@ -12,8 +12,12 @@ class SmsService implements MessageInterface{
     private $isFlash = true;
 
     public function fire(){
-        $meliPayamak = new MeliPayamakService();
-        return $meliPayamak->sendSmsSoapClient($this->from, $this->to, $this->text, $this->isFlash);
+//        $meliPayamak = new MeliPayamakService();
+//        return $meliPayamak->sendSmsSoapClient($this->from, $this->to, $this->text, $this->isFlash);
+
+        $kaveNegar = new KaveNegarService();
+        return $kaveNegar->sendSmsKavenegar($this->from, $this->to, $this->text);
+//        return $kaveNegar->verifyKavenegar($this->from, $this->to, $this->text, $this->bodyId);
     }
 
     public function getFrom(){

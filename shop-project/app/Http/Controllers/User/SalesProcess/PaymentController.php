@@ -74,7 +74,6 @@ class PaymentController extends Controller
 
         }
         else{
-            dd(1);
             return redirect()->back();
         }
 
