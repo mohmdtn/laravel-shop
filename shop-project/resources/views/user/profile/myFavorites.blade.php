@@ -36,7 +36,7 @@
 
 
                         @forelse(auth()->user()->products as $product)
-                            <section class="cart-item d-flex py-3">
+                            <section class="cart-item d-flex flex-sm-row flex-column py-3">
                                 <section class="cart-img align-self-start flex-shrink-1"><img src="{{ asset($product['image']['indexArray'][$product['image']['currentImage']]) }}" alt=""></section>
                                 <section class="align-self-start w-100">
                                     <p class="fw-bold">{{ $product->name }}</p>

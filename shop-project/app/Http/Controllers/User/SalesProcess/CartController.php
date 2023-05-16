@@ -86,6 +86,6 @@ class CartController extends Controller
         if ($cartItem["user_id"] == Auth::user()->id){
             $cartItem->delete();
         }
-        return back();
+        return  redirect()->route("user.home");
     }
 }

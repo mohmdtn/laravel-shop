@@ -63,33 +63,37 @@
                             <i class="fa fa-shopping-cart"></i> <span style="top: 80%;" class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">{{ $cartItems->count() }}</span>
                         </a>
                         <section class="header-cart-dropdown">
-                            <section class="border-bottom d-flex justify-content-between p-2">
-                                <span class="text-muted">{{ $cartItems->count() }} کالا</span>
-                                <a class="text-decoration-none text-info" href="{{ route("user.salesProcess.cart") }}">مشاهده سبد خرید </a>
-                            </section>
-                            <section class="header-cart-dropdown-body">
+                            @if($cartItems->count() > 0)
+                                <section class="border-bottom d-flex justify-content-between p-2">
+                                    <span class="text-muted">{{ $cartItems->count() }} کالا</span>
+                                    <a class="text-decoration-none text-info" href="{{ route("user.salesProcess.cart") }}">مشاهده سبد خرید </a>
+                                </section>
+                                <section class="header-cart-dropdown-body">
 
-                                @php
-                                    $totalProductPrice = 0;
-                                    $totalDiscount = 0;
-                                @endphp
-                                @foreach($cartItems as $cartItem)
                                     @php
-                                        $totalProductPrice += $cartItem->cartItemProductPrice();
-                                        $totalDiscount += $cartItem->cartItemProductDiscount();
+                                        $totalProductPrice = 0;
+                                        $totalDiscount = 0;
                                     @endphp
-                                    <section class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
-                                        <img class="flex-shrink-1" src="{{ asset($cartItem->product['image']['indexArray'][$cartItem->product['image']['currentImage']]) }}" alt="">
-                                        <section class="w-100 text-truncate"><a class="text-decoration-none text-dark" href="{{ route("user.market.product", $cartItem->product) }}">{{ $cartItem->product["name"] }}</a></section>
-                                        <section class="flex-shrink-1"><a class="text-muted text-decoration-none p-1" href="{{ route("user.salesProcess.removeFormCart", $cartItem) }}"><i class="fa fa-trash-alt"></i></a></section>
-                                    </section>
-                                @endforeach
+                                    @foreach($cartItems as $cartItem)
+                                        @php
+                                            $totalProductPrice += $cartItem->cartItemProductPrice();
+                                            $totalDiscount += $cartItem->cartItemProductDiscount();
+                                        @endphp
+                                        <section class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
+                                            <img class="flex-shrink-1" src="{{ asset($cartItem->product['image']['indexArray'][$cartItem->product['image']['currentImage']]) }}" alt="">
+                                            <section class="w-100 text-truncate"><a class="text-decoration-none text-dark" href="{{ route("user.market.product", $cartItem->product) }}">{{ $cartItem->product["name"] }}</a></section>
+                                            <section class="flex-shrink-1"><a class="text-muted text-decoration-none p-1" href="{{ route("user.salesProcess.removeFormCart", $cartItem) }}"><i class="fa fa-trash-alt"></i></a></section>
+                                        </section>
+                                    @endforeach
 
-                            </section>
-                            <section class="header-cart-dropdown-footer border-top d-flex justify-content-between align-items-center p-2">
-                                <section class=""><section>مبلغ قابل پرداخت</section><section> {{ priceFormat($totalProductPrice - $totalDiscount) }} تومان</section></section>
-                                <section class=""><a class="btn btn-danger btn-sm d-block" href="cart.html">ثبت سفارش</a></section>
-                            </section>
+                                </section>
+                                <section class="header-cart-dropdown-footer border-top d-flex justify-content-between align-items-center p-2">
+                                    <section class=""><section>مبلغ قابل پرداخت</section><section> {{ priceFormat($totalProductPrice - $totalDiscount) }} تومان</section></section>
+                                    <section class=""><a class="btn btn-danger btn-sm d-block" href="{{ route("user.salesProcess.addressAndDelivery") }}">ثبت سفارش</a></section>
+                                </section>
+                            @else
+                                <h6 class="text-center text-secondary p-3 mb-0">سبد خرید شما خالی می باشد.</h6>
+                            @endif
                         </section>
                     </section>
                     @endauth
