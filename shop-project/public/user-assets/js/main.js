@@ -67,7 +67,21 @@ $(document).ready(function(){
         dots:false,
         autoplay:false,
         autoHeight: false,
-        items: 5
+        items: 5,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:2
+            },
+            800:{
+                items:3
+            },
+            1000:{
+                items:5
+            }
+        }
     });
 
 
@@ -82,7 +96,21 @@ $(document).ready(function(){
         autoplayHoverPause:true,
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
-        items: 5
+        items: 5,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:2
+            },
+            800:{
+                items:3
+            },
+            1000:{
+                items:5
+            }
+        }
     });
 
 

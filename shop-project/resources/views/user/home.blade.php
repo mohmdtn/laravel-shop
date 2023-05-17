@@ -77,7 +77,19 @@
                                     <section class="item">
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
-                                                <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
+
+                                                @if($mostVisitedProduct["marketable_number"] > 0 && auth()->check())
+                                                    <form action="{{ route("user.salesProcess.addToCart", $mostVisitedProduct) }}" method="post" id="form-1-{{ $mostVisitedProduct->id }}">
+                                                        @csrf
+                                                        <input type="hidden" name="guarantee" value="{{ $mostVisitedProduct->guarantees->first() ? $mostVisitedProduct->guarantees->first()->id : null }}">
+                                                        <input type="hidden" name="color" value="{{ $mostVisitedProduct->colors->first() ? $mostVisitedProduct->colors->first()->id : null }}">
+                                                        <input type="hidden" name="number" value="1">
+                                                        <section class="product-add-to-cart"><a href="#" onclick="document.getElementById('form-1-{{ $mostVisitedProduct->id }}').submit();" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
+                                                    </form>
+                                                @endif
+                                                @guest
+                                                        <section class="product-add-to-cart"><a href="{{ route("auth.user.loginRegisterForm") }}" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
+                                                @endguest
 
                                                 @guest
                                                     <section class="product-add-to-favorite">
@@ -187,11 +199,20 @@
                                     <section class="item">
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
-                                                <section class="product-add-to-cart">
-                                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید">
-                                                        <i class="fa fa-cart-plus"></i>
-                                                    </a>
-                                                </section>
+
+                                                @if($offerProduct["marketable_number"] > 0 && auth()->check())
+                                                    <form action="{{ route("user.salesProcess.addToCart", $offerProduct) }}" method="post" id="form-2-{{ $offerProduct->id }}">
+                                                        @csrf
+                                                        <input type="hidden" name="guarantee" value="{{ $offerProduct->guarantees->first() ? $offerProduct->guarantees->first()->id : null }}">
+                                                        <input type="hidden" name="color" value="{{ $offerProduct->colors->first() ? $offerProduct->colors->first()->id : null }}">
+                                                        <input type="hidden" name="number" value="1">
+                                                        <section class="product-add-to-cart"><a href="#" onclick="document.getElementById('form-2-{{ $offerProduct->id }}').submit();" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
+                                                    </form>
+                                                @endif
+                                                @guest
+                                                    <section class="product-add-to-cart"><a href="{{ route("auth.user.loginRegisterForm") }}" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
+                                                @endguest
+
                                                 @guest
                                                     <section class="product-add-to-favorite">
                                                         <span class="add_to_favorite" data-url="{{ route("user.market.addToFavorite", $mostVisitedProduct) }}" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">

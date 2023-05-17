@@ -207,11 +207,20 @@
                                     <section class="item">
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
-                                                <section class="product-add-to-cart">
-                                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید">
-                                                        <i class="fa fa-cart-plus"></i>
-                                                    </a>
-                                                </section>
+
+                                                @if($relatedProduct["marketable_number"] > 0 && auth()->check())
+                                                    <form action="{{ route("user.salesProcess.addToCart", $relatedProduct) }}" method="post" id="form-2-{{ $relatedProduct->id }}">
+                                                        @csrf
+                                                        <input type="hidden" name="guarantee" value="{{ $relatedProduct->guarantees->first() ? $relatedProduct->guarantees->first()->id : null }}">
+                                                        <input type="hidden" name="color" value="{{ $relatedProduct->colors->first() ? $relatedProduct->colors->first()->id : null }}">
+                                                        <input type="hidden" name="number" value="1">
+                                                        <section class="product-add-to-cart"><a href="#" onclick="document.getElementById('form-2-{{ $relatedProduct->id }}').submit();" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
+                                                    </form>
+                                                @endif
+                                                @guest
+                                                    <section class="product-add-to-cart"><a href="{{ route("auth.user.loginRegisterForm") }}" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
+                                                @endguest
+
                                                 @guest
                                                     <section class="product-add-to-favorite">
                                                         <span class="add_to_favorite" data-url="{{ route("user.market.addToFavorite", $relatedProduct) }}" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
@@ -503,7 +512,7 @@
                 selected_color_price = parseFloat(selected_color.attr("data-color-price"));
             }
 
-            if ($("#guarantee option:selected") != 0){
+            if ($("#guarantee option:selected").length != 0){
                 selected_guarantee_price = parseFloat($("#guarantee option:selected").attr("data-guarantee-price"));
             }
 

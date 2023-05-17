@@ -40,6 +40,7 @@ class CartController extends Controller
 
     public function add(Product $product, Request $request){
         $inputs = $request->all();
+
         if (Auth::check()){
             $validate = $request->validate([
                 "color"     => "nullable|exists:product_colors,id",
