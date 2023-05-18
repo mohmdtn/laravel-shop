@@ -44,4 +44,17 @@ class ProductController extends Controller
             return response()->json(["status" => 3]);
         }
     }
+
+    public function addRate(Product $product, Request $request){
+        if (Auth::check()){
+            $user = Auth::user();
+            if (isset($request->rating))
+                $user->rate($product, $request->rating);
+            else
+                $user->rate($product, 0);
+
+            return back()->with("alert-section-success", "امتیاز شما با موفقیت ثبت شد.");
+
+        }
+    }
 }

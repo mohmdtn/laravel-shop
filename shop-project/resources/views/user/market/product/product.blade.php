@@ -7,6 +7,51 @@
             transform: scale(.8);
             transition: .3s;
         }
+
+        .rate {
+            /*float: right;*/
+            height: 49px;
+            /*padding: 0 10px;*/
+        }
+        .rate:not(:checked) > input {
+            position:absolute;
+            /*top:-9999px;*/
+            display: none;
+        }
+        .rate:not(:checked) > label {
+            float:right;
+            width:1em;
+            overflow:hidden;
+            white-space:nowrap;
+            cursor:pointer;
+            font-size:30px;
+            color:#ccc;
+        }
+        .rate:not(:checked) > label:before {
+            content: '★ ';
+        }
+        .rate > input:checked ~ label {
+            color: #ffc700;
+        }
+        .rate:not(:checked) > label:hover,
+        .rate:not(:checked) > label:hover ~ label {
+            color: #deb217;
+        }
+        .rate > input:checked + label:hover,
+        .rate > input:checked + label:hover ~ label,
+        .rate > input:checked ~ label:hover,
+        .rate > input:checked ~ label:hover ~ label,
+        .rate > label:hover ~ input:checked ~ label {
+            color: #c59b08;
+        }
+
+        .rate-info{
+            font-size: 14px;
+        }
+
+        .rate-info .count{
+            font-size: 11px;
+        }
     </style>
 @endsection
 
@@ -66,8 +111,14 @@
                                             <h2 class="content-header-title content-header-title-small">
                                                 {{ $product["name"] }}
                                             </h2>
-                                            <section class="content-header-link">
-                                                <!--<a href="#">مشاهده همه</a>-->
+                                            <section class="rate-info">
+                                                <div class="d-inline-block text-secondary count" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="تعداد آرا">({{ $product->ratingsCount() }})</div>
+                                                <div class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="میانگین امتیازات">
+                                                    <i class="fas fa-star text-warning"></i> <span class="d-inline">{{ number_format($product->ratingsAvg(), 1, ".") }}</span>
+                                                </div>
+{{--                                                <div class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="تعداد آرا">--}}
+{{--                                                    <i class="fas fa-user text-secondary"></i> <span class="d-inline">{{ $product->ratingsCount() }}</span>--}}
+{{--                                                </div>--}}
                                             </section>
                                         </section>
                                     </section>
@@ -102,7 +153,7 @@
 
                                             @guest
                                                 <p>
-                                                    <button type="button" class="btn btn-light  btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
+                                                    <button type="button" class="btn btn-light p-0 btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
                                                         <i class="fa fa-heart text-dark"></i><span class="addFave"> افزودن به علاقه مندی</span>
                                                     </button>
                                                 </p>
@@ -110,13 +161,13 @@
                                             @auth
                                                 @if($product->user->contains(auth()->user()->id))
                                                     <p>
-                                                        <button type="button" class="btn btn-light  btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
+                                                        <button type="button" class="btn btn-light p-0 btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
                                                             <i class="fa fa-heart text-danger"></i><span class="addFave"> حذف از علاقه مندی</span>
                                                         </button>
                                                     </p>
                                                 @else
                                                     <p>
-                                                        <button type="button" class="btn btn-light  btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
+                                                        <button type="button" class="btn btn-light p-0 btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
                                                             <i class="fa fa-heart text-dark"></i><span class="addFave"> افزودن به علاقه مندی</span>
                                                         </button>
                                                     </p>
@@ -291,6 +342,7 @@
                                         <span class="me-2"><a class="text-decoration-none text-dark" href="#introduction">معرفی</a></span>
                                         <span class="me-2"><a class="text-decoration-none text-dark" href="#features">ویژگی ها</a></span>
                                         <span class="me-2"><a class="text-decoration-none text-dark" href="#comments">دیدگاه ها</a></span>
+                                        <span class="me-2"><a class="text-decoration-none text-dark" href="#rates">امتیاز ها</a></span>
                                     </h2>
                                     <section class="content-header-link">
                                         <!--<a href="#">مشاهده همه</a>-->
@@ -352,9 +404,6 @@
                                     <h2 class="content-header-title content-header-title-small">
                                         دیدگاه ها
                                     </h2>
-                                    <section class="content-header-link">
-                                        <!--<a href="#">مشاهده همه</a>-->
-                                    </section>
                                 </section>
                             </section>
                             <section class="product-comments mb-4">
@@ -374,17 +423,6 @@
                                                     <section class="modal-body">
                                                         <form class="row" action="{{ route("user.market.addComment", $product) }}" method="post">
                                                             @csrf
-
-                                                            {{--                                                        <section class="col-6 mb-2">--}}
-                                                            {{--                                                            <label for="first_name" class="form-label mb-1">نام</label>--}}
-                                                            {{--                                                            <input type="text" class="form-control form-control-sm" id="first_name" placeholder="نام ...">--}}
-                                                            {{--                                                        </section>--}}
-
-                                                            {{--                                                        <section class="col-6 mb-2">--}}
-                                                            {{--                                                            <label for="last_name" class="form-label mb-1">نام خانوادگی</label>--}}
-                                                            {{--                                                            <input type="text" class="form-control form-control-sm" id="last_name" placeholder="نام خانوادگی ...">--}}
-                                                            {{--                                                        </section>--}}
-
                                                             <section class="col-12 mb-2">
                                                                 <label for="comment" class="form-label mb-1">دیدگاه شما</label>
                                                                 <textarea class="form-control form-control-sm" id="comment" name="body" placeholder="دیدگاه شما ..." rows="4"></textarea>
@@ -446,6 +484,44 @@
                                 @endforeach
 
                             </section>
+
+
+                            <section id="rates" class="content-header mt-2 mb-4">
+                                <section class="d-flex justify-content-between align-items-center">
+                                    <h2 class="content-header-title content-header-title-small">
+                                        امتیاز ها
+                                    </h2>
+                                </section>
+                            </section>
+
+                            @auth
+                                <section class="text-center">
+                                    <form class="text-center" action="{{ route("user.market.addRate", $product) }}" method="post">
+                                        @csrf
+                                        <div class="rate d-inline-block">
+                                            <input type="radio" id="star5" name="rating" value="5" />
+                                            <label for="star5" title="text">5 stars</label>
+                                            <input type="radio" id="star4" name="rating" value="4" />
+                                            <label for="star4" title="text">4 stars</label>
+                                            <input type="radio" id="star3" name="rating" value="3" />
+                                            <label for="star3" title="text">3 stars</label>
+                                            <input type="radio" id="star2" name="rating" value="2" />
+                                            <label for="star2" title="text">2 stars</label>
+                                            <input type="radio" id="star1" name="rating" value="1" />
+                                            <label for="star1" title="text">1 star</label>
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="btn btn-sm btn-danger text-white mx-2">ثبت امتیاز</button>
+                                        </div>
+                                    </form>
+                                </section>
+                            @endauth
+                            @guest
+                                <section>
+                                    <h6 class="text-secondary mb-0 d-inline">کاربر گرامی لطفا برای ثبت امتیاز ابتدا وارد حساب کاربری خود شوید.</h6>
+                                    <a href="{{ route("auth.user.loginRegisterForm") }}" class="text-white text-decoration-none btn btn-sm btn-info rounded-3">ثبت نام / ورود</a>
+                                </section>
+                            @endguest
                         </section>
 
                     </section>

@@ -26,8 +26,8 @@ class ProductRequest extends FormRequest
 
         if ($this->isMethod("post")){
             return [
-                "name"              => "required|max:150|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,#؟?!+= ]+$/u",
-                "introduction"      => "required|max:5000|min:5|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.،,><\/;\n\r&؛ ]+$/u",
+                "name"              => "required|max:250|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,#؟?!+= ]+$/u",
+                "introduction"      => "required|max:5000|min:5|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.،,><\/;\n\r&×)(؛ ]+$/u",
                 "category_id"       => "required|min:1|regex:/^[0-9]+$/u|exists:product_categories,id",
                 "brand_id"          => "required|min:1|regex:/^[0-9]+$/u|exists:brands,id",
                 "image"             => "required|image|mimes:png,jpg,jpeg,gif",
@@ -48,8 +48,8 @@ class ProductRequest extends FormRequest
 
         else{
             return [
-                "name"              => "required|max:150|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,#؟?!+= ]+$/u",
-                "introduction"      => "required|max:5000|min:5|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.،,><\/;\n\r& ]+$/u",
+                "name"              => "required|max:250|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,#؟?!+= ]+$/u",
+                "introduction"      => "required|max:5000|min:5|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.،,><\/;\n\r&×؛ ]+$/u",
                 "category_id"       => "required|min:1|regex:/^[0-9]+$/u|exists:product_categories,id",
                 "brand_id"          => "required|min:1|regex:/^[0-9]+$/u|exists:brands,id",
                 "image"             => "image|mimes:png,jpg,jpeg,gif",
