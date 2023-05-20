@@ -13,17 +13,13 @@
     border-radius: 0.25rem;
 }
 
-.product-gallery-thumbs {
-
-}
-
 .product-gallery-thumb{
     width: 4rem;
     height: 4rem;
     cursor: pointer;
     padding: 0.3rem;
     border: 1px solid #efefef;
-    margin: 0.3rem;
+    margin: 0.28rem;
     border-radius: 0.25rem;
     display: inline-block;
 }

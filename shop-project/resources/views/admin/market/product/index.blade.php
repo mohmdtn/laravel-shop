@@ -28,17 +28,14 @@
 
             <table class="table table-striped table-hover">
                 <thead class="table-info">
-                <th>#</th>
-                <th>نام کالا</th>
-                <th>تصویر کالا</th>
-                <th>قیمت</th>
-                <th>وزن</th>
-                <th>دسته</th>
-                <th>برند</th>
-                <th>فرم</th>
-                <th>وضعیت</th>
-                <th class="max-width-18">تنظیمات</th>
-
+                    <th>#</th>
+                    <th>نام کالا</th>
+                    <th>تصویر کالا</th>
+                    <th>قیمت</th>
+                    <th>دسته</th>
+                    <th>برند</th>
+                    <th>وضعیت</th>
+                    <th class="max-width-18">تنظیمات</th>
                 </thead>
 
                 <tbody>
@@ -48,10 +45,8 @@
                         <td>{{ $product["name"] }}</td>
                         <td><img src="{{ asset($product['image']['indexArray'][$product['image']['currentImage']]) }}" alt=""></td>
                         <td>{{ $product["price"] }}تومان </td>
-                        <td>{{ $product["weight"] }}</td>
                         <td>{{ $product->category->name }}</td>
                         <td>{{ $product->brand->persian_name }}</td>
-                        <td>لپتاپ</td>
                         <td>
                             <label class="switch">
                                 <input id="{{ $product["id"] }}" onchange="changeStatus({{ $product["id"] }})" data-url="{{ route("admin.market.product.status" , $product["id"]) }}" type="checkbox"
@@ -88,6 +83,12 @@
                 </tbody>
             </table>
 
+        </section>
+
+        <section class="col-12">
+            <section class="my-4 d-flex justify-content-center">
+                {{ $products->links("pagination::bootstrap-5") }}
+            </section>
         </section>
 
     </section>

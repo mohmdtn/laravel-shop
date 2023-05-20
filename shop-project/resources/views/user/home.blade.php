@@ -269,20 +269,24 @@
     </section>
     <!-- end product lazy load -->
 
+    <section class=" mb-4 py-4">
+        <section class="container-xxl">
+        </section>
+    </section>
 
     @if(!empty($bottomBanner))
         <!-- start ads section -->
-    <section class="mb-3">
-        <section class="container-xxl">
-            <!-- one column -->
-            <section class="row py-4">
-                <a href="{{ urldecode($bottomBanner["url"]) }}" class="d-block">
-                    <section class="col"><img class="d-block rounded-2 w-100" src="{{ $bottomBanner["image"] }}" alt="{{ $bottomBanner["name"] }}"></section>
-                </a>
+        <section class="mb-3">
+            <section class="container-xxl">
+                <!-- one column -->
+                <section class="row py-4">
+                    <a href="{{ urldecode($bottomBanner["url"]) }}" class="d-block">
+                        <section class="col"><img class="d-block rounded-2 w-100" src="{{ $bottomBanner["image"] }}" alt="{{ $bottomBanner["name"] }}"></section>
+                    </a>
+                </section>
             </section>
         </section>
-    </section>
-    <!-- end ads section -->
+        <!-- end ads section -->
     @endif
 
 

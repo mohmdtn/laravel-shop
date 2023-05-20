@@ -3,11 +3,6 @@
 @section("head-tag")
     <title>{{ $product["name"] }}</title>
     <style>
-        .selected-color{
-            transform: scale(.8);
-            transition: .3s;
-        }
-
         .rate {
             /*float: right;*/
             height: 49px;
@@ -86,7 +81,7 @@
                                             $images->push($gallery->image);
                                         }
                                     @endphp
-                                    <section class="product-gallery-selected-image mb-3">
+                                    <section class="product-gallery-selected-image mb-3" id="zoom">
                                         <img src="{{ asset($images->first()) }}" alt="">
                                     </section>
                                     <section class="product-gallery-thumbs">
@@ -116,9 +111,6 @@
                                                 <div class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="میانگین امتیازات">
                                                     <i class="fas fa-star text-warning"></i> <span class="d-inline">{{ number_format($product->ratingsAvg(), 1, ".") }}</span>
                                                 </div>
-{{--                                                <div class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="تعداد آرا">--}}
-{{--                                                    <i class="fas fa-user text-secondary"></i> <span class="d-inline">{{ $product->ratingsCount() }}</span>--}}
-{{--                                                </div>--}}
                                             </section>
                                         </section>
                                     </section>
@@ -153,7 +145,7 @@
 
                                             @guest
                                                 <p>
-                                                    <button type="button" class="btn btn-light p-0 btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
+                                                    <button type="button" class="btn btn-light p-1 btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
                                                         <i class="fa fa-heart text-dark"></i><span class="addFave"> افزودن به علاقه مندی</span>
                                                     </button>
                                                 </p>
@@ -161,13 +153,13 @@
                                             @auth
                                                 @if($product->user->contains(auth()->user()->id))
                                                     <p>
-                                                        <button type="button" class="btn btn-light p-0 btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
+                                                        <button type="button" class="btn btn-light p-1 btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
                                                             <i class="fa fa-heart text-danger"></i><span class="addFave"> حذف از علاقه مندی</span>
                                                         </button>
                                                     </p>
                                                 @else
                                                     <p>
-                                                        <button type="button" class="btn btn-light p-0 btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
+                                                        <button type="button" class="btn btn-light p-1 btn-sm text-decoration-none add_to_favorite2" data-url="{{ route("user.market.addToFavorite", $product) }}">
                                                             <i class="fa fa-heart text-dark"></i><span class="addFave"> افزودن به علاقه مندی</span>
                                                         </button>
                                                     </p>
@@ -177,7 +169,7 @@
                                         <section>
                                             <section class="cart-product-number d-inline-block ">
                                                 <button class="cart-number cart-number-down" type="button">-</button>
-                                                <input id="number" name="number" type="number" min="1" max="5" step="1" value="1" readonly="readonly">
+                                                <input id="number" name="number" type="number" min="1" max="{{ $product["marketable_number"] }}" step="1" value="1" data-max-number="{{ $product["marketable_number"] }}" readonly="readonly">
                                                 <button class="cart-number cart-number-up" type="button">+</button>
                                             </section>
                                         </section>
@@ -693,5 +685,11 @@
             });
         });
         //end product introduction, features and comment
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#zoom').zoom({magnify: 2});
+        });
     </script>
 @endsection

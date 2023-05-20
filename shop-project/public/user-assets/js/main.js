@@ -147,8 +147,12 @@ $(document).ready(function() {
 $(document).ready(function() {
 
     $(".cart-number-up").click(function(){
+        let maxNumb = $(this).parent().find('input[type=number]').attr("data-max-number");
+        if (maxNumb > 5){
+            maxNumb = 5;
+        }
         var value = parseInt($(this).parent().find('input[type=number]').val());
-        if(value < 5) {
+        if(value < maxNumb) {
             $(this).parent().find('input[type=number]').val(value + 1);
         }
     });
