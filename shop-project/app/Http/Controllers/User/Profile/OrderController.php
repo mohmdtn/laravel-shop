@@ -15,6 +15,7 @@ class OrderController extends Controller
         }
         else{
             $orders = Auth::user()->orders()->orderBy("id", "desc")->get();
+//            dd($orders->orderItems()->singleProduct);
         }
 
         return view("user.profile.orders", compact("orders"));

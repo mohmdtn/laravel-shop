@@ -64,10 +64,13 @@
                                             <section class="order-item-date"><i class="fa fa-calendar-alt"></i>{{ jalaliDate($order["created_at"], "H:i:s %A %d %B %Y") ?? "-" }}  </section>
                                             <section class="order-item-id"><i class="fa fa-id-card-alt"></i>کد سفارش :
                                                 {{ $order->id }}</section>
-                                            <section class="order-item-status"><i class="fa fa-clock"></i> {{ $order->PaymentStatusValue }}</section>
+                                            <section class="order-item-status"><i class="fa fa-clock"></i> {{ $order->orderStatusValue }}</section>
+                                            <section class="order-item-status"><i class="fa fa-credit-card"></i> {{ $order->PaymentStatusValue }}</section>
+                                            <section class="order-item-status"><i class="fas fa-shipping-fast"></i> {{ $order->deliveryStatusValue }}</section>
                                             <section class="order-item-products">
-                                                <a href="#"><img src="assets/images/products/1.jpg" alt=""></a>
-                                                <a href="#"><img src="assets/images/products/2.jpg" alt=""></a>
+                                                @foreach($order->orderItems as $item)
+                                                    <a href="{{ route("user.market.product", $item->singleProduct) }}"><img src="{{ asset($item->singleProduct['image']['indexArray'][$item->singleProduct['image']['currentImage']]) }}" alt=""></a>
+                                                @endforeach
                                             </section>
                                         </section>
                                         <section class="order-item-link"><a href="#">پرداخت سفارش</a></section>

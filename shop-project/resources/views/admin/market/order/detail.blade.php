@@ -31,6 +31,7 @@
                 <thead class="table-info">
                     <th>#</th>
                     <th>نام محصول</th>
+                    <th>تصویر</th>
                     <th>درصد فروش فوق العاده</th>
                     <th>مبلغ فروش فوق العاده</th>
                     <th>تعداد</th>
@@ -48,6 +49,7 @@
                     <tr>
                         <th>{{ $loop->iteration }}</th>
                         <td>{{ $item->singleProduct->name ?? "-" }}</td>
+                        <td><img src="{{ asset($item->singleProduct['image']['indexArray'][$item->singleProduct['image']['currentImage']]) }}" alt=""></td>
                         <td>{{ $item->amazingSale->percentage ?? "-" }}</td>
                         <td>{{ $item["amazing_sale_discount_amount"] ?? "-" }} تومان</td>
                         <td>{{ $item["number"] ?? "-" }}</td>
