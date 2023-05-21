@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Market\Address;
 use App\Models\Market\Order;
+use App\Models\Market\OrderItem;
 use App\Models\Market\Payment;
 use App\Models\Market\Product;
 use App\Models\Ticket\Ticket;
@@ -119,5 +120,23 @@ class User extends Authenticatable
 
     public function products(){
         return $this->belongsToMany(Product::class);
+    }
+
+    public function orderItems(){
+        return $this->hasManyThrough(OrderItem::class, Order::class);
+    }
+
+    public function isUserPurchedProduct($product_id){
+        $productIds = collect();
+//        foreach (auth()->user()->orders()->with("orderItems")->get() as $order){
+//            foreach ($order->orderItems->where('product_id', $product_id) as $item){
+//                $productIds->push($item->product_id);
+//            }
+//        }
+        foreach ($this->orderItems()->where('product_id', $product_id)->get() as $item){
+            $productIds->push($item->product_id);
+        }
+        $productIds = $productIds->unique();
+        return $productIds;
     }
 }

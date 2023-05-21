@@ -46,7 +46,8 @@ class ProductController extends Controller
     }
 
     public function addRate(Product $product, Request $request){
-        if (Auth::check()){
+        $productIds = auth()->user()->isUserPurchedProduct($product->id);
+        if (Auth::check() && $productIds->count() > 0){
             $user = Auth::user();
             if (isset($request->rating))
                 $user->rate($product, $request->rating);
@@ -54,7 +55,8 @@ class ProductController extends Controller
                 $user->rate($product, 0);
 
             return back()->with("alert-section-success", "امتیاز شما با موفقیت ثبت شد.");
-
         }
+        else
+            return back()->with("alert-section-danger", "کاربر گرامی برای ثبت امتیاز ابتدا باید محصول را خریداری کنید.");
     }
 }
