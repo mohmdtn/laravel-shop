@@ -438,6 +438,7 @@ Route::namespace("App\Http\Controllers\User")->group(function (){
         Route::get("/product/{product:slug}", "ProductController@product")->name("user.market.product");
         Route::post("/add-comment/{product:slug}", "ProductController@addComment")->name("user.market.addComment");
         Route::get("/add-to-favorite/{product:slug}", "ProductController@addToFavorite")->name("user.market.addToFavorite");
+        Route::get("/add-to-compare/{product:slug}", "ProductController@addToCompare")->name("user.market.addToCompare");
         Route::post("/add-rate/{product:slug}", "ProductController@addRate")->name("user.market.addRate");
     });
 

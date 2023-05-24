@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Market\Address;
+use App\Models\Market\Compare;
 use App\Models\Market\Order;
 use App\Models\Market\OrderItem;
 use App\Models\Market\Payment;
@@ -124,6 +125,10 @@ class User extends Authenticatable
 
     public function orderItems(){
         return $this->hasManyThrough(OrderItem::class, Order::class);
+    }
+
+    public function compare(){
+        return $this->hasOne(Compare::class);
     }
 
     public function isUserPurchedProduct($product_id){

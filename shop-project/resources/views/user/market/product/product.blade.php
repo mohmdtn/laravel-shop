@@ -166,6 +166,30 @@
                                                 @endif
                                             @endauth
 
+                                            {{-- compare section --}}
+                                            @guest
+                                                <p>
+                                                    <button type="button" class="btn btn-light p-1 btn-sm text-decoration-none add_to_compare" data-url="{{ route("user.market.addToCompare", $product) }}">
+                                                        <i class="fas fa-chart-bar text-dark"></i><span class="addFave"> افزودن به لیست مقایسه</span>
+                                                    </button>
+                                                </p>
+                                            @endguest
+                                            @auth
+                                                @if($product->compares->contains(auth()->user()->id))
+                                                    <p>
+                                                        <button type="button" class="btn btn-light p-1 btn-sm text-decoration-none add_to_compare" data-url="{{ route("user.market.addToCompare", $product) }}">
+                                                            <i class="fas fa-chart-bar text-success"></i><span class="addFave"> حذف از لیست مقایسه</span>
+                                                        </button>
+                                                    </p>
+                                                @else
+                                                    <p>
+                                                        <button type="button" class="btn btn-light p-1 btn-sm text-decoration-none add_to_compare" data-url="{{ route("user.market.addToCompare", $product) }}">
+                                                            <i class="fas fa-chart-bar text-dark"></i><span class="addFave"> افزودن به لیست مقایسه</span>
+                                                        </button>
+                                                    </p>
+                                                @endif
+                                            @endauth
+
                                         <section>
                                             <section class="cart-product-number d-inline-block ">
                                                 <button class="cart-number cart-number-down" type="button">-</button>
@@ -659,6 +683,31 @@
                     else if (result.status == 2){
                         element.find("i").removeClass("text-danger");
                         element.find(".addFave").html(" افزودن به علاقه مندی ها");
+                    }
+
+                    else if (result.status == 3){
+                        $(".toast").toast("show");
+                    }
+                }
+            })
+        });
+
+        $(".add_to_compare").click(function (){
+            var url = $(this).attr("data-url");
+            var element = $(this);
+
+            $.ajax({
+                url: url,
+                success: function (result) {
+                    if (result.status == 1){
+                        element.find("i").removeClass("text-dark");
+                        element.find("i").addClass("text-success");
+                        element.find(".addFave").html(" حذف از لیست مقایسه");
+                    }
+
+                    else if (result.status == 2){
+                        element.find("i").removeClass("text-success");
+                        element.find(".addFave").html(" افزودن به لیست مقایسه");
                     }
 
                     else if (result.status == 3){
