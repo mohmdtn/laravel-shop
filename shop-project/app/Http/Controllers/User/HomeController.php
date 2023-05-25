@@ -4,9 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Content\Banner;
+use App\Models\Content\Post;
 use App\Models\Market\Brand;
 use App\Models\Market\Product;
 use App\Models\Market\ProductCategory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -19,10 +21,12 @@ class HomeController extends Controller
 
         $brands = Brand::where("status", 1)->get();
 
-        $mostVisitedProducts    = Product::where("status", 1)->latest()->take(10)->get();
-        $offerProducts          = Product::where("status", 1)->latest()->take(10)->get();
+        $mostVisitedProducts    = Product::where("status", 1)->where("published_at", "<", Carbon::now())->latest()->take(10)->get();
+        $offerProducts          = Product::where("status", 1)->where("published_at", "<", Carbon::now())->latest()->take(10)->get();
 
-        return view("user.home", compact("slideShowImages", "topBanners", "middleBanners", "bottomBanner", "brands", "mostVisitedProducts", "offerProducts"));
+        $posts                  = Post::where("status", 1)->where("published_at", "<", Carbon::now())->latest()->take(10)->get();
+
+        return view("user.home", compact("slideShowImages", "topBanners", "middleBanners", "bottomBanner", "brands", "mostVisitedProducts", "offerProducts", "posts"));
     }
 
     public function products(Request $request, ProductCategory $category = null){
@@ -84,7 +88,7 @@ class HomeController extends Controller
         $products = $products->when($request->brands, function () use($request, $products) {
             $products->whereIn("brand_id", $request->brands)->get();
         });
-        $products = $products->paginate(12);
+        $products = $products->where("published_at", "<", Carbon::now())->paginate(12);
         $products->appends($request->query());
 
         // get selected brands
@@ -98,4 +102,5 @@ class HomeController extends Controller
 
         return view("user.market.product.products", compact("products", "brands", 'selectedBrandsArray', 'categories'));
     }
+
 }

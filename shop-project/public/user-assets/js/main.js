@@ -113,6 +113,31 @@ $(document).ready(function(){
         }
     });
 
+    $(".blogs").owlCarousel({
+        rtl:true,
+        loop:false,
+        margin:10,
+        nav:true,
+        dots:false,
+        autoplay:false,
+        autoHeight: false,
+        items: 4,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:2
+            },
+            800:{
+                items:3
+            },
+            1000:{
+                items:4
+            }
+        }
+    });
+
 
 
     // $(".owl-carousel").owlCarousel({

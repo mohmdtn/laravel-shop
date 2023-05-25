@@ -37,8 +37,8 @@
                 <div class="productInfoInnerSec py-4 px-3">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <p class="pl-4 d-inline-block"><span>مشخصات کالا:</span> {{ $comment["commentable"]["title"] }}</p>
-                            <p class="d-inline-block"><span>کد کالا:</span> {{ $comment["commentable"]["id"] }} </p>
+                            <p class="pl-4 d-inline-block"><span>عنوان پست:</span> {{ $comment["commentable"]["title"] }}</p>
+                            <p class="d-inline-block"><span>کد پست:</span> {{ $comment["commentable"]["id"] }} </p>
                         </div>
 
                     </div>
@@ -46,6 +46,18 @@
                     <i class="fas fa-comment pl-2">:</i>{{ $comment["body"] }}
                 </div>
             </div>
+
+            @foreach($comment->answers as $answer)
+                <div class="productInfo my-3 border-radius-3 mr-4">
+                    <div class="productInfoInner py-2 px-2 border-radius-3 d-flex justify-content-between align-items-center bg-gradiant-1">
+                        <div><i class="fas fa-user pl-1"></i> {{ $answer->admin ? $answer->admin->user->fullname : $answer["user"]["fullName"] }}</div>
+                        <div><i class="fas fa-clock"></i> {{ jalaliDate($answer["created_at"], "H:i:s , %A %d %B %Y") }}</div>
+                    </div>
+                    <div class="productInfoInnerSec py-4 px-3">
+                        <i class="fas fa-comment pl-2">:</i>{{ $answer["body"] }}
+                    </div>
+                </div>
+            @endforeach
 
             @if($comment["parent_id"] == null)
             <form action="{{ route("admin.content.comment.answer", $comment["id"]) }}" method="post">

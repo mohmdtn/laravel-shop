@@ -21,7 +21,7 @@ class CommentController extends Controller
             $unSeenComment->save();
         }
 
-        $comments = Comment::orderBy("created_at", "desc")->where("commentable_type", "App\Models\Market\Product")->simplePaginate(15);
+        $comments = Comment::orderBy("created_at", "desc")->where("commentable_type", "App\Models\Market\Product")->whereNull("parent_id")->simplePaginate(15);
         return view("admin.market.comment.index", compact("comments"));
     }
 

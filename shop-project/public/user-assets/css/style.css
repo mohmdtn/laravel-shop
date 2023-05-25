@@ -817,6 +817,85 @@ body {
 
 /*
  *----------------------------------------------------------------------------------------------------------------------
+ * blog
+ *----------------------------------------------------------------------------------------------------------------------
+ */
+
+.blog-link{
+    text-decoration: none;
+}
+
+.blog{
+    text-decoration: none;
+    font-size: 0.8rem;
+    line-height: 1.5rem;
+    color: #000;
+    height: 100%;
+    position: relative;
+    border-radius: 0.25rem;
+    background-color: #FFFFFF;
+    transition: 0.4s;
+    padding: 10px;
+}
+
+.blog:hover {
+    z-index: 99;
+    box-shadow: 0rem 0rem 0.4rem 0.1rem rgba(0,0,0,0.1);
+    transition: 0.4s;
+}
+
+.blog .blog-info span i{
+    color: #5c636a;
+    font-size: 16px;
+}
+
+.blog .blog-info span span{
+    color: #5c636a;
+    font-size: 11px;
+}
+
+.post-page{
+
+}
+
+.post-page img{
+    max-width: 100%;
+}
+
+.post-page .tags{
+    transition: .3s;
+}
+
+.post-page .tags:hover{
+    color: #fff;
+    background-color: #4e555b;
+}
+
+.post-page .post-side-info h6{
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.post-page .blog-info span i{
+    color: #5c636a;
+    font-size: 17px;
+}
+
+.post-page .blog-info span span{
+    color: #5c636a;
+    font-size: 12px;
+}
+
+.post-page .social-share a{
+    color: #4e555b;
+    margin: 0 6px;
+    font-size: 18px;
+}
+
+
+
+/*
+ *----------------------------------------------------------------------------------------------------------------------
  * footer
  *----------------------------------------------------------------------------------------------------------------------
  */

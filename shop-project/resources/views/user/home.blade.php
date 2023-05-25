@@ -269,10 +269,6 @@
     </section>
     <!-- end product lazy load -->
 
-    <section class=" mb-4 py-4">
-        <section class="container-xxl">
-        </section>
-    </section>
 
     @if(!empty($bottomBanner))
         <!-- start ads section -->
@@ -295,7 +291,7 @@
         <section class="container-xxl">
             <section class="row">
                 <section class="col">
-                    <!-- start vontent header -->
+                    <!-- start content header -->
                     <section class="content-header">
                         <section class="d-flex align-items-center">
                             <h2 class="content-header-title">
@@ -303,11 +299,11 @@
                             </h2>
                         </section>
                     </section>
-                    <!-- start vontent header -->
+                    <!-- start content header -->
                     <section class="brands-wrapper py-4" >
                         <section class="brands dark-owl-nav owl-carousel owl-theme">
                             @foreach($brands as $brand)
-                                <section class="item">
+                            <section class="item">
                                 <section class="brand-item">
                                     <a href="{{ route("user.products", ["brands[]" => $brand->id]) }}">
                                         <img class="rounded-2" src="{{ $brand["logo"] }}" alt="{{ $brand["name"] }}">
@@ -321,6 +317,70 @@
             </section>
         </section>
     </section>
+
+
+
+
+
+
+
+    <!-- blog -->
+    <section class="mb-3">
+        <section class="container-xxl" >
+            <section class="row">
+                <section class="col">
+                    <section class="content-wrapper bg-white p-3 rounded-2">
+                        <!-- start content header -->
+                        <section class="content-header">
+                            <section class="d-flex justify-content-between align-items-center">
+                                <h2 class="content-header-title">
+                                    <span>مجله بلاگ ها</span>
+                                </h2>
+                                <section class="content-header-link">
+                                    <a href="{{ route("user.content.posts") }}">مشاهده همه</a>
+                                </section>
+                            </section>
+                        </section>
+                        <!-- start content header -->
+                        <section class="lazyload-wrapper" >
+                            <section class="blogs light-owl-nav owl-carousel owl-theme">
+                                @foreach($posts as $post)
+                                    <a href="{{ route("user.content.post", $post->slug) }}" class="blog-link">
+                                        <section class="item">
+                                            <section class="lazyload-item-wrapper">
+                                                <section class="blog">
+                                                    <img class="rounded-3 mb-2" src="{{ asset($post['image']['indexArray']['large']) }}" alt="">
+                                                    <section class="blog-info d-flex justify-content-between">
+                                                        <span>
+                                                            <i class="fa fa-calendar-alt"></i> <span>{{ jalaliDate($post["created_at"], "%d %B %Y") }}</span>
+                                                        </span>
+                                                        <span>
+                                                            <i class="fa fa-comments"></i> <span>{{ $post->comments->count() }}</span>
+                                                        </span>
+                                                        <span>
+                                                            <i class="fa fa-newspaper"></i> <span>{{ $post->postCategory->name }}</span>
+                                                        </span>
+                                                    </section>
+                                                    <h5>{{ Str::limit($post["title"], 25) }}</h5>
+                                                    <p>{{ Str::limit($post["summary"], 40) }}</p>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </a>
+                                @endforeach
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!-- end of blog -->
+
+
+
+
+
 
 
 

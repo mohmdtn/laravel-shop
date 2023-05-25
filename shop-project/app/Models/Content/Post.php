@@ -31,4 +31,8 @@ class Post extends Model
         return $this->morphMany("App\Models\Content\Comment", "commentable");
     }
 
+    public function activeComments(){
+        return $this->comments()->where("approved", 1)->where("status", 1)->where("parent_id", NULL)->get();
+    }
+
 }

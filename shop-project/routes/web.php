@@ -442,6 +442,13 @@ Route::namespace("App\Http\Controllers\User")->group(function (){
         Route::post("/add-rate/{product:slug}", "ProductController@addRate")->name("user.market.addRate");
     });
 
+    Route::namespace("Content")->group(function (){
+        Route::get("/post/{post:slug}", "PostController@post")->name("user.content.post");
+        Route::post("/post/add-comment/{post:slug}", "PostController@addComment")->name("user.content.addComment");
+        Route::post("/add-rate/{product:slug}", "ProductController@addRate")->name("user.market.addRate");
+        Route::get("/posts", "PostController@posts")->name("user.content.posts");
+    });
+
 });
 
 Route::namespace("App\Http\Controllers\User\SalesProcess")->group(function (){

@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Content\Comment;
 use App\Models\Market\Compare;
 use App\Models\Market\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     public function product(Product $product){
-        $relatedProducts = Product::where("status", 1)->get();
+        $relatedProducts = Product::where("status", 1)->where("published_at", "<", Carbon::now())->get();
         return view("user.market.product.product", compact("relatedProducts", "product"));
     }
 

@@ -31,7 +31,6 @@
                 <thead class="table-info">
                 <th>#</th>
                 <th>نظر</th>
-                <th>پاسخ به</th>
                 <th>کد کاربر</th>
                 <th>نویسنده نظر</th>
                 <th>کد پست</th>
@@ -47,7 +46,6 @@
                     <tr>
                         <th>{{ $key+=1 }}</th>
                         <td>{{ Str::limit($comment["body"], 20) }}</td>
-                        <td>{{ $comment["parent_id"] ? Str::limit($comment["parent"]["body"], 10) : "نظر اصلی" }}</td>
                         <td>{{ $comment["author_id"] }}</td>
                         <td>{{ $comment["user"]["fullName"] }}</td>
                         <td>{{ $comment["commentable_id"] }}</td>
