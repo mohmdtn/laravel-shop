@@ -93,7 +93,21 @@
                             <section class="product-introduction mb-4">
                                 {!! $post["body"] !!}
                             </section>
-                            <!-- start vontent header -->
+                            <!-- start content header -->
+
+                            <section>
+                                <h6 class="fw-bold">اشتراک گذاری</h6>
+                                <section class="social-share">
+                                    <a href="mailto:?&amp;subject={{ url()->full() }}"><i class="fa fa-envelope"></i></a>
+                                    <a href="https://wa.me/?text={{ url()->full() }}"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="https://t.me/share/url?url={{ url()->full() }}/&amp;text={{ $post->title }}"><i class="fab fa-telegram-plane"></i></a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=/{{ url()->full() }}"><i class="fab fa-facebook"></i></a>
+                                </section>
+                                <h6 class="fw-bold mt-4">برچسب ها</h6>
+                                @foreach(explode(',', $post->tags) as $item)
+                                    <a class="btn btn-sm btn-light tags" href="">{{ $item }}</a>
+                                @endforeach
+                            </section>
 
                             <section id="comments" class="content-header mt-2 mb-4">
                                 <section class="d-flex justify-content-between align-items-center">

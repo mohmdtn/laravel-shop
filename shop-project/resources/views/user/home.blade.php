@@ -350,7 +350,7 @@
                                             <section class="lazyload-item-wrapper">
                                                 <section class="blog">
                                                     <img class="rounded-3 mb-2" src="{{ asset($post['image']['indexArray']['large']) }}" alt="">
-                                                    <section class="blog-info d-flex justify-content-between">
+                                                    <section class="blog-info d-flex justify-content-around">
                                                         <span>
                                                             <i class="fa fa-calendar-alt"></i> <span>{{ jalaliDate($post["created_at"], "%d %B %Y") }}</span>
                                                         </span>

@@ -430,6 +430,8 @@ Route::namespace("App\Http\Controllers\Auth\User")->group(function (){
     Route::get("/logout", "LoginRegisterController@logout")->name("auth.user.logout");
 });
 
+
+// user routes
 Route::namespace("App\Http\Controllers\User")->group(function (){
     Route::get("/", "HomeController@home")->name("user.home");
     Route::get("/products/{category?}", "HomeController@products")->name("user.products");
@@ -445,61 +447,65 @@ Route::namespace("App\Http\Controllers\User")->group(function (){
     Route::namespace("Content")->group(function (){
         Route::get("/post/{post:slug}", "PostController@post")->name("user.content.post");
         Route::post("/post/add-comment/{post:slug}", "PostController@addComment")->name("user.content.addComment");
-        Route::post("/add-rate/{product:slug}", "ProductController@addRate")->name("user.market.addRate");
         Route::get("/posts", "PostController@posts")->name("user.content.posts");
     });
 
-});
 
-Route::namespace("App\Http\Controllers\User\SalesProcess")->group(function (){
-    // shopping cart
-    Route::get("/cart", "CartController@cart")->name("user.salesProcess.cart");
-    Route::post("/cart", "CartController@update")->name("user.salesProcess.updateCart");
-    Route::post("/add-to-cart/{product:slug}", "CartController@add")->name("user.salesProcess.addToCart");
-    Route::get("/remove-from-cart/{cartItem}", "CartController@remove")->name("user.salesProcess.removeFormCart");
+    Route::namespace("SalesProcess")->group(function (){
+        // shopping cart
+        Route::get("/cart", "CartController@cart")->name("user.salesProcess.cart");
+        Route::post("/cart", "CartController@update")->name("user.salesProcess.updateCart");
+        Route::post("/add-to-cart/{product:slug}", "CartController@add")->name("user.salesProcess.addToCart");
+        Route::get("/remove-from-cart/{cartItem}", "CartController@remove")->name("user.salesProcess.removeFormCart");
 
-    //profile completion
-    Route::get("/Profile-completion", "ProfileCompletionController@ProfileCompletion")->name("user.salesProcess.profileCompletion");
-    Route::post("/Profile-completion", "ProfileCompletionController@update")->name("user.salesProcess.profileCompletionUpdate");
+        //profile completion
+        Route::get("/Profile-completion", "ProfileCompletionController@ProfileCompletion")->name("user.salesProcess.profileCompletion");
+        Route::post("/Profile-completion", "ProfileCompletionController@update")->name("user.salesProcess.profileCompletionUpdate");
 
-    Route::middleware("profile.completion")->group(function (){
-        // address
-        Route::get("/address-and-delivery", "AddressController@addressAndDelivery")->name("user.salesProcess.addressAndDelivery");
-        Route::post("/address-and-delivery", "AddressController@addAddress")->name("user.salesProcess.addAddress");
-        Route::put("/update-and/{address}", "AddressController@updateAddress")->name("user.salesProcess.updateAddress");
-        Route::get("/get-cities/{province}", "AddressController@getCities")->name("user.salesProcess.getCities");
-        Route::post("/choose-address-and-delivery", "AddressController@chooseAddressAndDelivery")->name("user.salesProcess.chooseAddressAndDelivery");
+        Route::middleware("profile.completion")->group(function (){
+            // address
+            Route::get("/address-and-delivery", "AddressController@addressAndDelivery")->name("user.salesProcess.addressAndDelivery");
+            Route::post("/address-and-delivery", "AddressController@addAddress")->name("user.salesProcess.addAddress");
+            Route::put("/update-and/{address}", "AddressController@updateAddress")->name("user.salesProcess.updateAddress");
+            Route::get("/get-cities/{province}", "AddressController@getCities")->name("user.salesProcess.getCities");
+            Route::post("/choose-address-and-delivery", "AddressController@chooseAddressAndDelivery")->name("user.salesProcess.chooseAddressAndDelivery");
 
-        // payment
-        Route::get("/payment", "PaymentController@payment")->name("user.salesProcess.payment");
-        Route::post("/copan-discount", "PaymentController@copanDiscount")->name("user.salesProcess.copanDiscount");
-        Route::post("/payment-submit", "PaymentController@paymentSubmit")->name("user.salesProcess.paymentSubmit");
-        Route::any("/payment-callback/{order}/{onlinePayment}", "PaymentController@paymentCallback")->name("user.salesProcess.paymentCallback");
+            // payment
+            Route::get("/payment", "PaymentController@payment")->name("user.salesProcess.payment");
+            Route::post("/copan-discount", "PaymentController@copanDiscount")->name("user.salesProcess.copanDiscount");
+            Route::post("/payment-submit", "PaymentController@paymentSubmit")->name("user.salesProcess.paymentSubmit");
+            Route::any("/payment-callback/{order}/{onlinePayment}", "PaymentController@paymentCallback")->name("user.salesProcess.paymentCallback");
+        });
+    });
+
+    Route::prefix("profile")->namespace("Profile")->group(function (){
+        // my orders
+        Route::get("/orders", "OrderController@index")->name("user.profile.orders");
+        Route::get("/orders/{order}", "OrderController@show")->name("user.profile.order.show");
+        // my favorites
+        Route::get("/my-favorites", "FavoriteController@index")->name("user.profile.favorites");
+        Route::get("/my-favorites/delete/{product}", "FavoriteController@delete")->name("user.profile.favorites.delete");
+        // my tickets
+        Route::get("/my-tickets", "TicketController@index")->name("user.profile.tickets");
+        Route::get("/my-tickets/show/{ticket}" , "TicketController@show")->name("user.profile.tickets.show");
+        Route::post("/my-tickets/answer/{ticket}" , "TicketController@answer")->name("user.profile.tickets.answer");
+        Route::get("/my-tickets/change/{ticket}" , "TicketController@change")->name("user.profile.tickets.change");
+        Route::get("/my-tickets/create" , "TicketController@create")->name("user.profile.tickets.create");
+        Route::post("/my-tickets/create" , "TicketController@store")->name("user.profile.tickets.store");
+        Route::get("/my-tickets/download" , "TicketController@create")->name("user.profile.tickets.create");
+        // my profile
+        Route::get("/", "ProfileCOntroller@index")->name("user.profile.profile");
+        Route::put("/update", "ProfileCOntroller@update")->name("user.profile.update");
+        // my addresses
+        Route::get("/my-addresses", "AddressController@index")->name("user.profile.addresses");
     });
 
 });
 
 
-Route::prefix("profile")->namespace("App\Http\Controllers\User\Profile")->group(function (){
-    // my orders
-    Route::get("/orders", "OrderController@index")->name("user.profile.orders");
-    // my favorites
-    Route::get("/my-favorites", "FavoriteController@index")->name("user.profile.favorites");
-    Route::get("/my-favorites/delete/{product}", "FavoriteController@delete")->name("user.profile.favorites.delete");
-    // my tickets
-    Route::get("/my-tickets", "TicketController@index")->name("user.profile.tickets");
-    Route::get("/my-tickets/show/{ticket}" , "TicketController@show")->name("user.profile.tickets.show");
-    Route::post("/my-tickets/answer/{ticket}" , "TicketController@answer")->name("user.profile.tickets.answer");
-    Route::get("/my-tickets/change/{ticket}" , "TicketController@change")->name("user.profile.tickets.change");
-    Route::get("/my-tickets/create" , "TicketController@create")->name("user.profile.tickets.create");
-    Route::post("/my-tickets/create" , "TicketController@store")->name("user.profile.tickets.store");
-    Route::get("/my-tickets/download" , "TicketController@create")->name("user.profile.tickets.create");
-    // my profile
-    Route::get("/", "ProfileCOntroller@index")->name("user.profile.profile");
-    Route::put("/update", "ProfileCOntroller@update")->name("user.profile.update");
-    // my addresses
-    Route::get("/my-addresses", "AddressController@index")->name("user.profile.addresses");
-});
+
+
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

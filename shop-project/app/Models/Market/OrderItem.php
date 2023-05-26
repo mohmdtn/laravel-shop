@@ -16,6 +16,10 @@ class OrderItem extends Model
         return $this->belongsTo(Order::class);
     }
 
+    public function color(){
+        return $this->belongsTo(ProductColor::class);
+    }
+
     public function singleProduct(){
         return $this->belongsTo(Product::class, "product_id");
     }
