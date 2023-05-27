@@ -8,8 +8,10 @@ $(document).ready(function() {
         $(".search-box").addClass("search-box-active");
     }).add(".search-result").focusout(function() {
         if ( !$(".search-result").is(':focus') ) {
-            $(".search-result").addClass("visually-hidden");
-            $(".search-box").removeClass("search-box-active");
+            setTimeout(() => {
+                $(".search-result").addClass("visually-hidden");
+                $(".search-box").removeClass("search-box-active");
+            }, 300)
         }
     });
 

@@ -10,6 +10,7 @@ use App\Models\Market\Product;
 use App\Models\Market\ProductCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -101,6 +102,20 @@ class HomeController extends Controller
         }
 
         return view("user.market.product.products", compact("products", "brands", 'selectedBrandsArray', 'categories'));
+    }
+
+    public function search(Request $request){
+        $length = Str::length($request->search);
+
+        if($length > 2){
+            $products   = Product::select("id", "name", "slug")->where("name", "LIKE", "%" . $request->search . "%")->take(3)->get();
+            $brands     = Brand::select("id", "persian_name")->where("persian_name", "LIKE", "%" . $request->search . "%")->take(3)->get();
+            $categories = ProductCategory::select("id", "name")->where("name", "LIKE", "%" . $request->search . "%")->take(3)->get();
+            return response()->json([ "status" => true, "data" => ["products" => $products, "brands" => $brands, "categories" => $categories] ]);
+        }
+        else{
+            return response()->json([ "status" => false ]);
+        }
     }
 
 }
