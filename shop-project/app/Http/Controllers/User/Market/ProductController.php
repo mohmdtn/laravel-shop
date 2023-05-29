@@ -51,17 +51,22 @@ class ProductController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
 
-            if ($user->compare()->count() > 0)
-                $userCompareList = $user->compare;
-            else
-                $userCompareList = Compare::create(["user_id" => $user->id]);
+            if($user->compare->products->count() <= 3) {
+                if ($user->compare()->count() > 0)
+                    $userCompareList = $user->compare;
+                else
+                    $userCompareList = Compare::create(["user_id" => $user->id]);
 
-            $product->compares()->toggle([$userCompareList->id]);
+                $product->compares()->toggle([$userCompareList->id]);
 
-            if ($product->compares->contains($userCompareList->id))
-                return response()->json(["status" => 1]);
-            else
-                return response()->json(["status" => 2]);
+                if ($product->compares->contains($userCompareList->id))
+                    return response()->json(["status" => 1]);
+                else
+                    return response()->json(["status" => 2]);
+            }
+            else {
+                return response()->json(["status" => 4]);
+            }
         }
         else{
             return response()->json(["status" => 3]);

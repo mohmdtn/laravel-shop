@@ -175,10 +175,12 @@
                                                 </p>
                                             @endguest
                                             @auth
-                                                @if($product->compares->contains(auth()->user()->id))
+                                                @if($product->compares->contains(function($compare, $key) {
+                                                    return $compare->id === auth()->user()->compare->id;
+                                                }))
                                                     <p>
                                                         <button type="button" class="btn btn-light p-1 btn-sm text-decoration-none add_to_compare" data-url="{{ route("user.market.addToCompare", $product) }}">
-                                                            <i class="fas fa-chart-bar text-success"></i><span class="addFave"> حذف از لیست مقایسه</span>
+                                                            <i class="fas fa-chart-bar text-danger"></i><span class="addFave"> حذف از لیست مقایسه</span>
                                                         </button>
                                                     </p>
                                                 @else
@@ -548,7 +550,7 @@
 
 
     <section class="position-fixed p-4 flex-row-reverse" style="z-index: 99999; left: 0; bottom: 0; width: 26rem; max-width: 80%;">
-        <section class="toast" data-delay="6000">
+        <section class="toast toast1" data-delay="6000">
             <section class="toast-header p-1 px-3 d-flex justify-content-between text-white font-weight-bold bg-info">
                 <strong>
                     پیغام
@@ -561,6 +563,20 @@
                 برای افزودن کالا به لیست علاقه مندی ها باید ابتدا وارد حساب کاربری خود شوید.
                 <br>
                 <a href="{{ route("auth.user.loginRegisterForm") }}" class="text-white text-decoration-none btn btn-info rounded-3 mt-3">ثبت نام / ورود</a>
+            </section>
+        </section>
+
+        <section class="toast toast2" data-delay="6000">
+            <section class="toast-header p-1 px-3 d-flex justify-content-between text-white font-weight-bold bg-info">
+                <strong>
+                    پیغام
+                </strong>
+                <p type="button" class="ml-2 mb-1 close" data-dismiss="toast" data-bs-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </p>
+            </section>
+            <section class="toast-body">
+                تعداد کلا ها برای مقایسه بیشتر از حد مجاز است.
             </section>
         </section>
     </section>
@@ -658,7 +674,7 @@
                     }
 
                     else if (result.status == 3){
-                        $(".toast").toast("show");
+                        $(".toast1").toast("show");
                     }
                 }
             })
@@ -686,7 +702,7 @@
                     }
 
                     else if (result.status == 3){
-                        $(".toast").toast("show");
+                        $(".toast1").toast("show");
                     }
                 }
             })
@@ -701,17 +717,21 @@
                 success: function (result) {
                     if (result.status == 1){
                         element.find("i").removeClass("text-dark");
-                        element.find("i").addClass("text-success");
+                        element.find("i").addClass("text-danger");
                         element.find(".addFave").html(" حذف از لیست مقایسه");
                     }
 
                     else if (result.status == 2){
-                        element.find("i").removeClass("text-success");
+                        element.find("i").removeClass("text-danger");
                         element.find(".addFave").html(" افزودن به لیست مقایسه");
                     }
 
                     else if (result.status == 3){
-                        $(".toast").toast("show");
+                        $(".toast1").toast("show");
+                    }
+
+                    else if (result.status == 4){
+                        $(".toast2").toast("show");
                     }
                 }
             })

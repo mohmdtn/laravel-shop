@@ -486,6 +486,9 @@ Route::namespace("App\Http\Controllers\User")->group(function (){
         // my favorites
         Route::get("/my-favorites", "FavoriteController@index")->name("user.profile.favorites");
         Route::get("/my-favorites/delete/{product}", "FavoriteController@delete")->name("user.profile.favorites.delete");
+        // my compares
+        Route::get("/my-compares", "CompareController@index")->name("user.profile.compares");
+        Route::get("/my-compares/remove/{product:slug}", "CompareController@remove")->name("user.profile.compares.remove");
         // my tickets
         Route::get("/my-tickets", "TicketController@index")->name("user.profile.tickets");
         Route::get("/my-tickets/show/{ticket}" , "TicketController@show")->name("user.profile.tickets.show");
