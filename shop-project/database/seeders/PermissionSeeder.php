@@ -30,10 +30,9 @@ class PermissionSeeder extends Seeder
             [ "name" => "show-tickets", "description" => "مدیریت تیکت ها قسمت تیکت" ],
             // notifications
             [ "name" => "notifications", "description" => "دسترسی به قسمت اطلاع رسانی" ],
-            // sales
+            // market
             [ "name" => "access-orders-important", "description" => "دسترسی به بخش ویترین در قسمت فروشگاه" ],
             [ "name" => "access-orders", "description" => "دسترسی به سفارشات در قسمت فروشگاه" ],
-            [ "name" => "access-payments", "description" => "دسترسی به پرداخت ها در قسمت فروشگاه" ],
             [ "name" => "access-payments", "description" => "دسترسی به پرداخت ها در قسمت فروشگاه" ],
             [ "name" => "access-discounts", "description" => "دسترسی به تخفیف ها در قسمت فروشگاه" ],
             // settings

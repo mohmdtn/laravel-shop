@@ -32,7 +32,27 @@
                         </section>
                     </section>
                 </section>
-
+                <style>
+                    /*.search-result{*/
+                    /*    overflow: hidden;*/
+                    /*}*/
+                    /*.search-result-item{*/
+                    /*    animation: .3s anime;*/
+                    /*    position: relative;*/
+                    /*}*/
+                    /*@keyframes anime {*/
+                    /*    0%{*/
+                    /*        transform: scale(1.5);*/
+                    /*        top: 190px;*/
+                    /*        opacity: 0;*/
+                    /*    }*/
+                    /*    100%{*/
+                    /*        transform: scale(1);*/
+                    /*        top: 0;*/
+                    /*        opacity: 1;*/
+                    /*    }*/
+                    /*}*/
+                </style>
                 <section class="mt-3 mt-md-auto text-end">
                     @auth
                         <section class="d-inline px-3">

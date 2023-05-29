@@ -19,18 +19,18 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        auth()->loginUsingId(1);
-        $user = auth()->user();
-        $permissions = new PermissionSeeder();
-        $permissions->run();
+//        auth()->loginUsingId(1);
+//        $user = auth()->user();
+//        $permissions = new PermissionSeeder();
+//        $permissions->run();
 
-        if ($user->can('show-post')){
+//        if ($user->can('show-post')){
             $postCategories = PostCategory::orderBy('created_at' , 'desc')->simplePaginate(15);
             return view("admin.content.category.index" , compact('postCategories'));
-        }
-        else{
-            abort(403);
-        }
+//        }
+//        else{
+//            abort(403);
+//        }
     }
 
     /**
@@ -40,8 +40,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-//        dd(phpinfo());
-        return view("admin.content.category.create");
+//        if (auth()->user()->can("edit-post"))
+            return view("admin.content.category.create");
+//        else
+//            abort(403);
     }
 
     /**
