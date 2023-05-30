@@ -25,8 +25,8 @@ class FaqRequest extends FormRequest
     {
 
         return [
-            "question"      => "required|max:400|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,#؟?!+= ]+$/u",
-            "answer"        => "required|max:900|min:5|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,><\/;\n\r&?!؟+=* ]+$/u",
+            "question"      => "required|max:400|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,#؟?!+=،؟ ]+$/u",
+            "answer"        => "required|max:900|min:5|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.،,><\/;\n\r&×)(؛»«:؟? ]+$/u",
             "slug"          => "nullable",
             "status"        => "required|numeric|in:0,1",
             "tags"          => "required|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,# ]+$/u",

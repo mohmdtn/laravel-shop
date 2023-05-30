@@ -41,7 +41,7 @@
                     <tr>
                         <th>{{ $key+=1 }}</th>
                         <td>{{ $faq["question"] }}</td>
-                        <td>{{ $faq["answer"] }}</td>
+                        <td>{!! $faq["answer"] !!}</td>
                         <td>
 
                             <label class="switch">

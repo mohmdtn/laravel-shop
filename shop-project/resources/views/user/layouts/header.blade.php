@@ -833,7 +833,7 @@
                     <section class="navbar-item"><a href="#">آمازون پلاس</a></section>
                     <section class="navbar-item"><a href="#">درباره ما</a></section>
                     <section class="navbar-item"><a href="#">فروشنده شوید</a></section>
-                    <section class="navbar-item"><a href="#">فرصت های شغلی</a></section>
+                    <section class="navbar-item"><a href="{{ route("user.faq") }}">سوالات متداول</a></section>
 
                 </section>
 

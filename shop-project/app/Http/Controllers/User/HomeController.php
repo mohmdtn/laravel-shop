@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Content\Banner;
+use App\Models\Content\Faq;
 use App\Models\Content\Post;
 use App\Models\Market\Brand;
 use App\Models\Market\Product;
@@ -116,6 +117,11 @@ class HomeController extends Controller
         else{
             return response()->json([ "status" => false ]);
         }
+    }
+
+    public function faq(){
+        $faqs = Faq::where("status", 1)->get();
+        return view("user.faq.faq", compact("faqs"));
     }
 
 }
