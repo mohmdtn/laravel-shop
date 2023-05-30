@@ -8,9 +8,9 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">خانه</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.home") }}">خانه</a></li>
             <li class="breadcrumb-item"><a href="#">بخش محتوی</a></li>
-            <li class="breadcrumb-item"><a href="#">منو</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.content.menu.index") }}">منو</a></li>
             <li class="breadcrumb-item active" aria-current="page">ایجاد منو</li>
         </ol>
     </nav>

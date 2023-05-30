@@ -19,7 +19,7 @@ class EmailFileController extends Controller
     public function index(Email $email)
     {
         $files = EmailFile::all();
-        return view("admin.notify.emailFile.index", compact("email", $files));
+        return view("admin.notify.emailFile.index", compact("email", "files"));
     }
 
     /**

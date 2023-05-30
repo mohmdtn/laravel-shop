@@ -148,14 +148,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
     <script>
         const ctx = document.getElementById('myChart').getContext('2d');
-        var labels = ['galaxy s21 ultra', 'iphone 13 pro max', 'xiaomi redmi note 9', 'surface pro 7', 'galaxy a71', 'iphone X', 'iphone 12 pro', 'ipad'];
-        var data = [12, 19, 3, 5, 2, 3, 9, 6];
+        var labels = [
+            @foreach($mostSalesProducts as $products)
+                '{{ $products->name }}',
+            @endforeach
+        ];
+        var data = [
+            @foreach($mostSalesProducts as $products)
+                '{{ $products->sold_number }}',
+            @endforeach
+        ];
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'محصولات پر فروش این ماه',
+                    label: 'محصولات پر فروش',
                     data: data,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.4)',
@@ -176,8 +184,16 @@
 
     <script>
         const ctx2 = document.getElementById('myChart2').getContext('2d');
-        var labels2 = ['galaxy s21 ultra', 'iphone 13 pro max', 'xiaomi redmi note 9', 'iphone X', 'iphone 12 pro'];
-        var data2 = [12, 19, 3, 5, 2];
+        var labels2 = [
+            @foreach($mostViewsProducts as $products)
+                '{{ $products->name }}',
+            @endforeach
+        ];
+        var data2 = [
+            @foreach($mostViewsProducts as $products)
+                '{{ $products->view }}',
+            @endforeach
+        ];
         const myChart2 = new Chart(ctx2, {
             type: 'doughnut',
             data: {

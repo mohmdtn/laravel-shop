@@ -67,7 +67,7 @@
                                     <span class="badge badge-danger">جدید</span>
                                 </div>
 
-                                <div class="p-3 border-bottom"><input class="form-control border-radius-5" type="text" name="" id="" placeholder="جستجو ..."></div>
+{{--                                <div class="p-3 border-bottom"><input class="form-control border-radius-5" type="text" name="" id="" placeholder="جستجو ..."></div>--}}
 
                                 <ul class="list-group">
 
@@ -93,9 +93,9 @@
 
 
 
-                    <span class="px-2 position-relative notifWrapperClick">
-                            <span class="pointer"><i class="fas fa-shopping-cart shake"></i><sup class="badge badge-info">9</sup></span>
-                    </span>
+{{--                    <span class="px-2 position-relative notifWrapperClick">--}}
+{{--                            <span class="pointer"><i class="fas fa-shopping-cart shake"></i><sup class="badge badge-info">9</sup></span>--}}
+{{--                    </span>--}}
 
 
                     <spaan class="pr-5 position-relative notifWrapperClick">

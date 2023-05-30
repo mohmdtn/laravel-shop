@@ -8,9 +8,9 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">خانه</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.home") }}">خانه</a></li>
             <li class="breadcrumb-item"><a href="#">بخش کاربران</a></li>
-            <li class="breadcrumb-item"><a href="#">کاربران</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.user.customer.index") }}">کاربران</a></li>
             <li class="breadcrumb-item active" aria-current="page">ایجاد کاربر</li>
         </ol>
     </nav>

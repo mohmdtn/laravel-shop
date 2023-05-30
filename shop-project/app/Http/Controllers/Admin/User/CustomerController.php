@@ -62,8 +62,7 @@ class CustomerController extends Controller
         $details = [
             "message" => "یک کاربر جدید در سایت ثبت نام کرد."
         ];
-        $adminUser = User::find(1);
-        $adminUser->notify(new NewUserRegistered($details));
+        $user->notify(new NewUserRegistered($details));
         return redirect()->route("admin.user.customer.index")->with("swal-success" , "ادمین جدید با موفقیت ایجاد شد.");
 
     }

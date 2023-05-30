@@ -12,6 +12,7 @@ use App\Models\Market\OnlinePayment;
 use App\Models\Market\Order;
 use App\Models\Market\OrderItem;
 use App\Models\Market\Payment;
+use App\Notifications\NewOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -151,8 +152,14 @@ class PaymentController extends Controller
                 'guarantee_id'                  => $cartItem->guarantee_id,
                 'color_id'                      => $cartItem->color_id
             ]);
+            $cartItem->product->update(["sold_number" => intval($cartItem->product->sold_number) + intval($cartItem->number), "marketable_number" => intval($cartItem->product->marketable_number) - intval($cartItem->number)]);
             $cartItem->delete();
         }
+
+        $details = [
+            "message" => "یک سفارش جدید در سایت ثبت شد."
+        ];
+        $order->notify(new NewOrder($details));
 
         return redirect()->route("user.home")->with("success", "کاربر گرامی، سفارش شما با موفقیت ثبت شد.");
 

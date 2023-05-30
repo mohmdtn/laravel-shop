@@ -8,9 +8,9 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">خانه</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.home") }}">خانه</a></li>
             <li class="breadcrumb-item"><a href="#">بخش فروش</a></li>
-            <li class="breadcrumb-item"><a href="#">فرم کالا</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.market.property.index") }}">فرم کالا</a></li>
             <li class="breadcrumb-item active" aria-current="page">ویرایش فرم کالا</li>
         </ol>
     </nav>

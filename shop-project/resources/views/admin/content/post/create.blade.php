@@ -10,9 +10,9 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">خانه</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.home") }}">خانه</a></li>
             <li class="breadcrumb-item"><a href="#">بخش فروش</a></li>
-            <li class="breadcrumb-item"><a href="#">پست ها</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.content.post.index") }}">پست ها</a></li>
             <li class="breadcrumb-item active" aria-current="page">ایجاد پست</li>
         </ol>
     </nav>

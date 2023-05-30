@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Content\Comment;
 use App\Models\Market\Compare;
 use App\Models\Market\Product;
+use App\Notifications\NewComment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class ProductController extends Controller
         $inputs["commentable_id"]   = $product->id;
         $inputs["commentable_type"] = Product::class;
 
-        Comment::create($inputs);
+        $comment = Comment::create($inputs);
 
         return back();
     }

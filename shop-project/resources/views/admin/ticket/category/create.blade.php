@@ -8,9 +8,9 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">خانه</a></li>
-            <li class="breadcrumb-item"><a href="#">بخش تیکت ها</a></li>
-            <li class="breadcrumb-item"><a href="#">دسته بندی تیکت ها</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.home") }}">خانه</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.ticket.index") }}">بخش تیکت ها</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.ticket.category.index") }}">دسته بندی تیکت ها</a></li>
             <li class="breadcrumb-item active" aria-current="page">ایجاد دسته بندی تیکت</li>
         </ol>
     </nav>

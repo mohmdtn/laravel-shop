@@ -9,9 +9,9 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">خانه</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.home") }}">خانه</a></li>
             <li class="breadcrumb-item"><a href="#">بخش اطلاع رسانی</a></li>
-            <li class="breadcrumb-item"><a href="#">اطلاعیه ایمیلی</a></li>
+            <li class="breadcrumb-item"><a href="{{ route("admin.notify.email.index") }}">اطلاعیه ایمیلی</a></li>
             <li class="breadcrumb-item active" aria-current="page">ایجاد اطلاعیه ایمیلی</li>
         </ol>
     </nav>
