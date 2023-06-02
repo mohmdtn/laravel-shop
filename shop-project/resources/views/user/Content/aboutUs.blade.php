@@ -9,8 +9,8 @@
     <section class="mb-4">
         <section class="container-xxl" >
             <section class="content-header">
-                <section class="d-flex justify-content-between align-items-center">
-                    <h2 class="content-header-title">
+                <section class="text-center">
+                    <h2 class="content-header-title" style="text-align: center; font-size: 33px">
                         <span>درباره ما</span>
                     </h2>
                 </section>

@@ -58,7 +58,7 @@
             <section class="row">
                 <section class="col">
                     <section class="content-wrapper bg-white p-3 rounded-2">
-                        <!-- start vontent header -->
+                        <!-- start content header -->
                         <section class="content-header">
                             <section class="d-flex justify-content-between align-items-center">
                                 <h2 class="content-header-title">
@@ -69,7 +69,7 @@
                                 </section>
                             </section>
                         </section>
-                        <!-- start vontent header -->
+                        <!-- start content header -->
                         <section class="lazyload-wrapper" >
                             <section class="lazyload light-owl-nav owl-carousel owl-theme">
 
@@ -125,13 +125,14 @@
                                                         <section class="product-discount">
                                                             @php
                                                                 $amazingSale = $mostVisitedProduct->activeAmazingSale();
+                                                                $productDiscount = empty($mostVisitedProduct->activeAmazingSale()) ? 0 : $mostVisitedProduct->price * ($mostVisitedProduct->activeAmazingSale()->percentage / 100);
                                                             @endphp
                                                             @if(!empty($amazingSale))
                                                                 <span class="product-old-price">{{ priceFormat($mostVisitedProduct["price"]) }}</span>
                                                                 <span class="product-discount-amount">{{ $amazingSale["percentage"] }}%</span>
                                                             @endif
                                                         </section>
-                                                        <section class="product-price">{{ priceFormat($mostVisitedProduct["price"]) }} تومان</section>
+                                                        <section class="product-price">{{ priceFormat($mostVisitedProduct["price"] - $productDiscount) }} تومان</section>
                                                     </section>
                                                     <section class="product-colors">
                                                         @foreach($mostVisitedProduct->colors as $color)
@@ -244,10 +245,16 @@
                                                     <section class="product-name"><h3>{{ \Illuminate\Support\Str::limit($offerProduct["name"], 20) }}</h3></section>
                                                     <section class="product-price-wrapper">
                                                         <section class="product-discount">
-                                                            <span class="product-old-price">6,895,000 </span>
-                                                            <span class="product-discount-amount">10%</span>
+                                                            @php
+                                                                $amazingSale = $offerProduct->activeAmazingSale();
+                                                                $productDiscount = empty($offerProduct->activeAmazingSale()) ? 0 : $offerProduct->price * ($offerProduct->activeAmazingSale()->percentage / 100);
+                                                            @endphp
+                                                            @if(!empty($amazingSale))
+                                                                <span class="product-old-price">{{ priceFormat($offerProduct["price"]) }}</span>
+                                                                <span class="product-discount-amount">{{ $amazingSale["percentage"] }}%</span>
+                                                            @endif
                                                         </section>
-                                                        <section class="product-price">{{ priceFormat($offerProduct["price"]) }} تومان</section>
+                                                        <section class="product-price">{{ priceFormat($offerProduct["price"] - $productDiscount) }} تومان</section>
                                                     </section>
                                                     <section class="product-colors">
                                                         @foreach($offerProduct->colors as $color)

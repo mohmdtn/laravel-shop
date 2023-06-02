@@ -321,10 +321,16 @@
                                                     <section class="product-name"><h3>{{ \Illuminate\Support\Str::limit($relatedProduct["name"], 20) }}</h3></section>
                                                     <section class="product-price-wrapper">
                                                         <section class="product-discount">
-                                                            <span class="product-old-price">6,895,000 </span>
-                                                            <span class="product-discount-amount">10%</span>
+                                                            @php
+                                                                $amazingSale = $relatedProduct->activeAmazingSale();
+                                                                $productDiscount = empty($relatedProduct->activeAmazingSale()) ? 0 : $relatedProduct->price * ($relatedProduct->activeAmazingSale()->percentage / 100);
+                                                            @endphp
+                                                            @if(!empty($amazingSale))
+                                                                <span class="product-old-price">{{ priceFormat($relatedProduct["price"]) }}</span>
+                                                                <span class="product-discount-amount">{{ $amazingSale["percentage"] }}%</span>
+                                                            @endif
                                                         </section>
-                                                        <section class="product-price">{{ priceFormat($relatedProduct["price"]) }} تومان</section>
+                                                        <section class="product-price">{{ priceFormat($relatedProduct["price"] - $productDiscount) }} تومان</section>
                                                     </section>
                                                     <section class="product-colors">
                                                         @foreach($relatedProduct->colors as $color)

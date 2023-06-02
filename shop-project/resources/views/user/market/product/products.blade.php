@@ -41,8 +41,6 @@
 
 
                         <section class="main-product-wrapper row my-4" >
-
-
                             @forelse($products as $product)
                                 <section class="col-md-3 p-0">
                                     <section class="product">
@@ -82,10 +80,16 @@
                                             <section class="product-name"><h3>{{ \Illuminate\Support\Str::limit($product["name"], 20) }}</h3></section>
                                             <section class="product-price-wrapper">
                                                 <section class="product-discount">
-                                                    <span class="product-old-price">6,895,000 </span>
-                                                    <span class="product-discount-amount">10%</span>
+                                                    @php
+                                                        $amazingSale = $product->activeAmazingSale();
+                                                        $productDiscount = empty($product->activeAmazingSale()) ? 0 : $product->price * ($product->activeAmazingSale()->percentage / 100);
+                                                    @endphp
+                                                    @if(!empty($amazingSale))
+                                                        <span class="product-old-price">{{ priceFormat($product["price"]) }}</span>
+                                                        <span class="product-discount-amount">{{ $amazingSale["percentage"] }}%</span>
+                                                    @endif
                                                 </section>
-                                                <section class="product-price">{{ priceFormat($product["price"]) }} تومان</section>
+                                                <section class="product-price">{{ priceFormat($product["price"] - $productDiscount) }} تومان</section>
                                             </section>
                                             <section class="product-colors">
                                                 @foreach($product->colors as $color)

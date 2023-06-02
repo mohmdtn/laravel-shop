@@ -132,6 +132,7 @@
                             دسته بندی کالاها
                         </section>
                         {{-- ine --}}
+{{--                        @include("user.layouts.partials.menu.categories", ["categories" => $categories])--}}
                         <section class="sublist-wrapper position-absolute w-100">
                             <section class="position-relative sublist-area">
                                 <section class="sublist-item">
