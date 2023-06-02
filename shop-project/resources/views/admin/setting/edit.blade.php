@@ -41,25 +41,6 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label for="">توضیحات سایت</label>
-                        <textarea name="description" id="" class="form-control border-radius-5" rows="2">{{ old('title' , $setting["description"]) }}</textarea>
-
-                        @error("description")
-                            <div class="errors"><span class="text-danger">{{ $message }}</span></div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label for="">کلمات کلیدی سایت</label>
-                        <input type="text" class="form-control border-radius-5" name="keywords" value="{{ old('keywords' , $setting["keywords"]) }}">
-
-                        @error("keywords")
-                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
-                        @enderror
-                    </div>
-
-
-                    <div class="form-group col-md-4">
                         <label for="">آیکون</label><br>
 
                         <div class="imageSelectWrapper editImageSelectWrapper border-radius-5">
@@ -96,6 +77,79 @@
                         @enderror
                     </div>
 
+                    <div class="form-group col-md-4">
+                        <label for="">آدرس تلگرام</label>
+                        <input type="text" class="form-control border-radius-5" name="telegram" value="{{ old('telegram' , $setting["telegram"]) }}">
+
+                        @error("telegram")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="">آدرس اینستاگرام</label>
+                        <input type="text" class="form-control border-radius-5" name="instagram" value="{{ old('instagram' , $setting["instagram"]) }}">
+
+                        @error("instagram")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="">آدرس واتساپ</label>
+                        <input type="text" class="form-control border-radius-5" name="whatsapp" value="{{ old('whatsapp' , $setting["whatsapp"]) }}">
+
+                        @error("whatsapp")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="">آدرس ایمیل</label>
+                        <input type="text" class="form-control border-radius-5" name="email" value="{{ old('email' , $setting["email"]) }}">
+
+                        @error("email")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="">شماره تلفن</label>
+                        <input type="text" class="form-control border-radius-5" name="phone" value="{{ old('phone' , $setting["phone"]) }}">
+
+                        @error("phone")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="">کلمات کلیدی سایت</label>
+                        <input type="text" class="form-control border-radius-5" name="keywords" value="{{ old('keywords' , $setting["keywords"]) }}">
+
+                        @error("keywords")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+
+                    <div class="form-group col-md-12">
+                        <label for="">آدرس فروشگاه</label>
+                        <textarea name="address" id="" class="form-control border-radius-5" rows="3">{{ old('address' , $setting["address"]) }}</textarea>
+
+                        @error("address")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="">درباره ما</label>
+                        <textarea name="description" id="" class="form-control border-radius-5" rows="2">{{ old('description' , $setting["description"]) }}</textarea>
+
+                        @error("description")
+                        <div class="errors"><span class="text-danger">{{ $message }}</span></div>
+                        @enderror
+                    </div>
+
                     <div class="col-md-12 d-flex justify-content-center pt-5">
                         <input type="submit" class="btn btn-primary border-radius-4 box-shadow-normal submit-custom" value="ثبت">
                     </div>
@@ -106,4 +160,11 @@
 
     </section>
 
+@endsection
+
+@section("scripts")
+    <script src="{{ asset("admin-assets/ckeditor/ckeditor.js") }}"></script>
+    <script>
+        CKEDITOR.replace("description");
+    </script>
 @endsection

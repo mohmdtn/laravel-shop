@@ -437,6 +437,8 @@ Route::namespace("App\Http\Controllers\User")->group(function (){
     Route::get("/products/{category?}", "HomeController@products")->name("user.products");
     Route::get("/search", "HomeController@search")->name("user.search");
     Route::get("/faq", "HomeController@faq")->name("user.faq");
+    Route::get("/terms-and-policy", "HomeController@terms")->name("user.terms");
+    Route::get("/about-us", "HomeController@aboutUs")->name("user.aboutUs");
 
     Route::namespace("Market")->group(function (){
         Route::get("/product/{product:slug}", "ProductController@product")->name("user.market.product");

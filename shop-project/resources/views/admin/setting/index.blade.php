@@ -31,7 +31,6 @@
                 <thead class="table-info">
                 <th>#</th>
                 <th>نام سایت</th>
-                <th>توضیحات سایت</th>
                 <th>کلمات کلیدی</th>
                 <th>لوگو سایت</th>
                 <th>آیکون سایت</th>
@@ -42,7 +41,6 @@
                 <tr>
                     <th>1</th>
                     <td>{{ $setting["title"] }}</td>
-                    <td>{{ $setting["description"] }}</td>
                     <td>{{ $setting["keywords"] }}</td>
                     <td><img src="{{ asset($setting["logo"]) }}" alt=""></td>
                     <td><img src="{{ asset($setting["icon"]) }}" alt=""></td>

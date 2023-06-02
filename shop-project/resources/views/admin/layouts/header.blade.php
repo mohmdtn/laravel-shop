@@ -18,7 +18,7 @@
             <section class="d-flex justify-content-between px-2 px-md-5">
 
                 <section>
-                    <span class="d-none d-md-inline"><i class="fas fa-search"></i></span>
+{{--                    <span class="d-none d-md-inline"><i class="fas fa-search"></i></span>--}}
                 </section>
 
                 <section>
@@ -36,7 +36,6 @@
                                     <span class="badge badge-danger">جدید</span>
                                 </div>
                                 <ul class="list-group">
-
                                     @forelse($notifications as $notification)
                                         <li class="list-group-item">
                                             <div class="media align-items-center">
@@ -49,7 +48,6 @@
                                     @empty
                                         <span class="text-center">نوتفیکیشن جدید وجود ندارد</span>
                                     @endforelse
-
                                 </ul>
                             </div>
                         </span>
@@ -66,11 +64,8 @@
                                     <span class="font-weight-bold">کامنت ها</span>
                                     <span class="badge badge-danger">جدید</span>
                                 </div>
-
 {{--                                <div class="p-3 border-bottom"><input class="form-control border-radius-5" type="text" name="" id="" placeholder="جستجو ..."></div>--}}
-
                                 <ul class="list-group">
-
                                     @forelse($unseenComments as $unseenComment)
                                         <li class="list-group-item">
                                             <div class="media">

@@ -25,7 +25,13 @@ class SettingRequest extends FormRequest
     {
         return [
             "title"         => "required|max:80|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي. ]+$/u",
-            "description"   => "required|max:400|min:5|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u",
+            "description"   => "required|max:1000|min:5|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.،,><\/;\n\r&×)(؛ ]+$/u",
+            "address"       => "required|max:400|min:5|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.،,><\/;\n\r&×)(؛ ]+$/u",
+            "telegram"      => "required|max:90|url",
+            "instagram"     => "required|max:90|url",
+            "whatsapp"      => "required|max:90|url",
+            "email"         => "required|string|email",
+            "phone"         => "required|digits:11",
             "keywords"      => "required|max:400|min:5|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u",
             "logo"          => "image|mimes:png,jpg,jpeg,gif",
             "icon"          => "image|mimes:png,jpg,jpeg,gif",

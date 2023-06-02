@@ -218,7 +218,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'پر طرفدار ترین دسته بندی ها'
+                        text: 'محصولات پر بازدید'
                     }
                 }
             },

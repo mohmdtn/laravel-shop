@@ -9,6 +9,7 @@ use App\Models\Content\Post;
 use App\Models\Market\Brand;
 use App\Models\Market\Product;
 use App\Models\Market\ProductCategory;
+use App\Models\Setting\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -121,7 +122,17 @@ class HomeController extends Controller
 
     public function faq(){
         $faqs = Faq::where("status", 1)->get();
-        return view("user.faq.faq", compact("faqs"));
+        return view("user.content.faq", compact("faqs"));
+    }
+
+    public function terms(){
+        $info = Setting::select("email", "phone")->first();
+        return view("user.content.terms", compact("info"));
+    }
+
+    public function aboutUs(){
+        $description = Setting::select("description")->first();
+        return view("user.content.aboutUs", compact("description"));
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Content\Comment;
 use App\Models\Market\CartItem;
 use App\Models\Notification;
+use App\Models\Setting\Setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,6 +37,10 @@ class AppServiceProvider extends ServiceProvider
             if (Auth::check()){
                 $view->with("cartItems", CartItem::where("user_id", Auth::user()->id)->get());
             }
+        });
+
+        view()->composer("user.layouts.footer", function ($view){
+            $view->with("settings", Setting::first());
         });
     }
 }
