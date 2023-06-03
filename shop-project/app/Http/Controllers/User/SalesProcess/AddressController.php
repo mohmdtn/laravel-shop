@@ -73,6 +73,7 @@ class AddressController extends Controller
         $total_discount = 0;
         $total_final_price = 0;
         $total_final_discount_price_with_number = 0;
+        $delivery_price = Delivery::find($request->delivery_id)->first();
         $finalPrice = 0;
 
         foreach ($cartItems as $cartItem){
@@ -110,7 +111,7 @@ class AddressController extends Controller
             "user_id"                               => $user->id,
             "address_id"                            => $request->address_id,
             "delivery_id"                           => $request->delivery_id,
-            "order_final_amount"                    => $finalPrice,
+            "order_final_amount"                    => $finalPrice + $delivery_price->amount,
             "order_discount_amount"                 => $total_final_discount_price_with_number,
             "common_discount_id"                    => $commonDiscountId,
             "order_common_discount_amount"          => $commonDiscountPercentage,

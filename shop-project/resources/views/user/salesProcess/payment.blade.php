@@ -186,19 +186,19 @@
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">جمع سبد خرید</p>
-                                    <p class="fw-bolder"><span id="total_price">{{ priceFormat($order->order_final_amount) }}</span> تومان</p>
+                                    <p class="fw-bolder"><span id="total_price">{{ priceFormat($totalProductPrice - $totalDiscount) }}</span> تومان</p>
                                 </section>
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">هزینه ارسال</p>
-                                    <p class="text-warning">54,000 تومان</p>
+                                    <p class="text-warning">{{ priceFormat($order->delivery->amount) }} تومان</p>
                                 </section>
 
                                 <section class="border-bottom mb-3"></section>
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">مبلغ قابل پرداخت</p>
-                                    <p class="fw-bold">374,000 تومان</p>
+                                    <p class="fw-bold">{{ priceFormat($order->order_final_amount) }} تومان</p>
                                 </section>
 
                                 <section class="">

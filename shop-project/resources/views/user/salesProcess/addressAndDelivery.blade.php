@@ -369,7 +369,7 @@
                                     </section>
 
                                     @foreach($deliveryMethods as $deliveryMethod)
-                                        <input type="radio" form="my-form" name="delivery_id" value="{{ $deliveryMethod->id }}" id="d-{{ $deliveryMethod->id }}"/>
+                                        <input class="delivery-input" type="radio" form="my-form" name="delivery_id" value="{{ $deliveryMethod->id }}" id="d-{{ $deliveryMethod->id }}" data-delivery-price="{{ $deliveryMethod->amount }}" />
                                         <label for="d-{{ $deliveryMethod->id }}" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
                                             <section class="mb-2">
                                                 <i class="fa fa-shipping-fast mx-1"></i>
@@ -418,12 +418,12 @@
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">جمع سبد خرید</p>
-                                    <p class="fw-bolder"><span id="total_price">{{ priceFormat($totalProductPrice - $totalDiscount) }}</span> تومان</p>
+                                    <p class="fw-bolder"><span id="total_price" data-total-price="{{ $totalProductPrice - $totalDiscount }}">{{ priceFormat($totalProductPrice - $totalDiscount) }}</span> تومان</p>
                                 </section>
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">هزینه ارسال</p>
-                                    <p class="text-warning">54,000 تومان</p>
+                                    <p class="text-warning"><span id="delivery-price"></span> تومان</p>
                                 </section>
 
                                 <p class="my-3">
@@ -434,7 +434,7 @@
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">مبلغ قابل پرداخت</p>
-                                    <p class="fw-bold">374,000 تومان</p>
+                                    <p class="fw-bold"><span id="total-order-price">{{ $totalProductPrice - $totalDiscount }}</span> تومان</p>
                                 </section>
 
                                 <section class="">
@@ -541,4 +541,27 @@
 
     </script>
 
+    <script>
+        $(document).ready(function (){
+            bill();
+
+            $(".delivery-input").change(function (){
+                bill();
+            });
+
+            function bill(){
+                var total_product_price = parseFloat($("#total_price").data("total-price"));
+                var delivery_price = parseFloat($("input[name='delivery_id']:checked").data("delivery-price") ?? 0);
+                var total_price = 0;
+
+                total_price = total_product_price + delivery_price;
+
+                console.log(total_price + ', ' + delivery_price)
+
+                $("#delivery-price").html(toFarsiNumber(delivery_price));
+                $("#total-order-price").html(toFarsiNumber(total_price));
+
+            }
+        });
+    </script>
 @endsection
