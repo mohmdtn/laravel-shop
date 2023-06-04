@@ -1,3 +1,10 @@
+$(document).ready(function() {
+    function loader() {
+        $(".loading-page").addClass("d-none");
+    }
+    loader();
+});
+
 
 //start search
 $(document).ready(function() {

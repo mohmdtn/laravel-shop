@@ -11,6 +11,12 @@
 @include("user.layouts.header")
 @include("admin.alerts.alertSection.success")
 @include("admin.alerts.alertSection.danger")
+<div class="loading-page">
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+</div>
 <main id="main-body-one-col" class="main-body">
     @yield("content")
 </main>
