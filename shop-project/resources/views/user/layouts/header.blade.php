@@ -837,6 +837,7 @@
                     <section class="navbar-item"><a href="{{ route("user.aboutUs") }}">درباره ما</a></section>
                     <section class="navbar-item"><a href="{{ route("user.terms") }}">شرایط و قوانین</a></section>
                     <section class="navbar-item"><a href="{{ route("user.faq") }}">سوالات متداول</a></section>
+{{--                    <section class="navbar-item"><a href="{{ route("user.page") }}">صفحات بیشتر</a></section>--}}
 
                 </section>
 
@@ -856,6 +857,7 @@
                         <section class="navbar-item"><a href="{{ route("user.aboutUs") }}">درباره ما</a></section>
                         <section class="navbar-item"><a href="{{ route("user.terms") }}">شرایط و قوانین</a></section>
                         <section class="navbar-item"><a href="{{ route("user.faq") }}">سوالات متداول</a></section>
+{{--                        <section class="navbar-item"><a href="{{ route("user.page") }}">صفحات بیشتر</a></section>--}}
 
 
                         <hr class="border-bottom">

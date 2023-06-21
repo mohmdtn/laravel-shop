@@ -435,6 +435,7 @@ Route::namespace("App\Http\Controllers\Auth\User")->group(function (){
 Route::namespace("App\Http\Controllers\User")->group(function (){
     Route::get("/", "HomeController@home")->name("user.home");
     Route::get("/products/{category?}", "HomeController@products")->name("user.products");
+    Route::get("/page/{page:slug}", "HomeController@page")->name("user.page");
     Route::get("/search", "HomeController@search")->name("user.search");
     Route::get("/faq", "HomeController@faq")->name("user.faq");
     Route::get("/terms-and-policy", "HomeController@terms")->name("user.terms");

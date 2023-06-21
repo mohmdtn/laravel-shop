@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
     public function product(Product $product){
-        $relatedProducts = Product::where("status", 1)->where("published_at", "<", Carbon::now())->get();
+//        $relatedProducts = Product::where("status", 1)->where("published_at", "<", Carbon::now())->get();
+        $relatedProducts = Product::with('category')->whereHas('category', function ($q) use ($product){
+            $q->where("id" , $product->category->id);
+        })->where("status", 1)->where("published_at", "<", Carbon::now())->get()->except($product->id);
         return view("user.market.product.product", compact("relatedProducts", "product"));
     }
 
