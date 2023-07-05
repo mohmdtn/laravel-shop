@@ -18,7 +18,10 @@ use Illuminate\Support\Str;
 class LoginRegisterController extends Controller
 {
     public function loginRegisterForm(){
-        return view("user.auth.loginRegister");
+        if ( !auth()->check() )
+            return view("user.auth.loginRegister");
+        else
+            return redirect()->back();
     }
 
     public function loginRegister(LoginRegisterRequest $request){
