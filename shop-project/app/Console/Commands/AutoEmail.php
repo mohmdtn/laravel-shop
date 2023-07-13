@@ -29,7 +29,7 @@ class AutoEmail extends Command
      */
     public function handle()
     {
-        $emailsToSend = Email::where("published_at", "=", now())->get();
+        $emailsToSend = Email::where("published_at", "=", now())->where("status", 1)->get();
         foreach ($emailsToSend as $emailToSend) {
             SendEmailToUsers::dispatch($emailToSend);
         }

@@ -41,10 +41,16 @@ class SendEmailToUsers implements ShouldQueue
                 'title' => $this->email->title,
                 'body'  => $this->email->body
             ];
+            $files = $this->email->files;
+            $filePaths = [];
+            foreach ($files as $file) {
+                array_push($filePaths, $file->file_path);
+            }
             $emailService->setDetails($details);
             $emailService->setFrom("noreply@example.com", "ultra X");
             $emailService->setSubject($this->email->subject);
             $emailService->setTo($user->email);
+            $emailService->setFiles($filePaths);
 
             $messageService = new MessageService($emailService);
             $messageService->send();
