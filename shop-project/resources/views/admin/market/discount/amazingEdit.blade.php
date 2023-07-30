@@ -3,6 +3,33 @@
 @section("head-tag")
     <title>ویرایش فروش شگفت انگیز</title>
     <link rel="stylesheet" href="{{ asset("admin-assets/jalalidatepicker/persian-datepicker.min.css") }}">
+
+    <style>
+        .select2, .select2-container, .select2-container--default {
+            display: block;
+            width: 100%;
+            padding: 4px 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            height: 38px;
+            border: 1px solid #ced4da;
+            border-radius: 17px;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+        .select2-selection, .select2-selection--single {
+            border: none !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            top: 7px;
+            left: 4px;
+        }
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            padding-right: 0;
+        }
+    </style>
 @endsection
 
 @section("content")
@@ -35,7 +62,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="">نام محصول</label>
-                        <select name="product_id" id="" class="form-control border-radius-5">
+                        <select id="productSelect" name="product_id" id="" class="form-control border-radius-5">
                             <option value="">انتخاب محصول</option>
                             @foreach($products as $product)
                                 <option value="{{ $product["id"] }}" @if(old("product_id",  $amazingSale["product_id"]) == $product["id"]) selected @endif>{{ $product["name"] }}</option>
@@ -128,6 +155,37 @@
                     }
                 }
             });
+        });
+    </script>
+
+    <script>
+        function matchCustom(params, data) {
+            // If there are no search terms, return all of the data
+            if ($.trim(params.term) === '') {
+                return data;
+            }
+
+            // Do not display the item if there is no 'text' property
+            if (typeof data.text === 'undefined') {
+                return null;
+            }
+
+            // `params.term` should be the term that is used for searching
+            // `data.text` is the text that is displayed for the data object
+            if (data.text.indexOf(params.term) > -1) {
+                var modifiedData = $.extend({}, data, true);
+                modifiedData.text += ' (matched)';
+
+                // You can return modified objects from here
+                // This includes matching the `children` how you want in nested data sets
+                return modifiedData;
+            }
+
+            // Return `null` if the term should not be displayed
+            return null;
+        }
+        $("#productSelect").select2({
+            matcher: matchCustom
         });
     </script>
 

@@ -33,6 +33,33 @@
         }
 
     </style>
+
+    <style>
+        .select2, .select2-container, .select2-container--default {
+            display: block;
+            width: 100%;
+            padding: 4px 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            height: 38px;
+            border: 1px solid #ced4da;
+            border-radius: 17px;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+        .select2-selection, .select2-selection--single {
+            border: none !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            top: 7px;
+            left: 4px;
+        }
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            padding-right: 0;
+        }
+    </style>
 @endsection
 
 @section("content")
@@ -105,7 +132,7 @@
 
                         <div class="privateUserWrapper pt-3">
                             <label for="">انتخاب کاربر</label>
-                            <select id="" class="form-control border-radius-5" name="user_id" value="{{ old("user_id") }}">
+                            <select id="selectUser" class="form-control border-radius-5" name="user_id" value="{{ old("user_id") }}">
                                 <option selected="true" disabled="disabled">انتخاب کاربر</option>
                             </select>
                             @error("user_id")
@@ -236,6 +263,37 @@
                 $(".privateUserWrapper").slideUp();
                 $(".privateUserWrapper select").children().remove();
             }
+        });
+    </script>
+
+    <script>
+        function matchCustom(params, data) {
+            // If there are no search terms, return all of the data
+            if ($.trim(params.term) === '') {
+                return data;
+            }
+
+            // Do not display the item if there is no 'text' property
+            if (typeof data.text === 'undefined') {
+                return null;
+            }
+
+            // `params.term` should be the term that is used for searching
+            // `data.text` is the text that is displayed for the data object
+            if (data.text.indexOf(params.term) > -1) {
+                var modifiedData = $.extend({}, data, true);
+                modifiedData.text += ' (matched)';
+
+                // You can return modified objects from here
+                // This includes matching the `children` how you want in nested data sets
+                return modifiedData;
+            }
+
+            // Return `null` if the term should not be displayed
+            return null;
+        }
+        $("#selectUser").select2({
+            matcher: matchCustom
         });
     </script>
 
